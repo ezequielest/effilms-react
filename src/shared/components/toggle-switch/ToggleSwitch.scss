@@ -1,0 +1,35 @@
+.toggle-switch {
+  width: 50px;
+  height: 26px;
+  border-radius: 50px;
+  background-color: #ccc;
+  position: relative;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  
+  &.on {
+    background-color: #d8d8d8;
+  }
+
+  .toggle-thumb {
+    width: 22px;
+    height: 22px;
+    background-color: rgb(87, 87, 87);
+    border-radius: 50%;
+    position: absolute;
+    top: -1px;
+    left: 2px;
+    transition: transform 0.3s ease;
+  }
+
+  &.on .toggle-thumb {
+    transform: translateX(24px);
+    background-color: $primary-color;
+  }
+
+  &.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+}

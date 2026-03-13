@@ -1,0 +1,132 @@
+.clip {
+    background-image: linear-gradient(rgba(0, 0, 0, .9), rgba(0, 0, 0, 0.8)), url('/img/team/full-team-1.jpg');
+    background-size: cover, cover;         /* gradiente + imagen */
+    background-position: center, center;   /* gradiente + imagen */
+    background-repeat: no-repeat, no-repeat;
+    background-position-y: center;
+    padding: 100px 0;
+    height: 100%;
+
+    @media (min-width: 900px) {
+        background-position-y: center, -90px;
+    }
+
+    span {
+        color: $primary-color;
+        font-weight: 600;
+    }
+
+    h1 {
+        color: transparent;
+        background: url('./../img/mar.jpeg') repeat;
+        -webkit-background-clip: text;
+        background-clip: text;
+        background-position: center;
+        background-size: cover;
+        text-transform: uppercase;
+        font-size: 9em;
+        text-align: center;
+        letter-spacing: 9px;
+        font-weight: 700;
+    }
+
+    .quienes-somos {
+        position: relative;
+        width: 50%;
+        margin: 0 auto;
+        margin-top: 60px;
+        position: relative;
+
+        
+        @media only screen and (max-width: 992px) { 
+            width: 80%;
+        }
+
+        @media only screen and (max-width: 768px) { 
+            width: 100%;
+        }
+
+        .description, .box-behind {
+            border: 1px solid #9a620c;
+            /* padding: 50px; */
+            color: #b3b3b3;
+           //height: 200px;
+            display: flex;
+            justify-content: center;
+            padding: 40px 55px;
+            align-items: center;
+        }
+
+        .description {
+            z-index: 100;
+            background-color: rgb(17, 17, 17);
+        }
+
+        .img-nosotros {
+            position: absolute;
+            left: 333px;
+            height: 100%;
+            width: 100%;
+            top: 35px;
+
+            img {
+                width: 154px !important;
+            }
+        }
+
+        @media only screen and (max-width: 1199px) { 
+            .img-nosotros {
+                left: 270px;
+            }
+        }
+
+        @media only screen and (max-width: 992px) { 
+            .img-nosotros {
+                //left: 220px;
+                //top: 110px;
+                left: 315px;
+                top: 37px;
+            }
+        }
+
+        @media only screen and (max-width: 768px) { 
+            .img-nosotros {
+                //left: 180px;
+                //top: 270px;
+                left: 299px;
+                top: 28px;
+            }
+        }
+
+        @media only screen and (max-width: 767px) { 
+            .img-nosotros {
+                display: none;
+            }
+        }
+
+        @media only screen and (max-width: 420px) { 
+            width: 100%;
+
+            .description {
+                padding: 30px 15px;
+            }
+
+            .img-nosotros {
+                width: 90px !important;
+                left: 237px;
+                top: 176px;
+            }
+        }
+    }
+
+    @media only screen and (max-width: 767px) { 
+        h1 {
+            font-size: 3em;
+        }
+    }
+}
+
+.text-center {
+    position: relative;
+    z-index: 10;
+}

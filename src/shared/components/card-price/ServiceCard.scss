@@ -1,0 +1,259 @@
+@use "sass:color";
+
+.card-value {
+  width: 320px;
+  margin-right: 10px;
+  margin-bottom: 32px;
+  background: rgba(24, 24, 24, 0.85);
+  backdrop-filter: blur(6px);
+  color: white;
+  position: relative;
+  padding: 0;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+  overflow: hidden;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.6);
+  }
+
+  .label-highlighted {
+    font-size: 12px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: $effilms-color;
+    color: white;
+    padding: 6px 10px;
+    z-index: 2;
+    border-radius: 20px;
+    font-weight: bold;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+
+    &.green {
+      background-color: green;
+    }
+  }
+
+  .header-card {
+    height: 40px;
+    overflow: hidden;
+    position: relative;
+    color: white;
+
+    @media (min-width: 425px){
+      height: 140px;
+    }
+
+    &.initial{
+      background: linear-gradient(rgba(0, 0, 0, 0.796), rgba(27, 27, 27, 0.5)), url("/img/services/iphone.jpg");
+      background-size: cover;
+    }
+
+    &.standard{
+      background: linear-gradient(rgba(0, 0, 0, 0.796), rgba(182, 0, 0, 0.5)), url("/img/services/camera.jpg");
+      background-size: cover;
+      background-position: center;
+    }
+
+    &.premium{
+      background: linear-gradient(rgba(0, 0, 0, 0.796), rgba(20, 196, 0, 0.5)), url("/img/services/gimbal.jpg");
+      background-size: cover;
+      background-position: center;
+    }
+
+    .image-container {
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      .title {
+        color: white;
+        font-weight: 700;
+        font-size: 26px;
+        letter-spacing: 1px;
+        //text-shadow: 0 2px 6px rgba(0,0,0,0.5);
+      }
+    }
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+
+    .description {
+      display: flex;
+      justify-content: space-between;
+      flex-direction: column;
+      padding: 8px 20px;
+      height: 100px;
+      font-size: 15px;
+      line-height: 1.5;
+      color: #e0e0e0;
+      border-bottom: 1px solid rgba($primary-color, 0.4);
+
+      @media (min-width: 425px) {
+        height: 144px;
+        padding: 20px;
+      }
+
+      .examples {
+        min-height: 50px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        a {
+          text-transform: uppercase;
+          font-weight: bold;
+          letter-spacing: 0.5px;
+          color: #e0e0e0;
+
+          .icon{
+            color: $primary-color;
+            margin-right: 6px;
+          }
+        }
+      } 
+    }
+
+    .aditionals {
+      padding: 8px 12px;
+      font-size: 15px;
+      border-bottom: 1px solid rgba($primary-color, 0.4);
+      height: 212px;
+
+      @media (min-width: 425px){
+        height: 214px;
+        padding: 12px;
+      }
+
+      .title {
+        text-transform: uppercase;
+        margin-bottom: 6px;
+        font-weight: bold;
+        font-size: 14px;
+      }
+
+      div {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        margin: 3px 0;
+
+        .desc {
+          width: 42px;
+          margin-right: 20px;
+        }
+
+        .info-icon {
+          color: $primary-color;
+        }
+
+      }
+    }
+
+    .estimatedTime {
+      padding: 16px;
+      padding-bottom: 12px;
+      font-size: 12px;
+      font-weight: bold;
+      border-bottom: 1px solid rgba($primary-color, 0.4);
+      text-transform: uppercase;
+      display: none;
+
+      .hours {
+        font-size: 24px;
+        display: block;
+        color: $primary-color;
+        margin-top: 4px;
+      }
+
+      @media (min-width: 425px) {
+        display: block;
+      }
+    }
+
+    .meters {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid rgba($primary-color, 0.4);
+      text-transform: uppercase;
+
+      @media (min-width: 425px) {
+        padding: 16px;
+        padding-bottom: 24px;
+      }
+
+      select {
+        background: transparent;
+        text-transform: uppercase;
+        color: white;
+        padding: 4px 8px;
+        border: 1px solid rgba($primary-color, 0.6);
+        border-radius: 6px;
+        margin-top: 6px;
+        outline: none;
+
+        option {
+          background-color: $bg-1;
+          color: white;
+
+          &:hover {
+            background-color: $primary-color;
+          }
+        }
+
+        &:focus {
+          border-color: $primary-color;
+        }
+      }
+    }
+
+    .prices {
+      height: 78px;
+      padding: 18px;
+      font-weight: bold;
+      font-size: 26px;
+      color: $primary-color;
+      background: rgba($primary-color, 0.1);
+      border-top: 1px solid rgba($primary-color, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .m2-leyend {
+        font-size: 14px;
+      }
+    }
+  }
+}
+
+
+
+     .popover {
+        border: 1px solid rgb(112, 112, 112);
+        background-color: lightblue;
+    }
+
+  .popover-header {
+          background-color: rgb(16, 16, 16);
+          color: rgb(251, 251, 251);
+  } 
+  .popover-body {
+    background-color: rgb(80, 80, 80);
+          color: rgb(251, 251, 251);
+  }
+
+.popover .popover-arrow::before {
+  border-bottom-color: rgb(16, 16, 16) !important;
+}

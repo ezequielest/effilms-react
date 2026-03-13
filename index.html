@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="keywords" content="video, videografo, filmmaker, films, publicidades, publicidad, mar del plata, videografo mar del plata, realizador audiovisual, institucionales, videos institucionales, creacion de videos, creador de videos, videos inmobiliarios, video inmueble, inmueble, arquitectura, video arquitectura, drone, cobertura aerea, videos para casas, video inmueble, inmobiliaria, video inmobiliario, video arquitectura, video para arquitecto, arquitecto, real estate">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <!-- Primary Meta Tags -->
+    <meta name="title" content="EF FILMS | Producciones audiovisuales">
+    <meta name="description" content="Somos un equipo marplatense de producción audiovisual. Queremos que tu producción destaque y eso nos lleva a ser siempre más creativos y originales.">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.effilms.com.ar/">
+    <meta property="og:title" content="EF FILMS | Producciones audiovisuales">
+    <meta property="og:description" content="Somos un equipo marplatense de producción audiovisual. Queremos que tu producción destaque y eso nos lleva a ser siempre más creativos y originales.">
+    <meta property="og:image" content="https://www.effilms.com.ar/img/testimonial/estfilms.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://www.effilms.com.ar/">
+    <meta property="twitter:title" content="EF FILMS | Producciones audiovisuales">
+    <meta property="twitter:description" content="Somos un equipo marplatense de producción audiovisual. Queremos que tu producción destaque y eso nos lleva a ser siempre más creativos y originales.">
+    <meta property="twitter:image" content="https://www.effilms.com.ar/img/testimonial/estfilms.png">
+    <title>EF FILMS | Producciones audiovisuales</title>
+
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="css/slick.css" type="text/css">
+    <link rel="stylesheet" href="css/style-3.6.0.css" type="text/css">
+    <link rel="shortcut icon" href="/favicon.png" type='image/png' />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+    <!-- index.html -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+      })
+
+      /*------------------
+        Navigation
+      --------------------*/
+      
+      $(".mobile-menu").slicknav({
+          prependTo: '#mobile-menu-wrap',
+          allowParentLinks: true
+      });
+
+      document.addEventListener("DOMContentLoaded", function() {
+        // Your JavaScript code here will execute once the DOM is ready
+        console.log("The DOM is fully loaded and parsed!");
+        // You can now safely manipulate HTML elements, add event listeners, etc.
+      });
+
+      window.addEventListener("scroll", (event) => {
+    let scroll = this.scrollY;
+    if (scroll > 700) {
+        document.getElementsByClassName('header')[0].classList.add('fixed');
+        document.getElementsByClassName('header')[0].classList.add('animate__fadeIn');
+
+        document.getElementsByClassName('header__menu')[0].style.top = "0px";
+        document.getElementsByClassName('header__menu')[0].classList.remove('hide');
+        document.getElementsByClassName('header__menu')[0].classList.add('show');
+
+        document.getElementsByClassName('whatsapp-footer')[0].classList.remove('hide');
+        document.getElementsByClassName('whatsapp-footer')[0].classList.add('animate__fadeIn');
+    } else {
+        document.getElementsByClassName('header')[0].classList.remove('fixed');
+        document.getElementsByClassName('header')[0].classList.remove('animate__fadeIn');
+        //document.getElementsByClassName('header')[0].classList.remove('hide');
+        document.getElementsByClassName('header__menu')[0].style.top = "26px";
+
+        document.getElementsByClassName('header')[0].classList.add('show');
+
+        //document.getElementsByClassName('header__menu')[0].classList.add('hide');
+        //document.getElementsByClassName('header__menu')[0].classList.remove('show');
+
+        document.getElementsByClassName('whatsapp-footer')[0].classList.remove('animate__fadeIn');
+        document.getElementsByClassName('whatsapp-footer')[0].classList.add('hide');
+
+    }})
+    </script>
+  </body>
+</html>

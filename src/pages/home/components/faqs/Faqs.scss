@@ -1,0 +1,28 @@
+.box-none {
+    box-shadow: none;
+}
+
+.section-title {
+    .title {
+        margin-top: 40px;
+    }
+}
+
+.accordion {
+    .card {
+        background-color: #2a2929;
+
+        h2 {
+            button{
+
+                color: white;
+                
+            }
+        }
+    }
+
+    .card-body {
+        color: white;
+        background: #333;
+    }
+}

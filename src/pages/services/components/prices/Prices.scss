@@ -1,0 +1,44 @@
+.individuals {
+  background-color: $primary-color;
+
+  .title {
+     color: white;
+     font-weight: 600;
+     padding: 0px;
+     font-size: 38px;
+     padding: 30px;
+
+    @media (min-width: 425px){
+      padding: 30px;
+      font-size: 62px;
+    }
+  }
+}
+
+.values-page {
+  .title {
+    color: white;
+    font-weight: bold;
+  }
+
+  .sub-title {
+    color: $primary-color;
+    font-weight: bold;
+  }
+
+  .description {
+    color: white;
+    font-size: 16px;
+
+      @media (min-width: 425px){
+          padding: 30px 120px;
+      }
+  }
+
+  .service-card-container {
+    padding-top: 80px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+  }
+}

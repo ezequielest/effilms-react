@@ -1,0 +1,49 @@
+
+.boxs-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    padding-top: 60px;
+
+    .card-discount {
+        padding: 5px;
+        width: 145px;
+        min-height: 180px;
+        margin-bottom: 12px;
+        border: 1px solid $primary-color;
+        background-color: black;
+        color: white;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        justify-content: center;
+
+        @media (min-width: 425px) {
+            width: 340px;
+            padding: 20px 40px;
+            margin-left: 22px;
+            margin-bottom: 22px;
+        }
+
+        .discount {
+            font-size: 16px;
+            font-weight: 100;
+
+            @media (min-width: 425px) {
+                font-size: 18px;
+            }
+        }
+
+        .description {
+            font-size: 14px;
+            font-weight: bold;
+
+
+            @media (min-width: 425px) {
+                font-size: 22px;
+            }
+        }
+    }
+}

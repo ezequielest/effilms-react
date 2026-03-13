@@ -1,0 +1,26 @@
+.breadcrumb {
+    padding-top: 82px;
+    background-image: url('/img/breadcrumb-bg.jpg');
+    margin-bottom: 0;
+
+    .breadcrumb-option {
+        width: 100%;
+        .header-title {
+            color: white;
+            text-align: center;
+            display: block;
+            margin-top: 20px;
+            font-size: 18px;
+
+            span {
+            color: $primary-color;
+            }
+    }
+
+    .vigencia-details {
+        color: white;
+        text-align: center;
+        margin-bottom: 20px
+    }
+    }
+}

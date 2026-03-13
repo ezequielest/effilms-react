@@ -1,0 +1,248 @@
+/*---------------------
+  Project Slider
+-----------------------*/
+.project {
+  //padding: 0 15px;
+  background-color: $bg-2;
+  overflow: hidden;
+  .container-fluid {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+
+    .col-lg-3 {
+      padding-right: 0;
+      padding-left: 0;
+    }
+  }
+
+  .project__slider {
+    .overlay {
+      height: 100%;
+      width: 100%;
+      background-color: rgba(0, 0, 0, 0.3);
+    }
+  }
+}
+
+
+.project__slider__item {
+  height: 600px;
+  position: relative;
+  overflow: hidden;
+
+  &.bg {
+    transition: all .5s;
+    background-size: cover;
+  }
+
+  &.bg-1 {
+    background-image: url('/img/services/arq.jpg');
+    background-position: 55%;
+  }
+
+  &.bg-2 {
+    background-image: url('/img/services/realestate-2.jpg');
+    background-position-x: center;
+  }
+
+  &.bg-3 {
+    background-image: url('/img/services/desarrollos.jpg');
+    background-position: 20%;
+  }
+  
+  &.bg-4 {
+    background-image: url('/img/services/hotel-4.jpg');
+    background-position-x: center;
+  }
+
+  &.bg-5 {
+    background-image: url('/img/services/gm-institucional.jpg');
+    background-position-x: center;
+  }
+
+  /*&.bg-1 {
+    background-image: url('/img/services/publicity.jpg');
+  }
+
+  &.bg-2 {
+    background-image: url('/img/services/videoclip-2.jpg');
+    background-position-x: center;
+  }
+
+  &.bg-3 {
+    background-image: url('/img/services/agency.jpg');
+  }
+  
+  &.bg-4 {
+    background-image: url('/img/services/product-2.jpg');
+  }*/
+
+  &::after {
+    display: block;
+    content: '';
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+
+    @media only screen and (max-width: 500px)  {
+      background-color: rgba(0, 0, 0, 0.6);
+    }
+  }
+
+  &:hover {
+    transition: all .5s;
+    transform: scale(1.1);
+  
+    .project__slider__item__hover {
+      bottom: 30px;
+
+
+      span {
+        left: 0;
+      }
+
+      h5 {
+        right: 0;
+      }
+
+      .btn-center {
+        margin-bottom: 85px;
+      }
+
+      @media only screen and (max-width: 500px)  {
+        bottom: 130px;
+        overflow: initial;
+
+        .btn-center {
+          margin-bottom: 0px;
+        }
+
+        a {
+          margin-bottom:  0;
+        }
+
+        span {
+          top: 100px;
+          left: 0px !important;
+        }
+        
+        h5 {
+          top: 100px;
+          left: 0;
+        }
+      }
+
+      
+    }
+  }
+}
+
+.project__slider {
+
+  &.owl-carousel {
+
+    .col-lg-3 {
+      max-width: 100%;
+    }
+
+    .owl-nav {
+     
+      button {
+        height: 50px;
+        width: 50px;
+        //background: $white-color;
+        font-size: 28px;
+        color: $heading-color;
+        position: absolute;
+        left: 35px;
+        top: 50%;
+        margin-top: -25px;
+        line-height: 54px;
+        text-align: center;
+
+        &.owl-next {
+          left: auto;
+          right: 35px;
+        }
+      }
+    }
+  }
+}
+
+.project__slider__item {
+  p {
+    position: absolute;
+    z-index: 999;
+    color: $primary-color;
+    font-weight: 400;
+    font-size: 5rem;
+    top: 60px; 
+    left: 30px;
+  }
+}
+
+.project__slider__item__hover {
+  text-align: center;
+  //background: $white-color;
+  position: absolute;
+  left: 25px;
+  bottom: -500px;
+  width: calc(100% - 50px);
+  padding: 25px 15px;
+  @include transition(all, 0.5s);
+  overflow: hidden;
+
+  a {
+    color: white;
+
+    &:hover {
+      color: $primary-color;
+    }
+  }
+
+  @media only screen and (max-width: 500px)  {
+    bottom: 130px;
+    overflow: initial;
+
+    a {
+      margin-bottom:  0;
+      color: $primary-color;
+    }
+
+    span {
+      top: 100px;
+      left: 0px !important;
+    }
+    
+    h5 {
+      top: 100px;
+      left: 0;
+    }
+  }
+
+  span {
+    color: $primary-color;
+    font-size: 1.8rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 10px;
+    position: relative;
+    left: 30px;
+    @include transition(all, 1s);
+  }
+
+  h5 {
+    color: $heading-color;
+    font-size: 2.7rem;
+    text-transform: uppercase;
+    position: relative;
+    right: 30px;
+    @include transition(all, 1s);
+  }
+}
+
+.slick-dots {
+  display: none;
+}

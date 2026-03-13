@@ -1,0 +1,104 @@
+.ef-services {
+     padding: 120px 0;
+  
+      &__container {
+        justify-content: center;
+        display: flex;
+        flex-wrap: wrap;
+      }
+  
+      &__card {
+        width:33%;
+        min-height: 250px;
+        background-color: #111;
+        color: #ccc;
+        display: flex;
+        justify-content:center;
+        align-items: center;
+        position: relative;
+        padding-right: 0;
+        padding-left: 0;
+
+        &:hover {
+
+          font-size: 18px;
+
+          .see-video { 
+            display: inline;
+            position: absolute;
+            bottom: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            background-color: $secondary-color;
+            padding: 5px 20px;
+          } 
+        }
+
+        .see-video { 
+          display: none;
+        } 
+  
+        a {
+          cursor: pointer;
+        }
+  
+        &:nth-child(1) {
+          background-color: #111;
+        }
+  
+        &:nth-child(2) {
+          background-color: #222;
+        }
+  
+        &:nth-child(3) {
+          background-color: #333;
+        }
+  
+        &:nth-child(4) {
+          background-color: #444;
+        }
+  
+        &:nth-child(5) {
+          background-color: #111;
+        }
+  
+        &:nth-child(6) {
+          background-color: #222;
+        }
+  
+        .commin-soon {
+          position: absolute;
+          top: 5px;
+          right: 10px;
+          color: $primary-color;
+        }
+  
+        a {
+          color: white;
+          font-weight: bold;
+          width: 100%;
+          height: 100%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          transition: all 0.3s ease;
+  
+          &:hover  {
+            transition: all 0.3s ease;
+            color: white;
+            background-color: $primary-color;
+          }
+  
+        }
+  
+  
+        @media only screen and (max-width: 520px) {
+          width: 50%;
+          font-size: 12px;
+          min-height: 150px;
+              text-align: center;
+        }
+  
+      }
+   }
+  
