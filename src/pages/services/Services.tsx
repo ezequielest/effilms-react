@@ -24,7 +24,7 @@ export const Services: React.FC = () => {
         <Header 
           title={'ALCANZAR TUS OBJETIVOS'} 
           preTitle={'A continuación te presentamos nuestras propuestas para que puedas'} 
-          hasSubtitle={true} subtitleFirstline={'VALORES VIGENTES DESDE EL 1 DE ENERO HASTA EL 28 DE FEBRERO 2026'}  
+          hasSubtitle={true} subtitleFirstline={'VALORES VIGENTES DESDE EL 1 AL 31 DE MARZO DE 2026'}  
           subtitleSecondLine={'Las actualizaciones se realizarán de manera mensual de acuerdo al nivel inflacionario del país.'} />
         <MonthPlan />
         <Promotions />

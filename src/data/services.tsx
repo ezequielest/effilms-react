@@ -32,11 +32,11 @@ export const servicesArray: Array<IServices> = [
       maxM2: 200,
       value: 130000
     }],
-    aditionals: [{
+    aditionals: [/*{
       type: ADITIONALS.DRON,
       hours: 0.15,
       price: 90000
-    },{
+    },*/{
       type: ADITIONALS.BROKER,
       hours: 0.30,
       price: 30000
@@ -78,11 +78,11 @@ export const servicesArray: Array<IServices> = [
         maxM2: 400,
         value: 60000
     }],
-    aditionals: [{
+    aditionals: [/*{
       type: ADITIONALS.DRON,
       hours: 0.15,
       price: 90000
-    }],
+    }*/],
     isHighlighted: false,
     isPromo: false,
     isNew: false,
@@ -116,11 +116,11 @@ export const servicesArray: Array<IServices> = [
       maxM2: 200,
       value: 160000
     }],
-    aditionals: [{
+    aditionals: [/*{
       type: ADITIONALS.DRON,
       hours: 0.25,
       price: 90000
-    },{
+    },*/{
       type: ADITIONALS.BROKER,
       hours: 0.25,
       price: 30000
@@ -281,17 +281,17 @@ export const servicesArray: Array<IServices> = [
         prices: [{
           isBasePrise: false,
           maxM2: 200,
-          value: 180000
+          value: 230000
         },
         {
           isBasePrise: false,
           maxM2: 400,
-          value: 230000
+          value: 280000
         },
         {
           isBasePrise: true,
           maxM2: 600,
-          value: 280000
+          value: 330000
         }],aditionals: [{
           type: ADITIONALS.DRON,
           hours: 0.50,
@@ -370,15 +370,15 @@ export const servicesArray: Array<IServices> = [
             prices: [{
                 isBasePrise: false,
                 maxM2: 200,
-                value: 310000
-              },{
-                isBasePrise: false,
-                maxM2: 400,
                 value: 360000
               },{
                 isBasePrise: false,
+                maxM2: 400,
+                value: 410000
+              },{
+                isBasePrise: false,
                 maxM2: 600,
-                value: 460000
+                value: 510000
               }],
               aditionals: [{
                 type: ADITIONALS.DRON,
