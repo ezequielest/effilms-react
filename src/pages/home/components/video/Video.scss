@@ -2,156 +2,153 @@
   Services
 -----------------------*/
 .services {
-    padding-top: 120px;
-    padding-bottom: 90px;
-    background-color: $bg-0;
-    overflow: hidden;
-  
-    &.ef-films {
-      padding-bottom: 140px;
-      padding-top: 180px;
-  
-      .justify {
-        margin-bottom: 20px;
-        position: relative;
-      }
-    }
+  padding-top: 120px;
+  padding-bottom: 90px;
+  background-color: $bg-0;
+  overflow: hidden;
 
-    .primary-style {
-        font-size: 82px;
-    }
-  
-    @media only screen and (max-width: 420px) {
-      h4 {
-        font-size: 16px;
-      }
-    }
-  
-    &.services-page {
-      padding-bottom: 80px;
-  
-      .services__item {
-        margin-bottom: 30px;
-  
-        span.commin-soon {
-          color: $primary-color;
-        }
-  
-        p {
-          margin-bottom: 12px;
-        }
-  
-  
-        ul {
-  
-          li {
-            color: $heading-color;
-            font-size: 15px;
-            line-height: 36px;
-            list-style: none;
-          }
-        }
-      }
+  &.ef-films {
+    padding-bottom: 140px;
+    padding-top: 180px;
+
+    .justify {
+      margin-bottom: 20px;
+      position: relative;
     }
   }
-  
-  .services__item {
-    margin-bottom: 30px;
-  
-    i {
-      color: white;
-      font-size: 35px;
-      color: $secondary-color;
-    }
-  
-    ul {
-      i {
-        font-size: 15px;
-        color: white;
-      }
-    }
-  
+
+  .primary-style {
+    font-size: 82px;
+  }
+
+  @media only screen and (max-width: 420px) {
     h4 {
-      color: $heading-color;
-      text-transform: uppercase;
-      margin-top: 35px;
-      margin-bottom: 22px;
-      font-size: 2rem;
-      font-weight: 700;
+      font-size: 16px;
     }
-  
-    p {
-      margin-bottom: 0;
-    }
-  
-    button {
-      margin-top: 18px;
-    }
-  }
-  
-  //SERVICES EF FILMS
-  .services.ef-films, .values {
-    position: relative;
-  
-    .services__item {
-      h1 {
-        color: white;
-      }
-    }
-  
-    .vertical {
-      /*NO VERTICAL*/
-      position: absolute;
-      color: #141414;
-      font-size: 38rem;
-      font-weight: 600;
-      left: 1173px;
-      top: 80px;
-  
-      .dot-background {
-        color: #200909;
-      }
-    }
-  
-      @media only screen and (max-width: 2000px) {
-        .vertical {
-          left: 982px;
-        }
-      }
-  
-  
-      @media only screen and (max-width: 1600px) {
-        .vertical {
-          left: 752px;
-        }
-      }
-  
-      @media only screen and (max-width: 1200px) {
-        .vertical {
-          left: 452px;
-        }
-      }
-  
-      @media only screen and (max-width: 767px) {
-        .vertical {
-          left: 252px;
-          font-size: 25rem;
-          top: 600px;
-          display: none;
-        }
-      }
-  
-      @media only screen and (max-width: 320px) {
-        .vertical {
-          left: -20px;
-          top: 1040px;
-          font-size: 16rem;
-          
-        }
-      }
   }
 
-  .ef-points {
+  &.services-page {
+    padding-bottom: 80px;
+
+    .services__item {
+      margin-bottom: 30px;
+
+      span.commin-soon {
+        color: $primary-color;
+      }
+
+      p {
+        margin-bottom: 12px;
+      }
+
+      ul {
+        li {
+          color: $heading-color;
+          font-size: 15px;
+          line-height: 36px;
+          list-style: none;
+        }
+      }
+    }
+  }
+}
+
+.services__item {
+  margin-bottom: 30px;
+
+  i {
+    color: white;
+    font-size: 35px;
+    color: $secondary-color;
+  }
+
+  ul {
+    i {
+      font-size: 15px;
+      color: white;
+    }
+  }
+
+  h4 {
+    color: $heading-color;
+    text-transform: uppercase;
+    margin-top: 35px;
+    margin-bottom: 22px;
+    font-size: 2rem;
+    font-weight: 700;
+  }
+
+  p {
+    margin-bottom: 0;
+  }
+
+  button {
+    margin-top: 18px;
+  }
+}
+
+//SERVICES EF FILMS
+.services.ef-films,
+.values {
+  position: relative;
+
+  .services__item {
+    h1 {
+      color: white;
+    }
+  }
+
+  .vertical {
+    /*NO VERTICAL*/
+    position: absolute;
+    color: #141414;
+    font-size: 38rem;
+    font-weight: 600;
+    left: 1173px;
+    top: 80px;
+
+    .dot-background {
+      color: #200909;
+    }
+  }
+
+  @media only screen and (max-width: 2000px) {
+    .vertical {
+      left: 982px;
+    }
+  }
+
+  @media only screen and (max-width: 1600px) {
+    .vertical {
+      left: 752px;
+    }
+  }
+
+  @media only screen and (max-width: 1200px) {
+    .vertical {
+      left: 452px;
+    }
+  }
+
+  @media only screen and (max-width: 767px) {
+    .vertical {
+      left: 252px;
+      font-size: 25rem;
+      top: 600px;
+      display: none;
+    }
+  }
+
+  @media only screen and (max-width: 320px) {
+    .vertical {
+      left: -20px;
+      top: 1040px;
+      font-size: 16rem;
+    }
+  }
+}
+
+.ef-points {
   position: relative;
   z-index: 0;
   list-style: none;

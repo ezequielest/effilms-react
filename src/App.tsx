@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './App.scss'
+import './App.scss';
 import Home from './pages/home/Home';
 import { Routes, Route } from 'react-router-dom';
 import Services from './pages/services/Services';
@@ -10,7 +10,6 @@ import Contact from './pages/contactc/Contact';
 import TresDBuilding from './shared/components/3d-building/3d-building';
 
 function App() {
-
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
@@ -27,7 +26,6 @@ function App() {
     }
   });
 
-
   return (
     <>
       <div id="preloder" className={`preloader ${loaded ? 'fade-out' : ''}`}>
@@ -41,9 +39,8 @@ function App() {
         <Route path="/edificio" element={<TresDBuilding />} />
       </Routes>
       <Footer />
-
     </>
-  )
+  );
 }
 
-export default App
+export default App;

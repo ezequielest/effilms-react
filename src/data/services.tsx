@@ -1,96 +1,108 @@
-import { ADITIONALS } from "../core/models/Aditionals.enum";
-import type { IServices, IServicesSmall } from "../core/models/Iservices";
-import { ServiceGroup } from "../core/models/ServiceGroup.enum";
-import { ServiceType } from "../core/models/serviceType.enum";
-
+import { ADITIONALS } from '../core/models/Aditionals.enum';
+import type { IServices, IServicesSmall } from '../core/models/Iservices';
+import { ServiceGroup } from '../core/models/ServiceGroup.enum';
+import { ServiceType } from '../core/models/serviceType.enum';
 
 export const servicesArray: Array<IServices> = [
-    {
+  {
     id: 1,
     type: ServiceType.VIDEO,
     group: ServiceGroup.INITIAL,
     service: 'VIDEO',
     description: 'Video completo con broker mostrando el inmueble.',
-    slider:'',
+    slider: '',
     video: 'https://www.instagram.com/p/DLDpb5vPUfQ/',
     discount: 0,
     discountMontly: 10,
     isBaseMontly: true,
     title: 'Smartphone',
     priceSince: 0,
-    prices: [{
-      isBasePrise: false,
-      maxM2: 50,
-      value: 103000
-    },{
-      isBasePrise: false,
-      maxM2: 100,
-      value: 124000
-    },
-    {
-      isBasePrise: true,
-      maxM2: 200,
-      value: 154000
-    }],
-    aditionals: [/*{
+    prices: [
+      {
+        isBasePrise: false,
+        maxM2: 50,
+        value: 103000,
+      },
+      {
+        isBasePrise: false,
+        maxM2: 100,
+        value: 124000,
+      },
+      {
+        isBasePrise: true,
+        maxM2: 200,
+        value: 154000,
+      },
+    ],
+    aditionals: [
+      /*{
       type: ADITIONALS.DRON,
       hours: 0.15,
       price: 90000
-    },*/{
-      type: ADITIONALS.BROKER,
-      hours: 0.30,
-      price: 30000
-    },{
-      type: ADITIONALS.MODEL,
-      hours: 0.30,
-      price: 20000
-    }],
+    },*/ {
+        type: ADITIONALS.BROKER,
+        hours: 0.3,
+        price: 30000,
+      },
+      {
+        type: ADITIONALS.MODEL,
+        hours: 0.3,
+        price: 20000,
+      },
+    ],
     isHighlighted: false,
     isPromo: false,
     isNew: false,
     isVideo: true,
     hours: 1,
     delivery: 5,
-    },
-    {
+  },
+  {
     id: 2,
     type: ServiceType.FOTO,
     group: ServiceGroup.INITIAL,
     service: 'FOTOGRAFÍA',
     description: 'Pack de 10 o 25 fotos profesionales editadas del inmueble.',
     discount: 0,
-    slider:'',
+    slider: '',
     video: '',
     discountMontly: 0,
     isBaseMontly: false,
     title: 'SMARTPHONE',
     priceSince: 0,
-    prices: [{
+    prices: [
+      {
         isBasePrise: false,
         maxM2: 100,
-        value: 52000
-    },{
+        value: 52000,
+      },
+      {
         isBasePrise: false,
         maxM2: 200,
-        value: 62000
-    },{
+        value: 62000,
+      },
+      {
         isBasePrise: false,
         maxM2: 400,
-        value: 72000
-    }],
-    aditionals: [/*{
+        value: 72000,
+      },
+    ],
+    aditionals: [
+      /*{
       type: ADITIONALS.DRON,
       hours: 0.15,
       price: 90000
-    }*/],
+    }*/
+    ],
     isHighlighted: false,
     isPromo: false,
     isNew: false,
     isVideo: false,
     hours: 1,
-    delivery: 5
-    },{
-      id: 3,
+    delivery: 5,
+  },
+  {
+    id: 3,
     type: ServiceType.FULL,
     group: ServiceGroup.INITIAL,
     service: 'VIDEO + FOTO',
@@ -102,93 +114,107 @@ export const servicesArray: Array<IServices> = [
     isBaseMontly: false,
     title: 'Smartphone',
     priceSince: 0,
-    prices: [{
-      isBasePrise: false,
-      maxM2: 50,
-      value: 134000
-    },{
-      isBasePrise: false,
-      maxM2: 100,
-      value: 154000
-    },
-    {
-      isBasePrise: true,
-      maxM2: 200,
-      value: 185000
-    }],
-    aditionals: [/*{
+    prices: [
+      {
+        isBasePrise: false,
+        maxM2: 50,
+        value: 134000,
+      },
+      {
+        isBasePrise: false,
+        maxM2: 100,
+        value: 154000,
+      },
+      {
+        isBasePrise: true,
+        maxM2: 200,
+        value: 185000,
+      },
+    ],
+    aditionals: [
+      /*{
       type: ADITIONALS.DRON,
       hours: 0.25,
       price: 90000
-    },*/{
-      type: ADITIONALS.BROKER,
-      hours: 0.25,
-      price: 30000
-    },{
-      type: ADITIONALS.MODEL,
-      hours: 0.25,
-      price: 20000
-    }],
+    },*/ {
+        type: ADITIONALS.BROKER,
+        hours: 0.25,
+        price: 30000,
+      },
+      {
+        type: ADITIONALS.MODEL,
+        hours: 0.25,
+        price: 20000,
+      },
+    ],
     isHighlighted: false,
     isPromo: false,
     isNew: false,
     isVideo: true,
     hours: 1.5,
-    delivery: 5
-    },  {
-      id: 4,
+    delivery: 5,
+  },
+  {
+    id: 4,
     type: ServiceType.VIDEO,
     group: ServiceGroup.STANDARD,
     service: 'VIDEO',
     description: 'Video con broker mostrando el inmueble. Equipo profesional',
     video: 'https://www.youtube.com/watch?v=2ezasH5vDJI&t=5s',
-    slider:'',
+    slider: '',
     discount: 0,
     discountMontly: 10,
     isBaseMontly: true,
     title: '',
     priceSince: 0,
-    prices: [{
-      isBasePrise: false,
-      maxM2: 100,
-      value: 196000
-    },{
-      isBasePrise: true,
-      maxM2: 200,
-      value: 227000
-    },
-    {
-      isBasePrise: false,
-      maxM2: 400,
-      value: 247000
-    }],
-    aditionals: [{
-      type: ADITIONALS.DRON,
-      hours: 0.15,
-      price: 80000
-    },{
-      type: ADITIONALS.BROKER,
-      hours: 0.30,
-      price: 50000
-    },{
-      type: ADITIONALS.MODEL,
-      hours: 0.30,
-      price: 30000
-    },
-    {
-      type: ADITIONALS.IA,
-      hours: 0,
-      price: 40000
-    }],
+    prices: [
+      {
+        isBasePrise: false,
+        maxM2: 100,
+        value: 196000,
+      },
+      {
+        isBasePrise: true,
+        maxM2: 200,
+        value: 227000,
+      },
+      {
+        isBasePrise: false,
+        maxM2: 400,
+        value: 247000,
+      },
+    ],
+    aditionals: [
+      {
+        type: ADITIONALS.DRON,
+        hours: 0.15,
+        price: 80000,
+      },
+      {
+        type: ADITIONALS.BROKER,
+        hours: 0.3,
+        price: 50000,
+      },
+      {
+        type: ADITIONALS.MODEL,
+        hours: 0.3,
+        price: 30000,
+      },
+      {
+        type: ADITIONALS.IA,
+        hours: 0,
+        price: 40000,
+      },
+    ],
     isHighlighted: false,
     isPromo: false,
     isNew: false,
     isVideo: true,
     hours: 1,
-    delivery: 5
-    },
-    {
-      id: 5,
+    delivery: 5,
+  },
+  {
+    id: 5,
     type: ServiceType.FOTO,
     group: ServiceGroup.STANDARD,
     service: 'FOTOGRAFÍA HDR',
@@ -200,32 +226,39 @@ export const servicesArray: Array<IServices> = [
     discountMontly: 0,
     isBaseMontly: false,
     priceSince: 0,
-    prices: [{
-      isBasePrise: false,
-      maxM2: 100,
-      value: 77000
-    },{
-    isBasePrise: false,
-    maxM2: 200,
-    value: 98000
-    },{
-    isBasePrise: false,
-    maxM2: 400,
-    value: 124000
-    }],
-    aditionals: [{
-      type: ADITIONALS.DRON,
-      hours: 0.30,
-      price: 900000
-    }],
+    prices: [
+      {
+        isBasePrise: false,
+        maxM2: 100,
+        value: 77000,
+      },
+      {
+        isBasePrise: false,
+        maxM2: 200,
+        value: 98000,
+      },
+      {
+        isBasePrise: false,
+        maxM2: 400,
+        value: 124000,
+      },
+    ],
+    aditionals: [
+      {
+        type: ADITIONALS.DRON,
+        hours: 0.3,
+        price: 900000,
+      },
+    ],
     isHighlighted: false,
     isPromo: false,
     isNew: false,
     isVideo: false,
     hours: 1,
-    delivery: 5
-    },{
-      id: 6,
+    delivery: 5,
+  },
+  {
+    id: 6,
     type: ServiceType.FULL,
     group: ServiceGroup.STANDARD,
     service: 'VIDEO + FOTO',
@@ -238,243 +271,279 @@ export const servicesArray: Array<IServices> = [
     isBaseMontly: false,
 
     priceSince: 0,
-    prices: [{
-      isBasePrise: false,
-      maxM2: 100,
-      value: 227000
-    },{
-      isBasePrise: false,
-      maxM2: 200,
-      value: 247000
-    },
-    {
-      isBasePrise: true,
-      maxM2: 400,
-      value: 268000
-    }],
-    aditionals: [{
-      type: ADITIONALS.DRON,
-      hours: 0.15,
-      price: 100000
-    },{
-      type: ADITIONALS.BROKER,
-      hours: 0.30,
-      price: 50000
-    },{
-      type: ADITIONALS.MODEL,
-      hours: 0.30,
-      price: 30000
-    },
-    {
-      type: ADITIONALS.IA,
-      hours: 0,
-      price: 40000
-    }],
+    prices: [
+      {
+        isBasePrise: false,
+        maxM2: 100,
+        value: 227000,
+      },
+      {
+        isBasePrise: false,
+        maxM2: 200,
+        value: 247000,
+      },
+      {
+        isBasePrise: true,
+        maxM2: 400,
+        value: 268000,
+      },
+    ],
+    aditionals: [
+      {
+        type: ADITIONALS.DRON,
+        hours: 0.15,
+        price: 100000,
+      },
+      {
+        type: ADITIONALS.BROKER,
+        hours: 0.3,
+        price: 50000,
+      },
+      {
+        type: ADITIONALS.MODEL,
+        hours: 0.3,
+        price: 30000,
+      },
+      {
+        type: ADITIONALS.IA,
+        hours: 0,
+        price: 40000,
+      },
+    ],
     isHighlighted: false,
     isPromo: false,
     isNew: false,
     isVideo: true,
     hours: 2,
-    delivery: 5
-    },{ 
-      id: 7,
-        type: ServiceType.VIDEO,
-        group: ServiceGroup.PREMIUM,
-        service: 'VIDEO',
-        description: 'Video de alto impacto donde el guión es clave. Video con CÁMARA + DRON. Incluye efectos y transiciones profesionales',
-        video: '',
-        slider: '',
-        title: '',
-        discount: 0,
-        discountMontly: 10,
-        isBaseMontly: true,
-    
-        priceSince: 0,
-        prices: [{
-          isBasePrise: false,
-          maxM2: 200,
-          value: 299000
-        },
-        {
-          isBasePrise: false,
-          maxM2: 400,
-          value: 340000
-        },
-        {
-          isBasePrise: true,
-          maxM2: 600,
-          value: 381000
-        }],aditionals: [{
-          type: ADITIONALS.DRON,
-          hours: 0.50,
-          price: 150000
-        },{
-          type: ADITIONALS.BROKER,
-          hours: 0.50,
-          price: 70000
-        },{
-          type: ADITIONALS.MODEL,
-          hours: 0.50,
-          price: 50000
-        },{
-          type: ADITIONALS.CONTENT,
-          hours: 1.00,
-          price: 60000
-        },
-        {
-          type: ADITIONALS.IA,
-          hours: 0,
-          price: 40000
-        }],
-        isHighlighted: false,
-        isPromo: false,
-        isNew: false,
-        isVideo: true,
-        hours: 1.5,
-        delivery: 5,
+    delivery: 5,
+  },
+  {
+    id: 7,
+    type: ServiceType.VIDEO,
+    group: ServiceGroup.PREMIUM,
+    service: 'VIDEO',
+    description:
+      'Video de alto impacto donde el guión es clave. Video con CÁMARA + DRON. Incluye efectos y transiciones profesionales',
+    video: '',
+    slider: '',
+    title: '',
+    discount: 0,
+    discountMontly: 10,
+    isBaseMontly: true,
 
-        },{
-          id: 8,
-        type: ServiceType.FOTO,
-        group: ServiceGroup.PREMIUM,
-        service: 'FOTOGRAFÍA HDR', /*BASE PREMIUM */
-        description: 'Pack de fotos profesionales editadas del inmueble con cámara profesional.',
-        video: '',
-        slider: '',
-        title: '',
-        discount: 0,
-        discountMontly: 0,
-        isBaseMontly: false,
-    
-        priceSince: 0,
-        prices: [{
-          isBasePrise: false,
-          maxM2: 200,
-          value: 93000
-          },{
-          isBasePrise: true,
-          maxM2: 400,
-          value: 103000
-          },{
-          isBasePrise: false,
-          maxM2: 600,
-          value: 124000
-        }],
-        aditionals: [{
-          type: ADITIONALS.DRON,
-          hours: 0.30,
-          price: 100000
-        }],
-        isHighlighted: false,
-        isPromo: false,
-        isNew: false,
-        isVideo: true,
+    priceSince: 0,
+    prices: [
+      {
+        isBasePrise: false,
+        maxM2: 200,
+        value: 299000,
+      },
+      {
+        isBasePrise: false,
+        maxM2: 400,
+        value: 340000,
+      },
+      {
+        isBasePrise: true,
+        maxM2: 600,
+        value: 381000,
+      },
+    ],
+    aditionals: [
+      {
+        type: ADITIONALS.DRON,
+        hours: 0.5,
+        price: 150000,
+      },
+      {
+        type: ADITIONALS.BROKER,
+        hours: 0.5,
+        price: 70000,
+      },
+      {
+        type: ADITIONALS.MODEL,
+        hours: 0.5,
+        price: 50000,
+      },
+      {
+        type: ADITIONALS.CONTENT,
+        hours: 1.0,
+        price: 60000,
+      },
+      {
+        type: ADITIONALS.IA,
+        hours: 0,
+        price: 40000,
+      },
+    ],
+    isHighlighted: false,
+    isPromo: false,
+    isNew: false,
+    isVideo: true,
+    hours: 1.5,
+    delivery: 5,
+  },
+  {
+    id: 8,
+    type: ServiceType.FOTO,
+    group: ServiceGroup.PREMIUM,
+    service: 'FOTOGRAFÍA HDR' /*BASE PREMIUM */,
+    description: 'Pack de fotos profesionales editadas del inmueble con cámara profesional.',
+    video: '',
+    slider: '',
+    title: '',
+    discount: 0,
+    discountMontly: 0,
+    isBaseMontly: false,
+
+    priceSince: 0,
+    prices: [
+      {
+        isBasePrise: false,
+        maxM2: 200,
+        value: 93000,
+      },
+      {
+        isBasePrise: true,
+        maxM2: 400,
+        value: 103000,
+      },
+      {
+        isBasePrise: false,
+        maxM2: 600,
+        value: 124000,
+      },
+    ],
+    aditionals: [
+      {
+        type: ADITIONALS.DRON,
+        hours: 0.3,
+        price: 100000,
+      },
+    ],
+    isHighlighted: false,
+    isPromo: false,
+    isNew: false,
+    isVideo: true,
+    hours: 1,
+    delivery: 5,
+  },
+  {
+    id: 9,
+    type: ServiceType.FULL,
+    group: ServiceGroup.PREMIUM,
+    service: 'VIDEO + FOTO',
+    description: 'Cobertura completa profesional. VIDEO + FOTOGRAFÍA.',
+    video: 'https://www.instagram.com/p/DMqfv4axS-e/',
+    slider: '',
+    title: '',
+    discount: 0,
+    discountMontly: 0,
+    isBaseMontly: false,
+
+    priceSince: 0,
+    prices: [
+      {
+        isBasePrise: false,
+        maxM2: 200,
+        value: 433000,
+      },
+      {
+        isBasePrise: false,
+        maxM2: 400,
+        value: 484000,
+      },
+      {
+        isBasePrise: false,
+        maxM2: 600,
+        value: 587000,
+      },
+    ],
+    aditionals: [
+      {
+        type: ADITIONALS.DRON,
+        hours: 0.5,
+        price: 120000,
+      },
+      {
+        type: ADITIONALS.BROKER,
+        hours: 0.5,
+        price: 60000,
+      },
+      {
+        type: ADITIONALS.MODEL,
+        hours: 0.5,
+        price: 40000,
+      },
+      {
+        type: ADITIONALS.CONTENT,
         hours: 1,
-        delivery: 5
-        },
-        {
-          id: 9,
-            type: ServiceType.FULL,
-            group: ServiceGroup.PREMIUM,
-            service: 'VIDEO + FOTO', 
-            description: 'Cobertura completa profesional. VIDEO + FOTOGRAFÍA.',
-            video: 'https://www.instagram.com/p/DMqfv4axS-e/',
-            slider:'',
-            title:'',
-            discount: 0,
-            discountMontly: 0,
-            isBaseMontly: false,
-        
-            priceSince: 0,  
-            prices: [{
-                isBasePrise: false,
-                maxM2: 200,
-                value: 433000
-              },{
-                isBasePrise: false,
-                maxM2: 400,
-                value: 484000
-              },{
-                isBasePrise: false,
-                maxM2: 600,
-                value: 587000
-              }],
-              aditionals: [{
-                type: ADITIONALS.DRON,
-                hours: 0.5,
-                price: 120000
-              },{
-                type: ADITIONALS.BROKER,
-                hours: 0.5,
-                price: 60000
-              },{
-                type: ADITIONALS.MODEL,
-                hours: 0.5,
-                price: 40000
-              },{
-                type: ADITIONALS.CONTENT,
-                hours: 1,
-                price: 60000
-              },  {
-                type: ADITIONALS.IA,
-                hours: 0,
-                price: 40000
-              }],
-              isHighlighted: false,
-              isPromo: false,
-              isNew: false,
-              isVideo: true,
-              hours: 2.5,
-              delivery: 5
-            },
+        price: 60000,
+      },
+      {
+        type: ADITIONALS.IA,
+        hours: 0,
+        price: 40000,
+      },
+    ],
+    isHighlighted: false,
+    isPromo: false,
+    isNew: false,
+    isVideo: true,
+    hours: 2.5,
+    delivery: 5,
+  },
 ];
 
 export const customArray: Array<IServicesSmall> = [
-      {
-        id: 1,
-        service: 'INSTITUCIONALES',
-        description: 'Video institucional para tu empresa.',
-        video: 'https://www.youtube.com/watch?v=WNKtXL7lc-o',
-        priceSince: 464000,
-        isHighlighted: false,
-        isPromo: false,
-        discount: 0
-      },
-      {id: 2,
-        service: 'CAMPOS',
-        description: 'Producción audiovidual para campos.',
-        video: 'https://www.youtube.com/watch?v=DxaDVne_Wks',
-        priceSince: 566000,
-        isHighlighted: false,
-        isPromo: false,
-        discount: 0
-      },
-      {
-        id: 3,
-        service: 'EDIFICIOS',
-        description: 'Producción audiovidual para edificios.',
-        video: 'https://www.instagram.com/p/C4ysFMixPrq/',
-        priceSince: 464000,
-        isHighlighted: false,
-        isPromo: false,
-        discount: 0
-      },
-      {
-        id: 4,
-        service: 'BARRIOS PRIVADOS',
-        description: 'Producción audiovidual para barrios privados.',
-        video: 'https://www.youtube.com/watch?v=GCE-opUPhmE',
-        priceSince: 464000,
-        isHighlighted: false,
-        isPromo: false,
-        discount: 0
-      },{
-        id: 5,
-        service: 'EVENTOS',
-        description: 'Cobertura de evento y video resumen con cámara profesional.',
-        video: '',
-        priceSince: 185000,
-        isHighlighted: false,
-        isPromo: false,
-        discount: 0
-      }];
+  {
+    id: 1,
+    service: 'INSTITUCIONALES',
+    description: 'Video institucional para tu empresa.',
+    video: 'https://www.youtube.com/watch?v=WNKtXL7lc-o',
+    priceSince: 464000,
+    isHighlighted: false,
+    isPromo: false,
+    discount: 0,
+  },
+  {
+    id: 2,
+    service: 'CAMPOS',
+    description: 'Producción audiovidual para campos.',
+    video: 'https://www.youtube.com/watch?v=DxaDVne_Wks',
+    priceSince: 566000,
+    isHighlighted: false,
+    isPromo: false,
+    discount: 0,
+  },
+  {
+    id: 3,
+    service: 'EDIFICIOS',
+    description: 'Producción audiovidual para edificios.',
+    video: 'https://www.instagram.com/p/C4ysFMixPrq/',
+    priceSince: 464000,
+    isHighlighted: false,
+    isPromo: false,
+    discount: 0,
+  },
+  {
+    id: 4,
+    service: 'BARRIOS PRIVADOS',
+    description: 'Producción audiovidual para barrios privados.',
+    video: 'https://www.youtube.com/watch?v=GCE-opUPhmE',
+    priceSince: 464000,
+    isHighlighted: false,
+    isPromo: false,
+    discount: 0,
+  },
+  {
+    id: 5,
+    service: 'EVENTOS',
+    description: 'Cobertura de evento y video resumen con cámara profesional.',
+    video: '',
+    priceSince: 185000,
+    isHighlighted: false,
+    isPromo: false,
+    discount: 0,
+  },
+];

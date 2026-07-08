@@ -9,33 +9,33 @@ const services = [
   {
     type: 'video',
     name: 'VIDEO',
-    example: 'https://www.youtube.com/embed/qtWw8xcVfXI?si=m5ocbQHuud1U6Par'
+    example: 'https://www.youtube.com/embed/qtWw8xcVfXI?si=m5ocbQHuud1U6Par',
   },
   {
     type: 'videoDron',
     name: 'VIDEO + DRON',
-    example: 'https://www.youtube.com/embed/oaGRbR6nAA8'
+    example: 'https://www.youtube.com/embed/oaGRbR6nAA8',
   },
   {
     type: 'conduccion',
     name: 'CONDUCCIÓN',
-    example: 'https://www.youtube.com/embed/A-cVVHbjDhc'
+    example: 'https://www.youtube.com/embed/A-cVVHbjDhc',
   },
   {
     type: 'conduccionDron',
     name: 'CONDUCCIÓN + DRON',
-    example: 'https://www.youtube.com/embed/6hjBbI25YD0'
+    example: 'https://www.youtube.com/embed/6hjBbI25YD0',
   },
   {
     type: 'dron',
     name: 'DRON EXTERIOR',
-    example: 'https://www.youtube.com/embed/kzp4n9qXIeY'
+    example: 'https://www.youtube.com/embed/kzp4n9qXIeY',
   },
   {
     type: 'fpv',
     name: 'DRON FPV',
-    example: 'https://www.youtube.com/embed/PT5w3ITbgBE'
-  }
+    example: 'https://www.youtube.com/embed/PT5w3ITbgBE',
+  },
 ];
 
 function BoxServices() {
@@ -43,7 +43,7 @@ function BoxServices() {
   const [videoUrl, setVideoUrl] = useState('');
 
   const handleOpenModal = (type: string) => {
-    const service = services.find(s => s.type === type);
+    const service = services.find((s) => s.type === type);
     if (service) {
       setVideoUrl(service.example);
       setShowModal(true);
@@ -63,11 +63,11 @@ function BoxServices() {
             </div>
           </div>
           <div className="row ef-services__container">
-            {services.map(service => (
+            {services.map((service) => (
               <div key={service.type} className="ef-services__card">
                 <a onClick={() => handleOpenModal(service.type)}>
-                  <div className='name-service'>{service.name}</div>
-                  <div className='see-video'>VER VIDEO</div>
+                  <div className="name-service">{service.name}</div>
+                  <div className="see-video">VER VIDEO</div>
                 </a>
               </div>
             ))}
@@ -75,11 +75,7 @@ function BoxServices() {
         </div>
       </section>
 
-      <YoutubeModal
-        show={showModal}
-        onHide={() => setShowModal(false)}
-        videoUrl={videoUrl}
-      />
+      <YoutubeModal show={showModal} onHide={() => setShowModal(false)} videoUrl={videoUrl} />
     </>
   );
 }

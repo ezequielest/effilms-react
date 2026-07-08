@@ -1,4 +1,4 @@
-@use "sass:color";
+@use 'sass:color';
 
 .card-value {
   width: 320px;
@@ -10,13 +10,15 @@
   position: relative;
   padding: 0;
   border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
   overflow: hidden;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
 
   &:hover {
     transform: translateY(-4px);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.6);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
   }
 
   .label-highlighted {
@@ -30,7 +32,7 @@
     z-index: 2;
     border-radius: 20px;
     font-weight: bold;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
 
     &.green {
       background-color: green;
@@ -43,23 +45,28 @@
     position: relative;
     color: white;
 
-    @media (min-width: 425px){
+    @media (min-width: 425px) {
       height: 140px;
     }
 
-    &.initial{
-      background: linear-gradient(rgba(0, 0, 0, 0.796), rgba(27, 27, 27, 0.5)), url("/img/services/iphone.jpg");
+    &.initial {
+      background:
+        linear-gradient(rgba(0, 0, 0, 0.796), rgba(27, 27, 27, 0.5)),
+        url('/img/services/iphone.jpg');
       background-size: cover;
     }
 
-    &.standard{
-      background: linear-gradient(rgba(0, 0, 0, 0.796), rgba(182, 0, 0, 0.5)), url("/img/services/camera.jpg");
+    &.standard {
+      background:
+        linear-gradient(rgba(0, 0, 0, 0.796), rgba(182, 0, 0, 0.5)), url('/img/services/camera.jpg');
       background-size: cover;
       background-position: center;
     }
 
-    &.premium{
-      background: linear-gradient(rgba(0, 0, 0, 0.796), rgba(20, 196, 0, 0.5)), url("/img/services/gimbal.jpg");
+    &.premium {
+      background:
+        linear-gradient(rgba(0, 0, 0, 0.796), rgba(20, 196, 0, 0.5)),
+        url('/img/services/gimbal.jpg');
       background-size: cover;
       background-position: center;
     }
@@ -115,12 +122,12 @@
           letter-spacing: 0.5px;
           color: #e0e0e0;
 
-          .icon{
+          .icon {
             color: $primary-color;
             margin-right: 6px;
           }
         }
-      } 
+      }
     }
 
     .aditionals {
@@ -129,7 +136,7 @@
       border-bottom: 1px solid rgba($primary-color, 0.4);
       height: 250px;
 
-      @media (min-width: 425px){
+      @media (min-width: 425px) {
         height: 255px;
         padding: 12px;
       }
@@ -156,7 +163,6 @@
         .info-icon {
           color: $primary-color;
         }
-
       }
     }
 
@@ -238,21 +244,19 @@
   }
 }
 
+.popover {
+  border: 1px solid rgb(112, 112, 112);
+  background-color: lightblue;
+}
 
-
-     .popover {
-        border: 1px solid rgb(112, 112, 112);
-        background-color: lightblue;
-    }
-
-  .popover-header {
-          background-color: rgb(16, 16, 16);
-          color: rgb(251, 251, 251);
-  } 
-  .popover-body {
-    background-color: rgb(80, 80, 80);
-          color: rgb(251, 251, 251);
-  }
+.popover-header {
+  background-color: rgb(16, 16, 16);
+  color: rgb(251, 251, 251);
+}
+.popover-body {
+  background-color: rgb(80, 80, 80);
+  color: rgb(251, 251, 251);
+}
 
 .popover .popover-arrow::before {
   border-bottom-color: rgb(16, 16, 16) !important;

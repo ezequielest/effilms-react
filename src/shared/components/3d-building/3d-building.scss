@@ -1,23 +1,22 @@
 .Tres-d-model {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: $bg-0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: $bg-0;
 }
 
 .description-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
 
-    .section-title {
-
-        h2 {
-            margin-bottom: 20px;
-        }
-        span {
-            margin-bottom: 20px;
-        }
+  .section-title {
+    h2 {
+      margin-bottom: 20px;
     }
+    span {
+      margin-bottom: 20px;
+    }
+  }
 }

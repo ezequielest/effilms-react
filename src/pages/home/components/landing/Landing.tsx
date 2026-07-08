@@ -11,7 +11,7 @@ export const Landing: React.FC = () => {
   // Simulación de carga progresiva
   useEffect(() => {
     const intervalId = setInterval(() => {
-      setProgress(prev => {
+      setProgress((prev) => {
         const next = Math.min(prev + 1, 100);
         if (next === 100) setLoaded(true);
         return next;
@@ -89,10 +89,7 @@ export const Landing: React.FC = () => {
         <a href="https://www.facebook.com/effilmscomar-113490327151297" target="_blank">
           <FontAwesomeIcon icon={faFacebook} />
         </a>
-        <a
-          href="https://www.youtube.com/channel/UCJcK7K_8LmDJ68tQeh776Wg"
-          target="_blank"
-        >
+        <a href="https://www.youtube.com/channel/UCJcK7K_8LmDJ68tQeh776Wg" target="_blank">
           <FontAwesomeIcon icon={faYoutube} />
         </a>
       </div>

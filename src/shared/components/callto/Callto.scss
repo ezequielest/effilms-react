@@ -24,7 +24,6 @@
 }
 
 .callto__text {
-
   h2 {
     font-weight: bold;
   }
@@ -36,7 +35,6 @@
   .btn-valores {
     padding: 60px;
 
-    
     a.btn-value {
       padding: 12px 18px;
       display: inline-block;
@@ -58,21 +56,62 @@
     min-width: 142px;
 
     &.insta {
-      background: #f09433; 
-      background: -moz-linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); 
-      background: -webkit-linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%); 
-      background: linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%); 
-  
-  
+      background: #f09433;
+      background: -moz-linear-gradient(
+        45deg,
+        #f09433 0%,
+        #e6683c 25%,
+        #dc2743 50%,
+        #cc2366 75%,
+        #bc1888 100%
+      );
+      background: -webkit-linear-gradient(
+        45deg,
+        #f09433 0%,
+        #e6683c 25%,
+        #dc2743 50%,
+        #cc2366 75%,
+        #bc1888 100%
+      );
+      background: linear-gradient(
+        45deg,
+        #f09433 0%,
+        #e6683c 25%,
+        #dc2743 50%,
+        #cc2366 75%,
+        #bc1888 100%
+      );
+
       &:hover {
         transition: background-color 1s;
-        background: #f09433; 
-        background: -moz-linear-gradient(45deg, #d1812c 0%, #c05731 25%, #be2239 50%, #a51d53 75%, #880f62 100%); 
-        background: -webkit-linear-gradient(45deg, #d1812c 0%, #c05731 25%, #be2239 50%, #a51d53 75%, #880f62 100%); 
-        background: linear-gradient(45deg, #d1812c 0%, #c05731 25%, #be2239 50%, #a51d53 75%, #880f62 100%); 
+        background: #f09433;
+        background: -moz-linear-gradient(
+          45deg,
+          #d1812c 0%,
+          #c05731 25%,
+          #be2239 50%,
+          #a51d53 75%,
+          #880f62 100%
+        );
+        background: -webkit-linear-gradient(
+          45deg,
+          #d1812c 0%,
+          #c05731 25%,
+          #be2239 50%,
+          #a51d53 75%,
+          #880f62 100%
+        );
+        background: linear-gradient(
+          45deg,
+          #d1812c 0%,
+          #c05731 25%,
+          #be2239 50%,
+          #a51d53 75%,
+          #880f62 100%
+        );
       }
     }
-  
+
     &.youtube {
       background-color: #cd322d;
       color: white;
@@ -81,7 +120,6 @@
       }
     }
   }
-
 
   span {
     font-size: 16px;
