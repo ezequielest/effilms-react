@@ -21,18 +21,18 @@ export const servicesArray: Array<IServices> = [
     prices: [
       {
         isBasePrise: false,
-        maxM2: 50,
-        value: 103000,
+        maxM2: 100,
+        value: 110000,
       },
       {
         isBasePrise: false,
-        maxM2: 100,
-        value: 124000,
+        maxM2: 200,
+        value: 130000,
       },
       {
         isBasePrise: true,
-        maxM2: 200,
-        value: 154000,
+        maxM2: 400,
+        value: 160000,
       },
     ],
     aditionals: [{
@@ -70,17 +70,17 @@ export const servicesArray: Array<IServices> = [
       {
         isBasePrise: false,
         maxM2: 100,
-        value: 52000,
+        value: 50000,
       },
       {
         isBasePrise: false,
         maxM2: 200,
-        value: 62000,
+        value: 60000,
       },
       {
         isBasePrise: false,
         maxM2: 400,
-        value: 72000,
+        value: 70000,
       },
     ],
     aditionals: [
@@ -114,17 +114,17 @@ export const servicesArray: Array<IServices> = [
       {
         isBasePrise: false,
         maxM2: 50,
-        value: 134000,
+        value: 140000,
       },
       {
         isBasePrise: false,
         maxM2: 100,
-        value: 154000,
+        value: 160000,
       },
       {
         isBasePrise: true,
         maxM2: 200,
-        value: 185000,
+        value: 190000,
       },
     ],
     aditionals: [
@@ -167,39 +167,39 @@ export const servicesArray: Array<IServices> = [
       {
         isBasePrise: false,
         maxM2: 100,
-        value: 196000,
+        value: 200000,
       },
       {
         isBasePrise: true,
         maxM2: 200,
-        value: 227000,
+        value: 230000,
       },
       {
         isBasePrise: false,
         maxM2: 400,
-        value: 247000,
+        value: 250000,
       },
     ],
     aditionals: [
       {
         type: ADITIONALS.DRON,
         hours: 0.15,
-        price: 80000,
+        price: 70000,
       },
       {
         type: ADITIONALS.BROKER,
         hours: 0.3,
-        price: 50000,
+        price: 40000,
       },
       {
         type: ADITIONALS.MODEL,
         hours: 0.3,
-        price: 30000,
+        price: 20000,
       },
       {
         type: ADITIONALS.IA,
         hours: 0,
-        price: 40000,
+        price: 30000,
       },
     ],
     isHighlighted: false,
@@ -226,17 +226,17 @@ export const servicesArray: Array<IServices> = [
       {
         isBasePrise: false,
         maxM2: 100,
-        value: 77000,
+        value: 80000,
       },
       {
         isBasePrise: false,
         maxM2: 200,
-        value: 98000,
+        value: 100000,
       },
       {
         isBasePrise: false,
         maxM2: 400,
-        value: 124000,
+        value: 130000,
       },
     ],
     aditionals: [
@@ -271,39 +271,39 @@ export const servicesArray: Array<IServices> = [
       {
         isBasePrise: false,
         maxM2: 100,
-        value: 227000,
+        value: 250000,
       },
       {
         isBasePrise: false,
         maxM2: 200,
-        value: 247000,
+        value: 270000,
       },
       {
         isBasePrise: true,
         maxM2: 400,
-        value: 268000,
+        value: 290000,
       },
     ],
     aditionals: [
       {
         type: ADITIONALS.DRON,
         hours: 0.15,
-        price: 100000,
+        price: 70000,
       },
       {
         type: ADITIONALS.BROKER,
         hours: 0.3,
-        price: 50000,
+        price: 40000,
       },
       {
         type: ADITIONALS.MODEL,
         hours: 0.3,
-        price: 30000,
+        price: 20000,
       },
       {
         type: ADITIONALS.IA,
         hours: 0,
-        price: 40000,
+        price: 30000,
       },
     ],
     isHighlighted: false,
@@ -332,7 +332,7 @@ export const servicesArray: Array<IServices> = [
       {
         isBasePrise: false,
         maxM2: 200,
-        value: 299000,
+        value: 300000,
       },
       {
         isBasePrise: false,
@@ -342,7 +342,7 @@ export const servicesArray: Array<IServices> = [
       {
         isBasePrise: true,
         maxM2: 600,
-        value: 381000,
+        value: 370000,
       },
     ],
     aditionals: [
@@ -397,17 +397,17 @@ export const servicesArray: Array<IServices> = [
       {
         isBasePrise: false,
         maxM2: 200,
-        value: 93000,
+        value: 100000,
       },
       {
         isBasePrise: true,
         maxM2: 400,
-        value: 103000,
+        value: 110000,
       },
       {
         isBasePrise: false,
         maxM2: 600,
-        value: 124000,
+        value: 130000,
       },
     ],
     aditionals: [
@@ -442,17 +442,17 @@ export const servicesArray: Array<IServices> = [
       {
         isBasePrise: false,
         maxM2: 200,
-        value: 433000,
+        value: 440000,
       },
       {
         isBasePrise: false,
         maxM2: 400,
-        value: 484000,
+        value: 490000,
       },
       {
         isBasePrise: false,
         maxM2: 600,
-        value: 587000,
+        value: 590000,
       },
     ],
     aditionals: [
