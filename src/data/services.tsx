@@ -21,16 +21,16 @@ export const servicesArray: Array<IServices> = [
     prices: [{
       isBasePrise: false,
       maxM2: 50,
-      value: 100000
+      value: 103000
     },{
       isBasePrise: false,
       maxM2: 100,
-      value: 120000
+      value: 124000
     },
     {
       isBasePrise: true,
       maxM2: 200,
-      value: 150000
+      value: 154000
     }],
     aditionals: [/*{
       type: ADITIONALS.DRON,
@@ -68,15 +68,15 @@ export const servicesArray: Array<IServices> = [
     prices: [{
         isBasePrise: false,
         maxM2: 100,
-        value: 50000
+        value: 52000
     },{
         isBasePrise: false,
         maxM2: 200,
-        value: 60000
+        value: 62000
     },{
         isBasePrise: false,
         maxM2: 400,
-        value: 70000
+        value: 72000
     }],
     aditionals: [/*{
       type: ADITIONALS.DRON,
@@ -105,16 +105,16 @@ export const servicesArray: Array<IServices> = [
     prices: [{
       isBasePrise: false,
       maxM2: 50,
-      value: 130000
+      value: 134000
     },{
       isBasePrise: false,
       maxM2: 100,
-      value: 150000
+      value: 154000
     },
     {
       isBasePrise: true,
       maxM2: 200,
-      value: 180000
+      value: 185000
     }],
     aditionals: [/*{
       type: ADITIONALS.DRON,
@@ -151,16 +151,16 @@ export const servicesArray: Array<IServices> = [
     prices: [{
       isBasePrise: false,
       maxM2: 100,
-      value: 190000
+      value: 196000
     },{
       isBasePrise: true,
       maxM2: 200,
-      value: 220000
+      value: 227000
     },
     {
       isBasePrise: false,
       maxM2: 400,
-      value: 240000
+      value: 247000
     }],
     aditionals: [{
       type: ADITIONALS.DRON,
@@ -203,15 +203,15 @@ export const servicesArray: Array<IServices> = [
     prices: [{
       isBasePrise: false,
       maxM2: 100,
-      value: 75000
+      value: 77000
     },{
     isBasePrise: false,
     maxM2: 200,
-    value: 95000
+    value: 98000
     },{
     isBasePrise: false,
     maxM2: 400,
-    value: 120000
+    value: 124000
     }],
     aditionals: [{
       type: ADITIONALS.DRON,
@@ -241,16 +241,16 @@ export const servicesArray: Array<IServices> = [
     prices: [{
       isBasePrise: false,
       maxM2: 100,
-      value: 220000
+      value: 227000
     },{
       isBasePrise: false,
       maxM2: 200,
-      value: 240000
+      value: 247000
     },
     {
       isBasePrise: true,
       maxM2: 400,
-      value: 260000
+      value: 268000
     }],
     aditionals: [{
       type: ADITIONALS.DRON,
@@ -293,17 +293,17 @@ export const servicesArray: Array<IServices> = [
         prices: [{
           isBasePrise: false,
           maxM2: 200,
-          value: 290000
+          value: 299000
         },
         {
           isBasePrise: false,
           maxM2: 400,
-          value: 330000
+          value: 340000
         },
         {
           isBasePrise: true,
           maxM2: 600,
-          value: 370000
+          value: 381000
         }],aditionals: [{
           type: ADITIONALS.DRON,
           hours: 0.50,
@@ -350,15 +350,15 @@ export const servicesArray: Array<IServices> = [
         prices: [{
           isBasePrise: false,
           maxM2: 200,
-          value: 90000
+          value: 93000
           },{
           isBasePrise: true,
           maxM2: 400,
-          value: 100000
+          value: 103000
           },{
           isBasePrise: false,
           maxM2: 600,
-          value: 120000
+          value: 124000
         }],
         aditionals: [{
           type: ADITIONALS.DRON,
@@ -389,15 +389,15 @@ export const servicesArray: Array<IServices> = [
             prices: [{
                 isBasePrise: false,
                 maxM2: 200,
-                value: 420000
+                value: 433000
               },{
                 isBasePrise: false,
                 maxM2: 400,
-                value: 470000
+                value: 484000
               },{
                 isBasePrise: false,
                 maxM2: 600,
-                value: 570000
+                value: 587000
               }],
               aditionals: [{
                 type: ADITIONALS.DRON,
@@ -435,7 +435,7 @@ export const customArray: Array<IServicesSmall> = [
         service: 'INSTITUCIONALES',
         description: 'Video institucional para tu empresa.',
         video: 'https://www.youtube.com/watch?v=WNKtXL7lc-o',
-        priceSince: 450000,
+        priceSince: 464000,
         isHighlighted: false,
         isPromo: false,
         discount: 0
@@ -444,7 +444,7 @@ export const customArray: Array<IServicesSmall> = [
         service: 'CAMPOS',
         description: 'Producción audiovidual para campos.',
         video: 'https://www.youtube.com/watch?v=DxaDVne_Wks',
-        priceSince: 550000,
+        priceSince: 566000,
         isHighlighted: false,
         isPromo: false,
         discount: 0
@@ -454,7 +454,7 @@ export const customArray: Array<IServicesSmall> = [
         service: 'EDIFICIOS',
         description: 'Producción audiovidual para edificios.',
         video: 'https://www.instagram.com/p/C4ysFMixPrq/',
-        priceSince: 450000,
+        priceSince: 464000,
         isHighlighted: false,
         isPromo: false,
         discount: 0
@@ -464,7 +464,7 @@ export const customArray: Array<IServicesSmall> = [
         service: 'BARRIOS PRIVADOS',
         description: 'Producción audiovidual para barrios privados.',
         video: 'https://www.youtube.com/watch?v=GCE-opUPhmE',
-        priceSince: 450000,
+        priceSince: 464000,
         isHighlighted: false,
         isPromo: false,
         discount: 0
@@ -473,7 +473,7 @@ export const customArray: Array<IServicesSmall> = [
         service: 'EVENTOS',
         description: 'Cobertura de evento y video resumen con cámara profesional.',
         video: '',
-        priceSince: 180000,
+        priceSince: 185000,
         isHighlighted: false,
         isPromo: false,
         discount: 0
