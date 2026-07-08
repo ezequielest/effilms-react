@@ -14,4 +14,5 @@ export interface Iplans {
         value: number;
         saveCash: number;
         totalPercentDiscount: number;
+        availablePlaces: number,
 }

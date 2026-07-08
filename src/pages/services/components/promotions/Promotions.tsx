@@ -17,12 +17,12 @@ export const Promotions: React.FC = () => {
         discount: 10,
         postDiscount: '',
         preDescription: '',
-        description: 'Contratando 3 o más producciones',
+        description: 'Contratando 5 o más producciones',
         postDescription: '%OFF'
     },
     {
         preDiscount: '',
-        discount: 15,
+        discount: 10,
         postDiscount: '',
         preDescription: '',
         description: 'Cobertura de monoambientes',
@@ -30,7 +30,7 @@ export const Promotions: React.FC = () => {
     },
     {
         preDiscount: '',
-        discount: 20,
+        discount: 10,
         postDiscount: '',
         preDescription: '',
         description: 'Producciones en días nublados',

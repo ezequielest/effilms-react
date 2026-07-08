@@ -14,23 +14,23 @@ export const servicesArray: Array<IServices> = [
     slider:'',
     video: 'https://www.instagram.com/p/DLDpb5vPUfQ/',
     discount: 0,
-    discountMontly: 15,
+    discountMontly: 10,
     isBaseMontly: true,
     title: 'Smartphone',
     priceSince: 0,
     prices: [{
       isBasePrise: false,
       maxM2: 50,
-      value: 90000
+      value: 100000
     },{
       isBasePrise: false,
       maxM2: 100,
-      value: 110000
+      value: 120000
     },
     {
       isBasePrise: true,
       maxM2: 200,
-      value: 130000
+      value: 150000
     }],
     aditionals: [/*{
       type: ADITIONALS.DRON,
@@ -68,15 +68,15 @@ export const servicesArray: Array<IServices> = [
     prices: [{
         isBasePrise: false,
         maxM2: 100,
-        value: 40000
-    },{
-        isBasePrise: false,
-        maxM2: 200,
         value: 50000
     },{
         isBasePrise: false,
-        maxM2: 400,
+        maxM2: 200,
         value: 60000
+    },{
+        isBasePrise: false,
+        maxM2: 400,
+        value: 70000
     }],
     aditionals: [/*{
       type: ADITIONALS.DRON,
@@ -105,16 +105,16 @@ export const servicesArray: Array<IServices> = [
     prices: [{
       isBasePrise: false,
       maxM2: 50,
-      value: 120000
+      value: 130000
     },{
-      isBasePrise: true,
+      isBasePrise: false,
       maxM2: 100,
-      value: 140000
+      value: 150000
     },
     {
-      isBasePrise: false,
+      isBasePrise: true,
       maxM2: 200,
-      value: 160000
+      value: 180000
     }],
     aditionals: [/*{
       type: ADITIONALS.DRON,
@@ -144,36 +144,41 @@ export const servicesArray: Array<IServices> = [
     video: 'https://www.youtube.com/watch?v=2ezasH5vDJI&t=5s',
     slider:'',
     discount: 0,
-    discountMontly: 20,
+    discountMontly: 10,
     isBaseMontly: true,
     title: '',
     priceSince: 0,
     prices: [{
       isBasePrise: false,
       maxM2: 100,
-      value: 150000
+      value: 190000
     },{
-      isBasePrise: false,
+      isBasePrise: true,
       maxM2: 200,
-      value: 180000
+      value: 220000
     },
     {
-      isBasePrise: true,
+      isBasePrise: false,
       maxM2: 400,
-      value: 200000
+      value: 240000
     }],
     aditionals: [{
       type: ADITIONALS.DRON,
       hours: 0.15,
-      price: 100000
+      price: 80000
     },{
       type: ADITIONALS.BROKER,
       hours: 0.30,
-      price: 30000
+      price: 50000
     },{
       type: ADITIONALS.MODEL,
       hours: 0.30,
-      price: 20000
+      price: 30000
+    },
+    {
+      type: ADITIONALS.IA,
+      hours: 0,
+      price: 40000
     }],
     isHighlighted: false,
     isPromo: false,
@@ -211,7 +216,7 @@ export const servicesArray: Array<IServices> = [
     aditionals: [{
       type: ADITIONALS.DRON,
       hours: 0.30,
-      price: 100000
+      price: 900000
     }],
     isHighlighted: false,
     isPromo: false,
@@ -231,20 +236,21 @@ export const servicesArray: Array<IServices> = [
     discount: 0,
     discountMontly: 0,
     isBaseMontly: false,
+
     priceSince: 0,
     prices: [{
       isBasePrise: false,
       maxM2: 100,
-      value: 200000
+      value: 220000
     },{
       isBasePrise: false,
       maxM2: 200,
-      value: 220000
+      value: 240000
     },
     {
       isBasePrise: true,
       maxM2: 400,
-      value: 250000
+      value: 260000
     }],
     aditionals: [{
       type: ADITIONALS.DRON,
@@ -253,11 +259,16 @@ export const servicesArray: Array<IServices> = [
     },{
       type: ADITIONALS.BROKER,
       hours: 0.30,
-      price: 30000
+      price: 50000
     },{
       type: ADITIONALS.MODEL,
       hours: 0.30,
-      price: 20000
+      price: 30000
+    },
+    {
+      type: ADITIONALS.IA,
+      hours: 0,
+      price: 40000
     }],
     isHighlighted: false,
     isPromo: false,
@@ -275,39 +286,45 @@ export const servicesArray: Array<IServices> = [
         slider: '',
         title: '',
         discount: 0,
-        discountMontly: 20,
+        discountMontly: 10,
         isBaseMontly: true,
+    
         priceSince: 0,
         prices: [{
           isBasePrise: false,
           maxM2: 200,
-          value: 230000
+          value: 290000
         },
         {
           isBasePrise: false,
           maxM2: 400,
-          value: 280000
+          value: 330000
         },
         {
           isBasePrise: true,
           maxM2: 600,
-          value: 330000
+          value: 370000
         }],aditionals: [{
           type: ADITIONALS.DRON,
           hours: 0.50,
-          price: 140000
+          price: 150000
         },{
           type: ADITIONALS.BROKER,
           hours: 0.50,
-          price: 45000
+          price: 70000
         },{
           type: ADITIONALS.MODEL,
           hours: 0.50,
-          price: 35000
+          price: 50000
         },{
           type: ADITIONALS.CONTENT,
           hours: 1.00,
-          price: 150000
+          price: 60000
+        },
+        {
+          type: ADITIONALS.IA,
+          hours: 0,
+          price: 40000
         }],
         isHighlighted: false,
         isPromo: false,
@@ -328,11 +345,12 @@ export const servicesArray: Array<IServices> = [
         discount: 0,
         discountMontly: 0,
         isBaseMontly: false,
+    
         priceSince: 0,
         prices: [{
           isBasePrise: false,
           maxM2: 200,
-          value: 80000
+          value: 90000
           },{
           isBasePrise: true,
           maxM2: 400,
@@ -366,19 +384,20 @@ export const servicesArray: Array<IServices> = [
             discount: 0,
             discountMontly: 0,
             isBaseMontly: false,
+        
             priceSince: 0,  
             prices: [{
                 isBasePrise: false,
                 maxM2: 200,
-                value: 360000
+                value: 420000
               },{
                 isBasePrise: false,
                 maxM2: 400,
-                value: 410000
+                value: 470000
               },{
                 isBasePrise: false,
                 maxM2: 600,
-                value: 510000
+                value: 570000
               }],
               aditionals: [{
                 type: ADITIONALS.DRON,
@@ -387,15 +406,19 @@ export const servicesArray: Array<IServices> = [
               },{
                 type: ADITIONALS.BROKER,
                 hours: 0.5,
-                price: 40000
+                price: 60000
               },{
                 type: ADITIONALS.MODEL,
                 hours: 0.5,
-                price: 30000
+                price: 40000
               },{
                 type: ADITIONALS.CONTENT,
                 hours: 1,
-                price: 150000
+                price: 60000
+              },  {
+                type: ADITIONALS.IA,
+                hours: 0,
+                price: 40000
               }],
               isHighlighted: false,
               isPromo: false,
@@ -421,7 +444,7 @@ export const customArray: Array<IServicesSmall> = [
         service: 'CAMPOS',
         description: 'Producción audiovidual para campos.',
         video: 'https://www.youtube.com/watch?v=DxaDVne_Wks',
-        priceSince: 400000,
+        priceSince: 550000,
         isHighlighted: false,
         isPromo: false,
         discount: 0
@@ -431,7 +454,7 @@ export const customArray: Array<IServicesSmall> = [
         service: 'EDIFICIOS',
         description: 'Producción audiovidual para edificios.',
         video: 'https://www.instagram.com/p/C4ysFMixPrq/',
-        priceSince: 400000,
+        priceSince: 450000,
         isHighlighted: false,
         isPromo: false,
         discount: 0
@@ -441,7 +464,7 @@ export const customArray: Array<IServicesSmall> = [
         service: 'BARRIOS PRIVADOS',
         description: 'Producción audiovidual para barrios privados.',
         video: 'https://www.youtube.com/watch?v=GCE-opUPhmE',
-        priceSince: 400000,
+        priceSince: 450000,
         isHighlighted: false,
         isPromo: false,
         discount: 0
@@ -450,7 +473,7 @@ export const customArray: Array<IServicesSmall> = [
         service: 'EVENTOS',
         description: 'Cobertura de evento y video resumen con cámara profesional.',
         video: '',
-        priceSince: 150000,
+        priceSince: 180000,
         isHighlighted: false,
         isPromo: false,
         discount: 0

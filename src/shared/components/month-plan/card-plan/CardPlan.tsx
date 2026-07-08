@@ -9,7 +9,10 @@ interface CardProps {
     percentDiscount: number
 }
 
-function CardPlan({index, plan, cantMonthSelected, percentDiscount}: CardProps) {   
+function CardPlan({index, plan, cantMonthSelected}: CardProps) {
+
+
+  const availablesPlaces: number = 2;
 
   return (
     <>
@@ -18,10 +21,16 @@ function CardPlan({index, plan, cantMonthSelected, percentDiscount}: CardProps) 
             <div className={`monthy-highlighted`}>MÁS SOLICITADO</div>
         }
 
-        { percentDiscount > 0 &&
-         <div className={`monthy-highlighted`}>{plan.totalPercentDiscount}%OFF</div>
+        { plan.availablePlaces > 0 &&
+          <div>
+            <div className={`monthy-highlighted info`}>{availablesPlaces} CUPOS DISPONIBLES</div>
+            <div className={`monthy-highlighted success`}>{plan.totalPercentDiscount}%OFF</div>
+          </div>
         }
-        
+        { plan.availablePlaces === 0 &&
+          <div className={`monthy-highlighted`}>AGOTADO</div>
+        }
+
         <div>
           <h2 className="title">{plan.title}</h2>
         </div>

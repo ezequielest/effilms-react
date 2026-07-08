@@ -7,13 +7,14 @@ export const plans: Array<Iplans> = [{
         type: ServiceGroup.INITIAL,
         title: 'INICIAL',
         class: 'initial',
-        included: [{ 
+        availablePlaces: 0,
+        included: [{
                 description: 'Servicio SMARTPHONE',
                 class: 'bold'
-            },{ 
+            },{
                 description: 'Ideal para iniciar',
                 class: ''
-            },{ 
+            },{
                 description: 'Broker conduciendo video',
                 class: ''
             }],
@@ -27,6 +28,7 @@ export const plans: Array<Iplans> = [{
         type: ServiceGroup.STANDARD,
         title: 'ESTANDAR',
         class: 'standard',
+        availablePlaces: 2,
         included: [{ 
                 description: 'Servicio PROFESIONAL',
                 class: 'bold'
@@ -50,6 +52,7 @@ export const plans: Array<Iplans> = [{
         type: ServiceGroup.PREMIUM,
         title: 'PREMIUM',
         class: 'premium',
+        availablePlaces: 0,
         included: [{ 
                 description: 'Servicio PREMIUM',
                 class: 'bold'

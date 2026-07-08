@@ -41,6 +41,15 @@ const popoverDron = (
   </Popover>
 );
 
+const popoverIa = (
+  <Popover id="popover-basic">
+    <Popover.Header as="h3"><strong>INCLUIR IA</strong></Popover.Header>
+    <Popover.Body>
+      Inteligencia artificial para incorporar muebles virtuales / efectos / transiciones o edificaciones.
+    </Popover.Body>
+  </Popover>
+);
+
 const popoverContent = (
   <Popover id="popover-basic">
     <Popover.Header as="h3"><strong>INCLUIR CONTENIDO</strong></Popover.Header>
@@ -64,8 +73,9 @@ function ServiceCard({service, serviceType}: CardProps) {
   const [estimatedHour, setEstimatedHour] = useState(service.hours);
   const [isBrokerOn, setIsBrokerOn] = useState(false);
   const [isDronOn, setIsDronOn] = useState(false);
-  const [isModelingOn, setIsModelingOne] = useState(false);
-  const [isContentOn, setIsContentOne] = useState(false);
+  const [isModelingOn, setIsModelingOn] = useState(false);
+  const [isContentOn, setIsContentOn] = useState(false);
+  const [isIaOn, setIsIaOn] = useState(false);
   const [finalPrice, setFinalPrice] = useState(0);
 
   useEffect(() => {
@@ -75,12 +85,14 @@ function ServiceCard({service, serviceType}: CardProps) {
         broker: true,
         model: true,
         content: false,
+        ia: false
       };
   
       setIsDronOn(true);
       setIsBrokerOn(true);
-      setIsModelingOne(true);
-      setIsContentOne(false);
+      setIsModelingOn(true);
+      setIsContentOn(false);
+      setIsIaOn(true);
   
       recalcEstimatedHours(nextState);
     } else {
@@ -94,15 +106,17 @@ function ServiceCard({service, serviceType}: CardProps) {
       broker,
       model,
       content,
+      ia
     }: {
       dron: boolean;
       broker: boolean;
       model: boolean;
       content: boolean;
+      ia: boolean;
     }
   ) => {
     let total = service.hours;
-  
+
     if (dron) {
       total += service.aditionals.find(a => a.type === ADITIONALS.DRON)?.hours || 0;
     }
@@ -115,7 +129,10 @@ function ServiceCard({service, serviceType}: CardProps) {
     if (content) {
       total += service.aditionals.find(a => a.type === ADITIONALS.CONTENT)?.hours || 0;
     }
-  
+    if (ia) {
+      total += service.aditionals.find(a => a.type === ADITIONALS.IA)?.hours || 0;
+    }
+
     setEstimatedHour(total);
   };
 
@@ -126,12 +143,14 @@ function ServiceCard({service, serviceType}: CardProps) {
       broker: aditionalType === ADITIONALS.BROKER ? newValue : isBrokerOn,
       model: aditionalType === ADITIONALS.MODEL ? newValue : isModelingOn,
       content: aditionalType === ADITIONALS.CONTENT ? newValue : isContentOn,
+      ia: aditionalType === ADITIONALS.IA ? newValue : isIaOn,
     };
   
     setIsDronOn(nextState.dron);
     setIsBrokerOn(nextState.broker);
-    setIsModelingOne(nextState.model);
-    setIsContentOne(nextState.content);
+    setIsModelingOn(nextState.model);
+    setIsContentOn(nextState.content);
+    setIsIaOn(nextState.ia);
   
     recalcEstimatedHours(nextState);
     recalcAditionalPrice(newValue, aditionalType);
@@ -197,6 +216,13 @@ function ServiceCard({service, serviceType}: CardProps) {
         }
       }
 
+      if (isIaOn) {
+        const aditionalBroker = service.aditionals.find(el => { return el.type === ADITIONALS.IA});
+        if (aditionalBroker) {
+          finalPrice += aditionalBroker.price;
+        }
+      }
+
       setFinalPrice(finalPrice);
     }
   }
@@ -236,7 +262,6 @@ function ServiceCard({service, serviceType}: CardProps) {
 
           <div className="aditionals">
             <div className='title'>Adicionar</div>
-
 
               { shouldShowThis(service.aditionals, ADITIONALS.BROKER) &&
               <div>
@@ -286,6 +311,20 @@ function ServiceCard({service, serviceType}: CardProps) {
                 </div>
                 <div className={"info-icon"}>
                   <OverlayTrigger trigger={['hover', 'focus','click']} placement="top" overlay={popoverDron}>
+                    <FontAwesomeIcon icon={faInfoCircle}/>
+                  </OverlayTrigger>
+                </div>
+              </div>
+              }
+              { shouldShowThis(service.aditionals, ADITIONALS.IA) &&
+              <div>
+              <div className='desc'>IA
+
+              </div>
+                <div><ToggleSwitch checked={isIaOn} disabled={service.group === ServiceGroup.PREMIUM} onChange={(checked)=> {handleToggle(checked, ADITIONALS.IA)}}/>
+                </div>
+                <div className={"info-icon"}>
+                  <OverlayTrigger trigger={['hover', 'focus','click']} placement="top" overlay={popoverIa}>
                     <FontAwesomeIcon icon={faInfoCircle}/>
                   </OverlayTrigger>
                 </div>

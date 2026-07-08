@@ -8,14 +8,14 @@ import { servicesArray } from '../../../data/services';
 import { ADITIONALS } from '../../../core/models/Aditionals.enum';
 import { ServiceGroup } from '../../../core/models/ServiceGroup.enum';
 
-function MonthPlan() { 
+function MonthPlan() {
     const [cantMonthSelected, setCantMonthSelected] = useState(2);
     const [percentDiscount, setPercentDiscount] = useState(0);
 
     const [plansState, setPlansState] = useState<Iplans[]>(plans);
     //const [videoUrl, setVideoUrl] = useState('');
 
-    const availablePlaces: number = 0;
+    const thereIsAvailablePlaces: boolean = true;
     
     const prodsConfig = {
         minProds: 2,
@@ -151,15 +151,14 @@ function MonthPlan() {
     <>
     <section id="plans" className="monthly spad table-price bg-gray-4">
         <div className="monthly__header">
-            <h2 className="title">PLANES MENSUALES <span className="line">|</span> { availablePlaces === 0 ? <span className="tag sold-out">AGOTADOS</span> : <span className="tag available">{ availablePlaces } CUPOS DISPONIBLES</span> }</h2>
+            <h2 className="title">PLANES MENSUALES <span className="line">|</span> { !thereIsAvailablePlaces ? <span className="tag sold-out">AGOTADOS</span> : <span className="tag available">DISPONIBLES</span> }</h2>
         </div>
         <div className="cant_prods buttons-container">
             <div>Seleccioná la cantidad de producciones mensuales que necesitas</div>
             <div className="cant-prod">
-              
               <button className="btn btn-secondary" onClick={ () => { decreaseProd() }}>-</button>
               <div className='number-production'>
-              {cantMonthSelected} 
+              {cantMonthSelected}
               </div>
               <button className="btn btn-secondary" onClick={ () => { incressProd() }}>+
               <div className='leyend'>
@@ -168,7 +167,6 @@ function MonthPlan() {
               </div>
               </button>
             </div>
-            
         </div>
       <div className="monthly-card">
 
