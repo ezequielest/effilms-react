@@ -1,4 +1,4 @@
-@use "sass:color";
+@use 'sass:color';
 
 .card-value {
   width: 320px;
@@ -10,13 +10,15 @@
   position: relative;
   padding: 0;
   border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
   overflow: hidden;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
 
   &:hover {
     transform: translateY(-4px);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.6);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
   }
 
   .label-highlighted {
@@ -30,7 +32,7 @@
     z-index: 2;
     border-radius: 20px;
     font-weight: bold;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
 
     &.green {
       background-color: green;
@@ -42,14 +44,15 @@
     overflow: hidden;
     position: relative;
     color: white;
-    background: linear-gradient(rgba(0, 0, 0, 0.796), rgba(255, 242, 0, 0.876)), url("/img/services/hotel-2.jpeg");
+    background:
+      linear-gradient(rgba(0, 0, 0, 0.796), rgba(255, 242, 0, 0.876)),
+      url('/img/services/hotel-2.jpeg');
     background-size: cover;
     background-position: center;
 
     @media (min-width: 425px) {
       height: 140px;
     }
-
 
     .image-container {
       height: 100%;
@@ -102,12 +105,12 @@
           letter-spacing: 0.5px;
           color: #e0e0e0;
 
-          .icon{
+          .icon {
             color: $primary-color;
             margin-right: 6px;
           }
         }
-      } 
+      }
     }
 
     .prices {
@@ -137,7 +140,7 @@
 .popover-header {
   background-color: rgb(16, 16, 16);
   color: rgb(251, 251, 251);
-} 
+}
 .popover-body {
   background-color: rgb(80, 80, 80);
   color: rgb(251, 251, 251);

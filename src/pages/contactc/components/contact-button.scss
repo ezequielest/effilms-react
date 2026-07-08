@@ -2,11 +2,10 @@
   Contact
 -----------------------*/
 .contact {
-
   .header-title {
-      color: white;
-      text-align: center;
-      display: block;
+    color: white;
+    text-align: center;
+    display: block;
   }
 
   .contact-page.title {
@@ -23,27 +22,27 @@
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-  
+
     .btn-value {
       margin-bottom: 10px;
     }
-    
+
     @media (max-width: 660px) {
       flex-direction: column;
       padding: 20px 0 80px 0;
-  
-        .btn-value {
-          margin-bottom: 10px;
-        }
+
+      .btn-value {
+        margin-bottom: 10px;
+      }
     }
-  
+
     .btn-value {
-        text-align: center;
-        background: $primary-color;
-        min-width: 200px;
-        padding: 10px 20px;
-        color: white;
-        margin-right: 10px;
+      text-align: center;
+      background: $primary-color;
+      min-width: 200px;
+      padding: 10px 20px;
+      color: white;
+      margin-right: 10px;
     }
   }
 }
@@ -65,7 +64,6 @@
   margin-bottom: 30px;
 
   &.last__item {
-
     &:after {
       display: none;
     }
@@ -78,7 +76,7 @@
     width: 1px;
     height: 50px;
     background: #e1e1e1;
-    content: "";
+    content: '';
   }
 }
 
@@ -126,9 +124,7 @@
 }
 
 .contact__form {
-
   form {
-
     input {
       height: 50px;
       width: 100%;
@@ -162,7 +158,6 @@
 }
 
 .mobile-menu {
-
   .btn-value {
     color: $primary-color;
     margin-right: 8px;
@@ -181,18 +176,19 @@
     @media (max-width: 660px) {
       flex-direction: column;
 
-        .btn-value {
-          margin-bottom: 10px;
-        }
+      .btn-value {
+        margin-bottom: 10px;
+      }
     }
 
     .btn-value {
-        text-align: center;
-        background: $primary-color;
-        min-width: 200px;
-        padding: 10px 20px;
-        color: white;
-        margin-right: 10px;
-        margin-top: 10px;
+      text-align: center;
+      background: $primary-color;
+      min-width: 200px;
+      padding: 10px 20px;
+      color: white;
+      margin-right: 10px;
+      margin-top: 10px;
     }
-  }}
+  }
+}

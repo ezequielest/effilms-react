@@ -1,40 +1,38 @@
 .team-card {
+  &__container {
+    display: flex;
+    justify-content: space-between;
+  }
 
-	&__container {
-		display:flex;
-		justify-content: space-between;
-	}
+  &__card {
+    z-index: 9;
+    background-color: #222;
+    width: 30%;
+    border-radius: 5px;
+    box-shadow: 13px 19px 38px -12px rgba(2, 2, 2, 0.75);
+    -webkit-box-shadow: 13px 19px 38px -12px rgba(2, 2, 2, 0.75);
+    -moz-box-shadow: 13px 19px 38px -12px rgba(2, 2, 2, 0.75);
 
-	&__card {
-	    z-index: 9;
-		background-color: #222;
-		width: 30%;
-		border-radius: 5px;
-		box-shadow: 13px 19px 38px -12px rgba(2,2,2,0.75);
-		-webkit-box-shadow: 13px 19px 38px -12px rgba(2,2,2,0.75);
-		-moz-box-shadow: 13px 19px 38px -12px rgba(2,2,2,0.75);
+    img {
+      border-top-left-radius: 5px;
+      border-top-right-radius: 5px;
+    }
+  }
 
-		img {
-			border-top-left-radius: 5px;
-			border-top-right-radius: 5px;
-		}
-	}
+  &__description {
+    padding: 20px;
 
-	&__description {
-		padding:20px;
+    h2 {
+      font-size: 22px;
+      color: #ccc;
+    }
 
-		h2 {
-			font-size: 22px;
-			color: #ccc;
-		}
-
-		h3 {
-			font-size: 16px;
-			color: #ccc;
-		}
-	}
+    h3 {
+      font-size: 16px;
+      color: #ccc;
+    }
+  }
 }
-
 
 /*---------------------
   Team ORIGINAL TEMPLATE
@@ -44,8 +42,8 @@
   padding-bottom: 90px;
 
   .section-title {
-        position: relative;
-      	z-index: 9;
+    position: relative;
+    z-index: 9;
   }
 }
 
@@ -95,7 +93,6 @@
   }
 
   &:hover {
-
     transform: scale(1.05);
 
     &:after {
@@ -103,7 +100,6 @@
     }
 
     .team__text {
-
       .team__title {
         border-bottom: 1px solid rgba(94, 94, 94, 0.467);
         padding: 0 0 32px;
@@ -127,7 +123,6 @@
         bottom: 34px;
       }
     }
-
   }
 }
 
@@ -142,7 +137,7 @@
     bottom: 42px;
     width: 100%;
     padding: 0 30px;
-    @include transition(all, .7s, ease-out, .7s);
+    @include transition(all, 0.7s, ease-out, 0.7s);
 
     h5 {
       color: $white-color;
@@ -161,7 +156,7 @@
     color: #b7b7b7;
     opacity: 0;
     visibility: hidden;
-    @include transition(all, .7s, ease-out, .7s);
+    @include transition(all, 0.7s, ease-out, 0.7s);
   }
 
   .team__social {
@@ -172,14 +167,14 @@
     padding: 0 30px;
     opacity: 0;
     visibility: hidden;
-    @include transition(all, .7s, ease-out, .7s);
+    @include transition(all, 0.7s, ease-out, 0.7s);
 
     a {
       display: inline-block;
       font-size: 20px;
       color: $white-color;
       margin-right: 34px;
-      @include transition(all, .3s);
+      @include transition(all, 0.3s);
 
       &:last-child {
         margin-right: 0;

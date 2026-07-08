@@ -1,23 +1,18 @@
 import React from 'react';
 import type { IServices } from '../../../core/models/Iservices';
-import './ServiceCard.scss'
+import './ServiceCard.scss';
 
 interface CardProps {
-    service: IServices;
+  service: IServices;
 }
 
-function ServiceCard({service}: CardProps) {   
-
+function ServiceCard({ service }: CardProps) {
   return (
     <>
       <div className={`card-value ${service.isHighlighted ? 'highlighted' : ''}`}>
-        {service.isHighlighted && (
-          <div className="label-highlighted">RECOMENDADO</div>
-        )}
+        {service.isHighlighted && <div className="label-highlighted">RECOMENDADO</div>}
 
-        {service.isPromo && (
-          <div className="label-highlighted">10% OFF</div>
-        )}
+        {service.isPromo && <div className="label-highlighted">10% OFF</div>}
 
         <div className="header-card">
           <div className="image-container gopro">
@@ -54,19 +49,17 @@ function ServiceCard({service}: CardProps) {
                   <option defaultChecked>Seleccionar m2</option>
                   {service.prices.map((price, i) => (
                     <React.Fragment key={i}>
-                    <option>Hasta {price.maxM2}m2 cubiertos</option>
+                      <option>Hasta {price.maxM2}m2 cubiertos</option>
                     </React.Fragment>
                   ))}
-                </select> 
+                </select>
               )}
             </div>
           </div>
         </div>
       </div>
-
     </>
   );
-
 }
 
 export default ServiceCard;

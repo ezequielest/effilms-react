@@ -101,7 +101,7 @@ textarea:focus {
   outline: none;
 }
 
-a { 
+a {
   text-decoration: none;
   color: $primary-color;
 }
@@ -214,9 +214,9 @@ ul li i {
     width: 28px;
     border-left: 2px solid rgba(255, 255, 255, 0.2);
     border-bottom: 2px solid rgba(255, 255, 255, 0.2);
-    content: "";
+    content: '';
     border-radius: 0 0 0 4px;
-    @include transition(all, .5s);
+    @include transition(all, 0.5s);
   }
 
   &:after {
@@ -227,13 +227,12 @@ ul li i {
     width: 28px;
     border-right: 2px solid rgba(255, 255, 255, 0.2);
     border-top: 2px solid rgba(255, 255, 255, 0.2);
-    content: "";
+    content: '';
     border-radius: 0 4px 0 0;
-    @include transition(all, .5s);
+    @include transition(all, 0.5s);
   }
 
   &:hover {
-
     &:before {
       height: 100%;
       width: 100%;
@@ -275,7 +274,7 @@ ul li i {
 }
 
 .ef-films-color {
- color: $effilms-color !important;
+  color: $effilms-color !important;
 }
 
 .ef-home-color {
@@ -287,7 +286,7 @@ ul li i {
 }
 
 .btn {
-  &.ef-home{
+  &.ef-home {
     background-color: $effilms-color;
     color: white;
     border: 0;
@@ -309,7 +308,7 @@ ul li i {
   background: #000;
 
   &.fade-out {
-    visibility:hidden;
+    visibility: hidden;
   }
 }
 
@@ -339,7 +338,7 @@ ul li i {
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #555
+  background: #555;
 }
 
 /* Handle on hover */
@@ -398,13 +397,13 @@ ul li i {
 }
 
 .whatsapp-footer {
-	position: fixed;
-	z-index: 99999;
-	position: fixed;
-	z-index: 9999999;
-	bottom: 30px;
-	right: 30px;
-	width: 40px;
+  position: fixed;
+  z-index: 99999;
+  position: fixed;
+  z-index: 9999999;
+  bottom: 30px;
+  right: 30px;
+  width: 40px;
   transition: all 1s ease;
   z-index: 9;
 
