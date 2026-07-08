@@ -20,16 +20,16 @@ export const servicesArray: Array<IServices> = [
     priceSince: 0,
     prices: [{
       isBasePrise: false,
-      maxM2: 50,
+      maxM2: 100,
       value: 100000
     },{
       isBasePrise: false,
-      maxM2: 100,
+      maxM2: 200,
       value: 120000
     },
     {
       isBasePrise: true,
-      maxM2: 200,
+      maxM2: 400,
       value: 150000
     }],
     aditionals: [/*{
