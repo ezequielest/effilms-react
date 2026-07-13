@@ -3,4 +3,5 @@ export const ServiceGroup = {
   STANDARD: 'STANDARD',
   PREMIUM: 'PREMIUM',
   CUSTOM: 'CUSTOM',
+  CONTENT_CREATION: 'CONTENT_CREATION',
 } as const;

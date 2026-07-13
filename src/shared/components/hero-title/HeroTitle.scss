@@ -1,0 +1,31 @@
+.hero-container {
+  background-color: #dfdfdf;
+  padding-top: 150px;
+  padding-bottom: 150px;
+  position: relative;
+
+  .hero-title {
+    position: relative;
+    color: #d77237;
+    font-weight: 800;
+    padding: 0px;
+    font-size: 38px;
+    line-height: 150px;
+        line-height: 38px;
+
+    @media (min-width: 425px) {
+      padding: 0px;
+      font-size: 132px;
+      line-height: 150px;
+    }
+  }
+
+  .hero-box {
+    background-color: $bg-6;
+    width: 100%;
+    height: 10px;
+    position: absolute;
+    bottom: 45px
+
+  }
+}

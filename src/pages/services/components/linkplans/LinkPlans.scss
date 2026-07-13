@@ -1,0 +1,90 @@
+$transition-smooth: transform 0.3s ease, box-shadow 0.3s ease;
+
+.link-plans {
+  padding: 12rem 0 !important;
+
+  .general-title {
+    color: $white-color;
+    margin-bottom: 3rem;
+  }
+
+  .link-card {
+    border-radius: 0;
+    transition: $transition-smooth;
+    background-color: transparent;
+    border: none !important; // Limpiamos bordes nativos de la card de Bootstrap
+    
+    // --- LÓGICA DE BORDES SEPARADORES RESPONSIVE ---
+    
+    // En Mobile (pantallas chicas): El separador va abajo
+    border-bottom: 1px solid rgba(128, 128, 128, 0.4) !important;
+    padding-bottom: 1.5rem; // Espaciado extra antes de la línea
+
+    // En Desktop (a partir de pantallas grandes/lg): El separador pasa a la derecha
+    @media (min-width: 992px) {
+      border-bottom: none !important;
+      border-right: 1px solid rgba(128, 128, 128, 0.4) !important;
+      padding-bottom: 0;
+    }
+    
+    // Efecto de elevación al pasar el cursor (Hover)
+    &:hover {
+      transform: translateY(-5px);
+      // Al ser transparente, un shadow muy fuerte puede quedar raro, 
+      // pero si te gusta cómo queda, este está perfecto:
+      box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.1) !important; 
+    }
+
+    .card-title {
+      letter-spacing: 1px;
+      color: $primary-color !important;
+      margin-bottom: 1rem;
+    }
+
+    .card-text {
+      color: $white-color !important;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin-top: 3rem;  
+      margin-bottom: 4rem;
+      
+      &.content-creation {
+        margin-top: 1.1rem;
+      }
+    }
+
+    // Botón personalizado sobre las clases de Bootstrap
+    .btn-primary {
+      padding: 0.6rem 1.5rem;
+      border-radius: 2px;
+      font-size: 0.85rem;
+      letter-spacing: 0.5px;
+      transition: all 0.2s ease-in-out;
+      background-color: $secondary-color !important;
+      border: none !important;
+    }
+    .btn-secondary {
+      padding: 0.6rem 1.5rem;
+      border-radius: 2px;
+      font-size: 0.85rem;
+      letter-spacing: 0.5px;
+      transition: all 0.2s ease-in-out;
+      background-color: $effilms-color !important;
+      border: none !important;
+    }
+  }
+
+  // --- QUITAR BORDES EXTREMOS (INICIO Y FINAL) ---
+  
+  // En Mobile: Le sacamos el borde de abajo a la última tarjeta
+  .col-12:last-child .link-card {
+    border-bottom: none !important;
+  }
+
+  // En Desktop: Le sacamos el borde derecho a la cuarta columna (la última)
+  @media (min-width: 992px) {
+    .col-lg-3:last-child .link-card {
+      border-right: none !important;
+    }
+  }
+}

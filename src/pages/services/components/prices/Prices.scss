@@ -1,20 +1,3 @@
-.individuals {
-  background-color: $primary-color;
-
-  .title {
-    color: white;
-    font-weight: 600;
-    padding: 0px;
-    font-size: 38px;
-    padding: 30px;
-
-    @media (min-width: 425px) {
-      padding: 30px;
-      font-size: 62px;
-    }
-  }
-}
-
 .values-page {
   .title {
     color: white;

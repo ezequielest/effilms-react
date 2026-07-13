@@ -3,6 +3,16 @@
   color: white;
   text-align: center;
 
+  .title {
+
+     text-align: center;
+    font-weight: bold;
+    font-size: 32px;
+    color: white;
+    margin-bottom: 12px;
+    margin-top: 22px;
+    }
+
   &__header {
     display: flex;
     align-items: center;

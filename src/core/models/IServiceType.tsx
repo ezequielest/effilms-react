@@ -5,4 +5,6 @@ export interface IServiceType {
   key: string;
   description: string;
   class: string;
+  listPro: Array<string>;
+  listDownSide: Array<string>;
 }

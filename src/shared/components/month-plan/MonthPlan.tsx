@@ -14,7 +14,7 @@ function MonthPlan() {
   const [plansState, setPlansState] = useState<Iplans[]>(plans);
   //const [videoUrl, setVideoUrl] = useState('');
 
-  const thereIsAvailablePlaces: boolean = true;
+  //const thereIsAvailablePlaces: boolean = true;
 
   const prodsConfig = {
     minProds: 2,
@@ -140,9 +140,9 @@ function MonthPlan() {
   }
 
   return (
-    <>
+    <>   
       <section id="plans" className="monthly spad table-price bg-gray-4">
-        <div className="monthly__header">
+        {/*<div className="monthly__header">
           <h2 className="title">
             PLANES MENSUALES <span className="line">|</span>{' '}
             {!thereIsAvailablePlaces ? (
@@ -151,9 +151,9 @@ function MonthPlan() {
               <span className="tag available">DISPONIBLES</span>
             )}
           </h2>
-        </div>
+        </div>*/}
         <div className="cant_prods buttons-container">
-          <div>Seleccioná la cantidad de producciones mensuales que necesitas</div>
+          <h2 className="title">Seleccioná la cantidad de producciones que necesitas</h2>
           <div className="cant-prod">
             <button
               className="btn btn-secondary"

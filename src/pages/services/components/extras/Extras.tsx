@@ -9,12 +9,12 @@ export const Extras: React.FC = () => {
       discount: 10000,
       postDiscount: '.-',
       preDescription: '',
-      description: 'Retiro de llave',
+      description: 'Logística de llave',
       postDescription: '',
     },
     {
       preDiscount: '$',
-      discount: 15000,
+      discount: 25000,
       postDiscount: '.-',
       preDescription: '',
       description: 'Adaptación de formato',
@@ -22,7 +22,7 @@ export const Extras: React.FC = () => {
     },
     {
       preDiscount: '',
-      discount: 40,
+      discount: 60,
       postDiscount: '% del valor',
       preDescription: '',
       description: 'Solo Crudos',
