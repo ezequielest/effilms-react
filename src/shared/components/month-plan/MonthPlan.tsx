@@ -37,6 +37,9 @@ function MonthPlan() {
           const price = service.prices.find((el) => el.isBasePrise);
 
           if (price && service.discountMontly) {
+            /*
+            ESTE SOLO CONTABA COMO ADICIONAL EL BROKER
+
             const aditionalBroker = service.aditionals.find((el) => {
               return el.type === ADITIONALS.BROKER;
             });
@@ -46,14 +49,24 @@ function MonthPlan() {
               if (aditionalBroker.type === ADITIONALS.BROKER) {
                 aditionalPrice = aditionalBroker.price;
               }
-            }
+            }*/
+
+            //CUENTA TODOS LOS ADICIONALES QUE TENGA
+             let aditionalPrice = 0;
+             service.aditionals.forEach(item => {
+              aditionalPrice += item.price;
+            });
 
             const totalValuePerProduction = price.value + aditionalPrice;
 
             //le agrego 5% al descuento por cada produ que se sume, 2 = default, 3 default + 5%, 4 default + 10%
-            const porcentMonthly = (cantMonthSelected - 2) * 5 + service.discountMontly;
+            //const porcentMonthly = (cantMonthSelected - 2) * 5 + service.discountMontly;
+
+            const porcentMonthly = 10;
 
             setPercentDiscount(porcentMonthly);
+
+            //const discount = (porcentMonthly * (totalValuePerProduction * cantMonthSelected)) / 100;
 
             const discount = (porcentMonthly * (totalValuePerProduction * cantMonthSelected)) / 100;
 
@@ -69,16 +82,17 @@ function MonthPlan() {
 
           if (price && service.discountMontly) {
             let aditionalPrice = 0;
-            service.aditionals.forEach((el) => {
-              if (el.type !== ADITIONALS.CONTENT) {
-                aditionalPrice += el.price;
-              }
+            service.aditionals.forEach((item) => {
+              //if (item.type !== ADITIONALS.CONTENT) {
+                aditionalPrice += item.price;
+              //}
             });
 
             const totalValuePerProduction = price.value + aditionalPrice;
 
             //le agrego 5% al descuento por cada produ que se sume, 2 = default, 3 default + 5%, 4 default + 10%
-            const porcentMonthly = (cantMonthSelected - 2) * 5 + service.discountMontly;
+            //const porcentMonthly = (cantMonthSelected - 2) * 5 + service.discountMontly;
+            const porcentMonthly = 10;
 
             setPercentDiscount(porcentMonthly);
 
@@ -105,7 +119,9 @@ function MonthPlan() {
             const totalValuePerProduction = price.value + aditionalPrice;
 
             //le agrego 5% al descuento por cada produ que se sume, 2 = default, 3 default + 5%, 4 default + 10%
-            const porcentMonthly = (cantMonthSelected - 2) * 5 + service.discountMontly;
+            //const porcentMonthly = (cantMonthSelected - 2) * 5 + service.discountMontly;
+
+            const porcentMonthly = 10;
 
             setPercentDiscount(porcentMonthly);
 
@@ -193,7 +209,7 @@ function MonthPlan() {
             />
           ))}
         </div>
-        <div className="leyend-container">
+        {/*div className="leyend-container">
           <h2 className="title benefit">BENEFICIOS</h2>
           <ul className="leyend">
             <li>MENOR COSTO</li>
@@ -212,7 +228,7 @@ function MonthPlan() {
               ESE PLAZO YA NO SON REEMBOLSABLES
             </li>
           </ul>
-        </div>
+        </div>*/}
 
         <div className="want-hire">
           <a

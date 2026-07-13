@@ -20,7 +20,7 @@ export const servicesArray: Array<IServices> = [
 
     prices: [
       {
-        isBasePrise: false,
+        isBasePrise: true,
         maxM2: 100,
         value: 110000,
       },
@@ -30,7 +30,7 @@ export const servicesArray: Array<IServices> = [
         value: 130000,
       },
       {
-        isBasePrise: true,
+        isBasePrise: false,
         maxM2: 400,
         value: 160000,
       },
@@ -165,12 +165,12 @@ export const servicesArray: Array<IServices> = [
     priceSince: 0,
     prices: [
       {
-        isBasePrise: false,
+        isBasePrise: true,
         maxM2: 100,
         value: 200000,
       },
       {
-        isBasePrise: true,
+        isBasePrise: false,
         maxM2: 200,
         value: 230000,
       },
@@ -184,7 +184,7 @@ export const servicesArray: Array<IServices> = [
       {
         type: ADITIONALS.DRON,
         hours: 0.15,
-        price: 70000,
+        price: 90000,
       },
       {
         type: ADITIONALS.BROKER,
@@ -194,7 +194,7 @@ export const servicesArray: Array<IServices> = [
       {
         type: ADITIONALS.MODEL,
         hours: 0.3,
-        price: 20000,
+        price: 30000,
       },
       {
         type: ADITIONALS.IA,
@@ -288,7 +288,7 @@ export const servicesArray: Array<IServices> = [
       {
         type: ADITIONALS.DRON,
         hours: 0.15,
-        price: 70000,
+        price: 90000,
       },
       {
         type: ADITIONALS.BROKER,
@@ -298,7 +298,7 @@ export const servicesArray: Array<IServices> = [
       {
         type: ADITIONALS.MODEL,
         hours: 0.3,
-        price: 20000,
+        price: 30000,
       },
       {
         type: ADITIONALS.IA,
@@ -326,23 +326,22 @@ export const servicesArray: Array<IServices> = [
     discount: 0,
     discountMontly: 10,
     isBaseMontly: true,
-
     priceSince: 0,
     prices: [
       {
-        isBasePrise: false,
+        isBasePrise: true,
         maxM2: 200,
-        value: 300000,
+        value: 340000,
       },
       {
         isBasePrise: false,
         maxM2: 400,
-        value: 340000,
+        value: 360000,
       },
       {
-        isBasePrise: true,
+        isBasePrise: false,
         maxM2: 600,
-        value: 370000,
+        value: 380000,
       },
     ],
     aditionals: [

@@ -26,11 +26,11 @@ export const LinkPlans: React.FC = () => {
   return (
     <section className="link-plans spad table-price bg-gray-1">
       <div className="container">
-        
         {/* Título principal de la sección opcional */}
         <div className="row mb-5 text-center">
           <div className="col">
-            <h2 className="general-title display-4 fw-bold">AHORA QUE YA SABES QUE NECESITAS, DE QUE MANERA TE GUSTARIA ADQUITIR ESTE SERVICIO?</h2>
+            <span className="general-title-first display-4">Ahora que ya sabes que necesitas</span>
+            <h2 className='general-title display-4 fw-bold'>¿DE QUÉ MANERA TE GUSTARÍA ADQUIRIR ESTE SERVICIO?</h2>
           </div>
         </div>
 
@@ -40,15 +40,12 @@ export const LinkPlans: React.FC = () => {
             <div key={index} className="col-12 col-md-6 col-lg-4">
               <div className="card h-100 link-card text-center p-4 border-0 shadow-sm">
                 <div className="card-body d-flex flex-column">
-                  
                   <h3 className="card-title h4 mb-3 fw-semibold">
                     {servicio.titulo}
                   </h3>
-                  
                   <p className={`card-text text-muted flex-grow-1 ${servicio.class}`}>
                     {servicio.descripcion}
                   </p>
-                  
                   <div>
                     {servicio.id === "contentCreation" ? (
                       <div className="btn btn-secondary mt-3 text-uppercase fw-bold soon">

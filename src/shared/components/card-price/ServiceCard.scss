@@ -13,8 +13,8 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
   overflow: hidden;
   transition:
-    transform 0.25s ease,
-    box-shadow 0.25s ease;
+  transform 0.25s ease,
+  box-shadow 0.25s ease;
 
   &:hover {
     transform: translateY(-4px);
@@ -134,10 +134,18 @@
       padding: 8px 12px;
       font-size: 15px;
       border-bottom: 1px solid rgba($primary-color, 0.4);
-      height: 250px;
+      height: 220px;
+
+      &.INITIAL {
+        height: 140px;
+      }
+
+      &.STANDARD {
+        height: 220px;
+      }
 
       @media (min-width: 425px) {
-        height: 255px;
+        height: 220px;
         padding: 12px;
       }
 

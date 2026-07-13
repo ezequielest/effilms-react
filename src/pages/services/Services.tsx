@@ -26,25 +26,25 @@ export const Services: React.FC = () => {
         title={'ALCANZAR TUS OBJETIVOS'}
         preTitle={'A continuación te presentamos nuestras propuestas para que puedas'}
         hasSubtitle={true}
-        subtitleFirstline={'VALORES VIGENTES DESDE EL 1 ABRIL DE 2026'}
+        subtitleFirstline={'VALORES VIGENTES DESDE EL 1 JULIO DE 2026'}
         subtitleSecondLine={''}
       />
       <ServiceType />
       <LinkPlans/>
-      <HeroTitle 
+      <HeroTitle
         ancle={'individuals'}
-        title={'INDIVIDUALES.'} 
-        description={'Elegi especificamente lo que necesitas de manera individual y a medida'} />
+        title={'INDIVIDUALES.'}
+        description={'Elegí especificamente lo que necesitas de manera individual y a medida.'} />
       <Prices />
-      <HeroTitle 
-        ancle={'monthly'} 
-        title={'PLAN MENSUAL.'} 
-        description={'Realiza varias producciones en el mismo mes y obtene un descuento adicional'} />
+      <HeroTitle
+        ancle={'monthly'}
+        title={'PLAN MENSUAL.'}
+        description={'Realiza varias producciones en el mismo mes y obtene un descuento adicional.'} />
       <MonthPlan />
-      <HeroTitle 
+      <HeroTitle
         ancle={'plan6m'}
-        title={'PLAN 6M.'} 
-        description={'Contrato a 6 meses con un valor preferencial para los que apuestan a largo plazo'} />
+        title={'PLAN 6M.'}
+        description={'Contrato a 6 meses con un valor preferencial para los que apuestan a largo plazo.'} />
       <Plan6m  />
       {/* <Promotions /> */}
       <Extras />

@@ -8,11 +8,11 @@ $transition-smooth: transform 0.3s ease, box-shadow 0.3s ease;
   }
 
   .picture {
-      height: 180px;
-      width: 180px;
+      height: 150px;
+      width: 100%;
       margin-bottom: 1rem;
       margin: 0 auto;
-      border-radius: 50%;
+      border-radius: 16px;
       margin-bottom: 2rem;
 
       &.pic-initial {
@@ -20,6 +20,7 @@ $transition-smooth: transform 0.3s ease, box-shadow 0.3s ease;
         linear-gradient(rgba(0, 0, 0, 0.796), rgba(27, 27, 27, 0.5)),
         url('/img/services/iphone.jpg');
       background-size: cover;
+            background-position: center;
     }
 
     &.pic-standard {
@@ -34,7 +35,7 @@ $transition-smooth: transform 0.3s ease, box-shadow 0.3s ease;
         linear-gradient(rgba(0, 0, 0, 0.796), rgba(20, 196, 0, 0.8)),
         url('/img/services/premium.jpg');
       background-size: cover;
-      background-position: center;
+            background-position: center;
     }
 
     &.pic-content-creation {

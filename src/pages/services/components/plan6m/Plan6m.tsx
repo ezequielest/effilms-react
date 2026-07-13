@@ -6,26 +6,26 @@ const Plan6m: React.FC = () => {
     {
       title: 'INICIAL',
       items: [
-        { months: '6', price: '$150.000.-' },
-        { months: '12', price: '$280.000.-' },
-        { months: '18', price: '$390.000.-' },
-        { months: '24', price: '$520.000.-' },
+        { months: '6', price: '$135.000.-' },
+        { months: '12', price: '$260.000.-' },
+        { months: '18', price: '$375.000.-' },
+        { months: '24', price: '$480.000.-' },
       ],
     },
     {
       title: 'ESTANDAR',
       items: [
-        { months: '6', price: '$300.000.-' },
-        { months: '12', price: '$580.000.-' },
-        { months: '18', price: '$840.000.-' },
-        { months: '24', price: '$1080.000.-' },
+        { months: '6', price: '$310.000.-' },
+        { months: '12', price: '$600.000.-' },
+        { months: '18', price: '$870.000.-' },
+        { months: '24', price: '$1120.000.-' },
       ],
     },
     {
       title: 'PREMIUM',
       items: [
-        { months: '6', price: '$560.000.-' },
-        { months: '12', price: '$1050.000.-' },
+        { months: '6', price: '$520.000.-' },
+        { months: '12', price: '$1020.000.-' },
       ],
     },
   ];
@@ -34,7 +34,7 @@ const Plan6m: React.FC = () => {
     <section className="plan6m plan6m__container container">
       <div className="row">
         {plans.map((plan, idx) => (
-          <div key={idx} className="col-12 col-md-6 col-lg-4">
+          <div key={idx} className="col-12 col-md-6 col-xl-4">
             <h2 className="plan6m__title">{plan.title}</h2>
             <div className="sub-description">
               <div>PRODUCCIONES</div>

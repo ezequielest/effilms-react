@@ -1,3 +1,4 @@
+import { ServiceGroup } from '../../../../core/models/ServiceGroup.enum';
 import { customArray, servicesArray } from '../../../../data/services';
 import { serviceTypes } from '../../../../data/serviceType';
 import ServiceCard from '../../../../shared/components/card-price/ServiceCard';
@@ -13,6 +14,7 @@ export const Prices: React.FC = () => {
         const filteredServices = servicesArray.filter((s) => s.group === serviceType.key);
 
         return (
+          (serviceType.key !== ServiceGroup.CONTENT_CREATION &&
           <section
             id="custom"
             key={serviceType.id}
@@ -35,7 +37,7 @@ export const Prices: React.FC = () => {
               </div>
             </div>
           </section>
-        );
+        ));
       })}
       <section id="custom" className={`values-page spad`}>
         <div className="container">

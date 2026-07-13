@@ -36,10 +36,16 @@
 
   .list {
     list-style: none;
-    margin-top: 20px;
+    margin-top: 10px;
+    font-size: 22px;
 
     .bold {
       font-weight: bold;
+    }
+
+    .cant-prod {
+      font-weight: bold;
+      font-size: 48px;
     }
 
     li {
@@ -52,6 +58,7 @@
   .title {
     color: $white-color;
     font-weight: bold;
+    margin-bottom: 0px;
 
     @media (max-width: 425px) {
       font-size: 26px;

@@ -79,7 +79,7 @@ function ServiceCard({ service, serviceType }: CardProps) {
   const [isBrokerOn, setIsBrokerOn] = useState(false);
   const [isDronOn, setIsDronOn] = useState(false);
   const [isModelingOn, setIsModelingOn] = useState(false);
-  const [isContentOn, setIsContentOn] = useState(false);
+  //const [isContentOn, setIsContentOn] = useState(false);
   const [isIaOn, setIsIaOn] = useState(false);
   const [finalPrice, setFinalPrice] = useState(0);
 
@@ -96,7 +96,7 @@ function ServiceCard({ service, serviceType }: CardProps) {
       setIsDronOn(true);
       setIsBrokerOn(true);
       setIsModelingOn(true);
-      setIsContentOn(false);
+      //setIsContentOn(false);
       setIsIaOn(true);
 
       recalcEstimatedHours(nextState);
@@ -109,13 +109,11 @@ function ServiceCard({ service, serviceType }: CardProps) {
     dron,
     broker,
     model,
-    content,
     ia,
   }: {
     dron: boolean;
     broker: boolean;
     model: boolean;
-    content: boolean;
     ia: boolean;
   }) => {
     let total = service.hours;
@@ -129,9 +127,9 @@ function ServiceCard({ service, serviceType }: CardProps) {
     if (model) {
       total += service.aditionals.find((a) => a.type === ADITIONALS.MODEL)?.hours || 0;
     }
-    if (content) {
+   /* if (content) {
       total += service.aditionals.find((a) => a.type === ADITIONALS.CONTENT)?.hours || 0;
-    }
+    }*/
     if (ia) {
       total += service.aditionals.find((a) => a.type === ADITIONALS.IA)?.hours || 0;
     }
@@ -144,14 +142,14 @@ function ServiceCard({ service, serviceType }: CardProps) {
       dron: aditionalType === ADITIONALS.DRON ? newValue : isDronOn,
       broker: aditionalType === ADITIONALS.BROKER ? newValue : isBrokerOn,
       model: aditionalType === ADITIONALS.MODEL ? newValue : isModelingOn,
-      content: aditionalType === ADITIONALS.CONTENT ? newValue : isContentOn,
+      //content: aditionalType === ADITIONALS.CONTENT ? newValue : isContentOn,
       ia: aditionalType === ADITIONALS.IA ? newValue : isIaOn,
     };
 
     setIsDronOn(nextState.dron);
     setIsBrokerOn(nextState.broker);
     setIsModelingOn(nextState.model);
-    setIsContentOn(nextState.content);
+    //setIsContentOn(nextState.content);
     setIsIaOn(nextState.ia);
 
     recalcEstimatedHours(nextState);
@@ -220,14 +218,14 @@ function ServiceCard({ service, serviceType }: CardProps) {
         }
       }
 
-      if (isContentOn) {
+      /*if (isContentOn) {
         const aditionalBroker = service.aditionals.find((el) => {
           return el.type === ADITIONALS.CONTENT;
         });
         if (aditionalBroker) {
           finalPrice += aditionalBroker.price;
         }
-      }
+      }*/
 
       if (isIaOn) {
         const aditionalBroker = service.aditionals.find((el) => {
@@ -257,27 +255,28 @@ function ServiceCard({ service, serviceType }: CardProps) {
         </div>
 
         <div className="content">
-          <div className="description">
+          {/*<div className="description">
             {service.description}
-            <div className={'examples'}>
-              {service.video && (
-                <a target="_blank" href={service.video} className="link" rel="noopener noreferrer">
-                  <FontAwesomeIcon icon={faArrowRightLong} className="icon" /> ver ejemplo
-                </a>
-              )}
+              <div className={'examples'}>
+                {service.video && (
+                  <a target="_blank" href={service.video} className="link" rel="noopener noreferrer">
+                    <FontAwesomeIcon icon={faArrowRightLong} className="icon" /> ver ejemplo
+                  </a>
+                )}
 
-              {service.slider && (
-                <a>ACTIVAR</a>
-                /*<a onClick={() => showSlider(service.slider)} className="link">
-                  &gt; ver ejemplo
-                </a>*/
-              )}
-            </div>
-          </div>
+                {service.slider && (
+                  <a>ACTIVAR</a>
+                  <a onClick={() => showSlider(service.slider)} className="link">
+                    &gt; ver ejemplo
+                  </a>
+                )}
+              </div>
+            </div>*/}
 
-          <div className="aditionals">
-            <div className="title">Adicionar</div>
-
+          <div className={`aditionals ` + service.group}>
+            {shouldShowThis(service.aditionals, ADITIONALS.BROKER) && (
+             <div className="title">Adicionar</div>
+            )}
             {shouldShowThis(service.aditionals, ADITIONALS.BROKER) && (
               <div>
                 <div className="desc">Broker</div>
@@ -323,7 +322,7 @@ function ServiceCard({ service, serviceType }: CardProps) {
               </div>
             )}
 
-            {shouldShowThis(service.aditionals, ADITIONALS.CONTENT) && (
+            {/*shouldShowThis(service.aditionals, ADITIONALS.CONTENT) && (
               <div>
                 <div className="desc">Contenido</div>
                 <div>
@@ -344,7 +343,7 @@ function ServiceCard({ service, serviceType }: CardProps) {
                   </OverlayTrigger>
                 </div>
               </div>
-            )}
+            )*/}
             {shouldShowThis(service.aditionals, ADITIONALS.DRON) && (
               <div>
                 <div className="desc">Dron</div>

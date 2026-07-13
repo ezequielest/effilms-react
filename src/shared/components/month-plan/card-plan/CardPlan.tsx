@@ -20,7 +20,7 @@ function CardPlan({ index, plan, cantMonthSelected }: CardProps) {
         {plan.availablePlaces > 0 && (
           <div>
             <div className={`monthy-highlighted info`}>{availablesPlaces} CUPOS DISPONIBLES</div>
-            <div className={`monthy-highlighted success`}>{plan.totalPercentDiscount}%OFF</div>
+            {<div className={`monthy-highlighted success`}>{plan.totalPercentDiscount}%OFF</div>}
           </div>
         )}
         {plan.availablePlaces === 0 && <div className={`monthy-highlighted`}>AGOTADO</div>}
@@ -31,13 +31,13 @@ function CardPlan({ index, plan, cantMonthSelected }: CardProps) {
         <div>
           <ul className="list">
             <li>
-              <span className="cant-prod">{cantMonthSelected}</span> PRODUCCIONES AUDIOVISUALES
+              <span className="cant-prod">{cantMonthSelected}</span> PRODUCCIONES
             </li>
-            {plan.included.map((service, index) => (
+            {/*plan.included.map((service, index) => (
               <li className={service.class} key={index}>
                 {service.description}
               </li>
-            ))}
+            ))*/}
           </ul>
         </div>
         <div className="price-container">

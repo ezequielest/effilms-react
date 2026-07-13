@@ -8,6 +8,13 @@ $transition-smooth: transform 0.3s ease, box-shadow 0.3s ease;
     margin-bottom: 3rem;
   }
 
+  .general-title-first {
+    font-size: 3rem;
+    color: $white-color;
+    margin-bottom: 1rem;
+    display: block;
+  }
+
   .link-card {
     border-radius: 0;
     transition: $transition-smooth;
