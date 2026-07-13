@@ -9,8 +9,8 @@ import { ServiceGroup } from "../core/models/ServiceGroup.enum";
       key: ServiceGroup.INITIAL,
       description: `Producciones de buena calidad realizadas con SMARTPHONE, con entrada de inversion baja, pensadas para mostrar la propiedad de forma clara, simple y efectiva.`,
       class: 'initial bg-gray-4',
-      listPro: ['Ideal para iniciar', 'Inversion baja', 'Broker conduciendo video'],
-      listDownSide: ['Cámara profesional', 'Servicio de dron', 'Edición avanzada'],
+      listPro: ['Inversion baja', 'Entregas en 72hs'],
+      listDownSide: ['Cámara profesional', 'Servicio de dron', 'Edición avanzada','Guión'],
     },
     {
       id: 2,
@@ -19,8 +19,8 @@ import { ServiceGroup } from "../core/models/ServiceGroup.enum";
       key: ServiceGroup.STANDARD,
       description: `Subimos de nivel e incorporamos cámaras profesionales y mejor trabajo en post producción.`,
       class: 'standard bg-gray-3',
-      listPro: ['Equipo profesional', 'Servicio de Dron', 'Broker conduciendo video'],
-      listDownSide: ['Edición avanzada', 'Animaciones ni transiciones', 'Guión y planificación'],
+      listPro: ['Cámara profesional', 'Dron opcional', 'Cálidad profesional','Checkeo de guión', 'Servicio de dron'],
+      listDownSide: ['Edición avanzada','Planificación'],
     },
     {
       id: 3,
@@ -29,7 +29,7 @@ import { ServiceGroup } from "../core/models/ServiceGroup.enum";
       key: ServiceGroup.PREMIUM,
       description: `Producciones épicas con mucho impacto visual. No solo vendemos la propiedad sino que tambien trabajamos en la marca y el crecimiento de la misma.`,
       class: 'premium bg-gray-4',
-      listPro: ['Equipo profesional', 'Crecimiento de marca', 'Producciones épicas'],
+      listPro: ['Guión y planificación', 'Crecimiento de marca', 'Alto impacto visual','Edición avanzada'],
       listDownSide: [],
     },
     {

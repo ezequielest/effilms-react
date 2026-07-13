@@ -1,160 +1,196 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import './Nav.scss';
-import { Link } from 'react-router-dom';
-import { faBars } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFacebook, faInstagram, faWhatsapp, faYoutube } from '@fortawesome/free-brands-svg-icons';
 
-export const Nav: React.FC = () => {
+import { Link, useLocation } from 'react-router-dom';
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBars } from '@fortawesome/free-solid-svg-icons';
+
+import {
+  faFacebook,
+  faInstagram,
+  faWhatsapp,
+  faYoutube,
+} from '@fortawesome/free-brands-svg-icons';
+
+import Navigation from './Navigation';
+import { HOME_NAV, SERVICES_NAV } from '../../../data/navigations';
+import { useScrollSpy } from '../../../hooks/useScrollSpy';
+
+const Nav: React.FC = () => {
+  const location = useLocation();
+
   const [menuOpen, setMenuOpen] = useState(false);
   const [showNav, setShowNav] = useState(false);
 
+  const activeSection = useScrollSpy([
+    'equipo',
+    'testimonials',
+    'faqs',
+    'modalidad',
+    'individuals',
+    'monthly',
+    'plan6m',
+  ]);
+
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY >= 700) {
-        setShowNav(true);
-      } else {
-        setShowNav(false);
-      }
+      setShowNav(window.scrollY >= 700);
     };
 
     window.addEventListener('scroll', handleScroll);
 
-    // Cleanup al desmontar el componente
-    return () => {
+    return () =>
       window.removeEventListener('scroll', handleScroll);
-    };
   }, []);
 
-  function handleMenu() {
-    setMenuOpen((prev) => !prev);
-  }
+  const navigation = useMemo(() => {
+    if (location.pathname.startsWith('/servicios')) {
+      return SERVICES_NAV;
+    }
 
-  const handleOverlayClick = () => {
-    console.log('click');
+    return HOME_NAV;
+  }, [location.pathname]);
+
+  const closeMenu = () => {
     setMenuOpen(false);
+  };
+
+  const toggleMenu = () => {
+    setMenuOpen((prev) => !prev);
   };
 
   return (
     <>
+      {/* Overlay */}
+
       <div
         className={`offcanvas-menu-overlay ${menuOpen ? 'active' : ''}`}
-        onClick={handleOverlayClick}
-      ></div>
-      <div className={`header offcanvas-menu-wrapper ${menuOpen ? 'active' : ''}`}>
-        <div className="offcanvas__logo">EF FILMS</div>
-        <div id="mobile-menu-wrap">
-          <nav className="header-mobile position-fix">
-            <ul>
-              <li className="active">
-                <Link to="/" onClick={handleOverlayClick}>
-                  Home
-                </Link>
-              </li>
-              <li>
-                <a href="/#equipo" onClick={handleOverlayClick}>
-                  Equipo
-                </a>
-              </li>
-              <li>
-                <Link to="/servicios" onClick={handleOverlayClick}>
-                  Servicios
-                </Link>
-              </li>
-              <li>
-                <a href="/#testimonials" onClick={handleOverlayClick}>
-                  Testimonios
-                </a>
-              </li>
-              <li style={{ position: 'relative' }}>
-                <a href="#" onClick={handleOverlayClick}>
-                  Blog
-                </a>
-                {/*<span className="proximamente">próximamente</span>*/}
-              </li>
-              <li>
-                <a href="/#faqs" onClick={handleOverlayClick}>
-                  FAQS
-                </a>
-              </li>
-              <li>
-                <a href="/contacto" onClick={handleOverlayClick}>
-                  Contacto
-                </a>
-              </li>
-            </ul>
-          </nav>
+        onClick={closeMenu}
+      />
+
+      {/* ================= MOBILE ================= */}
+
+      <div
+        className={`header offcanvas-menu-wrapper ${menuOpen ? 'active' : ''}`}
+      >
+        <div className="offcanvas__logo">
+          EF FILMS
         </div>
+
+        <nav className="header-mobile">
+          <Navigation
+            items={navigation}
+            activeSection={activeSection}
+            mobile
+            onNavigate={closeMenu}
+          />
+        </nav>
+
         <div className="offcanvas__widget">
-          <span className="title">Contacto</span>
+          <span className="title">
+            Contacto
+          </span>
+
           <h4>hello@effilms.com.ar</h4>
           <h4>+54 9 2236 688588</h4>
+
           <div className="landing__redes--mobile">
+
             <a
-              href="https://api.whatsapp.com/send?phone=542236688588&text=Hola, me gustaría pedirles un presupuesto para mi alojamiento."
+              href="https://api.whatsapp.com/send?phone=542236688588"
               target="_blank"
+              rel="noreferrer"
             >
               <FontAwesomeIcon icon={faWhatsapp} />
             </a>
-            <a href="https://www.instagram.com/effilms.com.ar/" target="_blank">
+
+            <a
+              href="https://www.instagram.com/effilms.com.ar/"
+              target="_blank"
+              rel="noreferrer"
+            >
               <FontAwesomeIcon icon={faInstagram} />
             </a>
-            <a href="https://www.facebook.com/effilmscomar-113490327151297" target="_blank">
+
+            <a
+              href="https://www.facebook.com/effilmscomar-113490327151297"
+              target="_blank"
+              rel="noreferrer"
+            >
               <FontAwesomeIcon icon={faFacebook} />
             </a>
-            <a href="https://www.youtube.com/channel/UCJcK7K_8LmDJ68tQeh776Wg" target="_blank">
+
+            <a
+              href="https://www.youtube.com/channel/UCJcK7K_8LmDJ68tQeh776Wg"
+              target="_blank"
+              rel="noreferrer"
+            >
               <FontAwesomeIcon icon={faYoutube} />
             </a>
+
           </div>
         </div>
       </div>
 
-      <header className={`header animate__animated ${showNav ? 'fixed animate__fadeIn' : ''}`}>
+      {/* ================= DESKTOP ================= */}
+
+      <header
+        className={`header animate__animated ${
+          showNav ? 'fixed animate__fadeIn' : ''
+        }`}
+      >
         <div className="container-fluid">
+
           <div className="row no-gutters">
+
             <div className="col-lg-3">
+
               <div className="header__logo">
-                <a className={'logo'} href="http://effilms.com.ar">
+
+                <Link
+                  to="/"
+                  className="logo"
+                >
                   <span className="bebas">EF</span>
                   <span className="dot">.</span>
-                  <span className="bebas films">FILMS</span>
-                </a>
+                  <span className="bebas films">
+                    FILMS
+                  </span>
+                </Link>
+
               </div>
+
             </div>
+
             <div className="col-lg-9">
-              <nav className={`header__menu mobile-menu ${showNav ? 'position-fix' : ''}`}>
-                <ul>
-                  <li className="active">
-                    <Link to="/">Home</Link>
-                  </li>
-                  <li>
-                    <a href="/#equipo">Equipo</a>
-                  </li>
-                  <li>
-                    <Link to="/servicios">Servicios</Link>
-                  </li>
-                  <li>
-                    <a href="/#testimonials">Testimonios</a>
-                  </li>
-                  <li style={{ position: 'relative' }}>
-                    <a href="/blog">Blog</a>
-                    {/*<span className="proximamente">próximamente</span>*/}
-                  </li>
-                  <li>
-                    <a href="/#faqs">FAQS</a>
-                  </li>
-                  <li>
-                    <Link to="/contacto">Contacto</Link>
-                  </li>
-                </ul>
+
+              <nav
+                className={`header__menu ${
+                  showNav ? 'position-fix' : ''
+                }`}
+              >
+                <Navigation
+                  items={navigation}
+                  activeSection={activeSection}
+                />
               </nav>
+
             </div>
+
           </div>
-          <div className="canvas__open" onClick={handleMenu}>
+
+          <div
+            className="canvas__open"
+            onClick={toggleMenu}
+          >
             <FontAwesomeIcon icon={faBars} />
           </div>
+
         </div>
+
       </header>
+
     </>
   );
 };
