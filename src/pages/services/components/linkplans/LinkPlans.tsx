@@ -30,7 +30,7 @@ export const LinkPlans: React.FC = () => {
   ];
 
   return (
-    <section className="link-plans spad table-price bg-gray-1">
+    <section id="modalidad" className="link-plans spad table-price bg-gray-1">
       <div className="container">
         {/* Título principal de la sección opcional */}
         <div className="row mb-5 text-center">

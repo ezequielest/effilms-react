@@ -1,1 +1,13 @@
 @use '@/styles/index.scss' as *;
+
+.quiero-ver-todo {
+    padding-bottom: 7rem;
+
+    .primary-btn {
+    background-color: #c3151c;
+    &:hover {
+        background-color: #000000;
+        color: white;
+    }
+    }
+}

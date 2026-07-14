@@ -17,7 +17,7 @@ export const Callto: React.FC = () => {
                   <h6 className="description">
                     ACÁ PODES CONOCER CUALES SON LOS DETALLES DE NUESTROS
                   </h6>
-                  <a className="btn-value" href="/valores-landing">
+                  <a className="btn-value" href="/servicios">
                     PRECIOS Y SERVICIOS
                   </a>
                 </div>
@@ -29,13 +29,6 @@ export const Callto: React.FC = () => {
                   target="_blank"
                 >
                   <button className="redes insta">INSTAGRAM</button>
-                </a>
-                <a
-                  className="youtube"
-                  href="https://www.youtube.com/channel/UCJcK7K_8LmDJ68tQeh776Wg"
-                  target="_blank"
-                >
-                  <button className="redes youtube">YOUTUBE</button>
                 </a>
               </div>
             </div>
