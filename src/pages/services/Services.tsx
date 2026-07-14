@@ -10,6 +10,7 @@ import LinkPlans from './components/linkplans/LinkPlans';
 import HeroTitle from '../../shared/components/hero-title/HeroTitle';
 import Plan6m from './components/plan6m/Plan6m';
 import ServiceType from './components/service-type/ServiceType';
+import ExplanetionDiscount from './components/explanetion-discount/ExplanetionDiscount';
 
 export const Services: React.FC = () => {
   useEffect(() => {
@@ -38,7 +39,7 @@ export const Services: React.FC = () => {
       <Prices />
       <HeroTitle
         ancle={'monthly'}
-        title={'PLAN MENSUAL.'}
+        title={'PLAN FLEXIBLE.'}
         description={'Realiza varias producciones en el mismo mes y obtene un descuento adicional.'} />
       <MonthPlan />
       <HeroTitle
@@ -47,6 +48,7 @@ export const Services: React.FC = () => {
         description={'Contrato a 6 meses con un valor preferencial para los que apuestan a largo plazo.'} />
       <Plan6m  />
       {/* <Promotions /> */}
+      <ExplanetionDiscount />
       <Extras />
       <Cancelations />
       <Counter />

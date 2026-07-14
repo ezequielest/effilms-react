@@ -531,8 +531,7 @@ export const Faqs: React.FC = () => {
                   >
                     <div className="card-body">
                       Si, podes obtener descuentos contratando 3 producciones mensuales y obtener un
-                      descuento extra obteniendo el servicio mensual. Tambien contamos con ofertas
-                      en servicios especificos todos los meses.
+                      descuento extra. Tambien contamos con ofertas en servicios especificos todos los meses.
                     </div>
                   </div>
                 </div>

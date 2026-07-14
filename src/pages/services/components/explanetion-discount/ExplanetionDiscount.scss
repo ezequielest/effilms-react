@@ -1,0 +1,18 @@
+.explanetion-discount {
+    .title {
+        color: $white-color;
+        font-weight: bold;
+        text-align: center;
+    }
+
+    .description {
+        color: #838383;
+    }
+    .list-group {
+        .list-group-item {
+            color: $white-color !important;
+            background-color: transparent !important;
+            border-color: #313131 !important;
+        }
+    }
+}

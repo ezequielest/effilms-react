@@ -52,12 +52,14 @@ $transition-smooth: transform 0.3s ease, box-shadow 0.3s ease;
       color: $white-color !important;
       font-size: 0.95rem;
       line-height: 1.6;
-      margin-top: 3rem;  
-      margin-bottom: 4rem;
-      
+      margin-top: 2rem;
+      margin-bottom: 2rem;
+
       &.content-creation {
         margin-top: 1.1rem;
       }
+
+
     }
 
     // Botón personalizado sobre las clases de Bootstrap
@@ -94,4 +96,14 @@ $transition-smooth: transform 0.3s ease, box-shadow 0.3s ease;
       border-right: none !important;
     }
   }
+}
+
+.card-body {
+      .pro {
+        .list-group-item {
+          color: $white-color !important;
+          background-color: transparent !important;
+          border-color: #313131 !important;
+        }
+      }
 }

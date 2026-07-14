@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import type { IAditionals, IServices } from '../../../core/models/Iservices';
 import './ServiceCard.scss';
-import { faArrowRightLong, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
+import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import type { IServiceType } from '../../../core/models/IServiceType';
 import ToggleSwitch from '../toggle-switch/ToggleSwitch';
@@ -56,14 +56,14 @@ const popoverIa = (
   </Popover>
 );
 
-const popoverContent = (
+/*const popoverContent = (
   <Popover id="popover-basic">
     <Popover.Header as="h3">
       <strong>INCLUIR CONTENIDO</strong>
     </Popover.Header>
     <Popover.Body>3 Reels cortos adicionales para las redes sociales</Popover.Body>
   </Popover>
-);
+);*/
 
 const popoverModeling = (
   <Popover id="popover-basic">

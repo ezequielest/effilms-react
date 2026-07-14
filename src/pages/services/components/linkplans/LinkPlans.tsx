@@ -8,18 +8,24 @@ export const LinkPlans: React.FC = () => {
       id: "individuals",
       titulo: "INDIVIDUALES",
       class: "",
-      descripcion: "Elegi especificamente lo que necesitas de manera individual y a medida. Cotiza al instante!"
+      descripcion: "Elegi especificamente lo que necesitas de manera individual y a medida. Cotiza al instante!",
+      listPro: [],
+      listDownSide: [],
     },
     {
       id: "monthly",
-      titulo: "MENSUALIDAD",
+      titulo: "FLEXIBLE",
       class: "",
-      descripcion: "Realiza varias producciones en el mismo mes y obtene un descuento adicional al valor individual."
+      descripcion: "Realiza varias producciones en el mismo mes y obtene un descuento adicional al valor individual.",
+      listPro: ['10% OFF', 'Prioridad de agenda'],
+      listDownSide: []
     },
     {
       id: "plan6m",
       titulo: "A LARGO PLAZO",
-      descripcion: "Contamos con nuestro PLAN 6M, un plan a 6 meses bajo contrato con un valor preferencial para los que apuestan a futuro."
+      descripcion: "Contamos con nuestro PLAN 6M, un plan a 6 meses bajo contrato con un valor preferencial para los que apuestan a futuro.",
+      listPro: ['+ 20% OFF', 'Bajo demanda', 'Prioridad de agenda', 'Precio congelado'],
+      listDownSide: []
     }
   ];
 
@@ -46,6 +52,13 @@ export const LinkPlans: React.FC = () => {
                   <p className={`card-text text-muted flex-grow-1 ${servicio.class}`}>
                     {servicio.descripcion}
                   </p>
+
+                  <ul className='pro list-group list-group-flush mb-3 flex-grow-1'>
+                    {servicio.listPro.map((pro) =>
+                        <li className='list-group-item'>{pro}</li>
+                    )}
+                  </ul>
+
                   <div>
                     {servicio.id === "contentCreation" ? (
                       <div className="btn btn-secondary mt-3 text-uppercase fw-bold soon">

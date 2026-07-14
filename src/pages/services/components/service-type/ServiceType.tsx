@@ -60,7 +60,7 @@ export const ServiceType: React.FC = () => {
                     </ul>
                     </div>
                   )}
-                    </div>   
+                    </div>
 
                   <div className="mb-3">
                     {serviceType.listDownSide && serviceType.listDownSide.length > 0 && (

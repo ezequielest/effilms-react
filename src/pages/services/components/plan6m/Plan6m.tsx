@@ -31,7 +31,8 @@ const Plan6m: React.FC = () => {
   ];
 
   return (
-    <section className="plan6m plan6m__container container">
+    <section className="plan6m bg-1">
+      <div className='container'>
       <div className="row">
         {plans.map((plan, idx) => (
           <div key={idx} className="col-12 col-md-6 col-xl-4">
@@ -50,6 +51,7 @@ const Plan6m: React.FC = () => {
             </div>
           </div>
         ))}
+      </div>
       </div>
     </section>
   );
