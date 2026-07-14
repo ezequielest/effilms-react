@@ -40,6 +40,15 @@ function Home() {
         <Counters />
         <BoxServices />
         <MonthPlan />
+        <div className="quiero-ver-todo text-center bg-gray-4">
+          <a
+            className="btn primary-btn"
+            target="_blank"
+            href="/servicios"
+          >
+            QUIERO VER TODOS LOS PLANES
+          </a>
+        </div>
         <Team />
         <Testimonials />
         <Callto />
