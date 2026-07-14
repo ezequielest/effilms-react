@@ -234,7 +234,7 @@ function MonthPlan() {
           <a
             className="btn primary-btn"
             target="_blank"
-            href="https://api.whatsapp.com/send?phone=542236688588&text=Hola, me gustaría contratar un plan mensual!"
+            href="https://api.whatsapp.com/send?phone=542236688588&text=Hola, me gustaría contratar sus servicios!"
           >
             QUIERO CONTRATAR
           </a>
