@@ -14,6 +14,7 @@ import Clients from './components/clients/Clients';
 import Callto from '../../shared/components/callto/Callto';
 import { useEffect } from 'react';
 import TresDBuilding from '../../shared/components/3d-building/3d-building';
+
 function Home() {
   useEffect(() => {
     if (location.hash) {
@@ -37,6 +38,7 @@ function Home() {
         <Video />
         <ServicesSlide />
         <TresDBuilding />
+        {/*<GaussianViewer />*/}
         <Counters />
         <BoxServices />
         <MonthPlan />

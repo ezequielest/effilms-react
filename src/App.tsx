@@ -9,6 +9,7 @@ import Contact from './pages/contactc/Contact';
 import TresDBuilding from './shared/components/3d-building/3d-building';
 import ScrollToHash from './hooks/scrollToHash';
 import Nav from './shared/components/nav/Nav';
+import Inmersive from './pages/inmersive/Inmersive';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -33,12 +34,13 @@ function App() {
         <div className="loader" />
       </div>
       <ScrollToHash />
+      <ScrollToHash />
       <Nav />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/servicios" element={<Services />} />
         <Route path="/contacto" element={<Contact />} />
-        <Route path="/edificio" element={<TresDBuilding />} />
+        <Route path="/inmersive" element={<Inmersive />} />
       </Routes>
       <Footer />
     </>
