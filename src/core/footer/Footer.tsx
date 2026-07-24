@@ -1,12 +1,24 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './Footer.scss';
 import { faFacebook, faInstagram, faWhatsapp, faYoutube } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { QRCodeSVG } from 'qrcode.react';
 
 export const Footer: React.FC = () => {
+
+  const [isEFfilms, setIsEFfilms] = useState(false);
+
+  useEffect(() => {
+  if (location.pathname.startsWith('/servicios')) {
+    setIsEFfilms(true);
+  } 
+
+  setIsEFfilms(false);
+  }, [location.pathname]);
+
   return (
     <>
+      { isEFfilms && (
       <footer className="footer set-bg footer-bg">
         <div className="overlay"></div>
         <div className="container data">
@@ -88,7 +100,7 @@ export const Footer: React.FC = () => {
             </div>
           </div>
         </div>
-      </footer>
+      </footer>)}
     </>
   );
 };

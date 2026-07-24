@@ -14,9 +14,23 @@ type CameraView = {
 
 
 type Hotspot = {
+
     id: string;
+
     label: string;
-    position: Vector3;
+
+    description?: string;
+
+    initialPoint: Vector3;
+
+    positionCamera: Vector3;
+
+    target: Vector3;
+
+    duration?: number;
+
+    icon?: string;
+
 };
 
 
@@ -30,10 +44,14 @@ function easeInOutCubic(t: number) {
 
 }
 
+interface Gaussian {
+    url: string
+}
 
 
 
-export default function GaussianViewer() {
+
+export default function GaussianViewer({url}: Gaussian) {
 
 
     const containerRef =
@@ -70,24 +88,36 @@ export default function GaussianViewer() {
 
 
 
-    const hotspots: Hotspot[] = [
+const hotspots: Hotspot[] = [
 
-        {
-            id:"living",
-            label:"Centro",
-            position:[1,-0.1,1],
-        },
+    {
+        id: "centro",
 
-        {
-            id:"cocina",
-            label:"Itaim II",
-            position:[0,-0.1,0],
-        }
+        label: "Centro",
 
-    ];
+        initialPoint: [1,-0.1,1],
 
+        positionCamera: [2,-0.8,2],
 
+        target: [1,-0.1,1],
 
+        duration: 2500
+    },
+    {
+        id: "itaim",
+
+        label: "Itaim II",
+
+        initialPoint: [0.5, -0.5, 0.5],
+
+        positionCamera: [1.8, -0.8, 1.6],
+
+        target: [0.5, -0.5, 0.5],
+        
+        duration: 2500
+    }
+
+];
 
 
     const views: CameraView[] = [
@@ -114,26 +144,13 @@ export default function GaussianViewer() {
 
     ];
 
-
-
-
-
-
-
-
-
     useEffect(()=>{
 
 
         if(!containerRef.current)
             return;
 
-
-
         let disposed = false;
-
-
-
 
         const init = async()=>{
 
@@ -189,9 +206,9 @@ export default function GaussianViewer() {
 
             try {
 
-
+                console.log('url ', url)
                 await viewer.addSplatScene(
-                    "/splats/test.ply"
+                    url
                 );
 
 
@@ -325,8 +342,7 @@ export default function GaussianViewer() {
 
 
 
-                texture.colorSpace =
-                    THREE.SRGBColorSpace;
+                texture.colorSpace = THREE.SRGBColorSpace;
 
 
 
@@ -428,7 +444,7 @@ export default function GaussianViewer() {
 
             const vector =
                 new THREE.Vector3(
-                    ...spot.position
+                    ...spot.initialPoint
                 );
 
 
@@ -779,8 +795,9 @@ export default function GaussianViewer() {
                             onClick={()=>{
 
                                 flyTo(
-                                    spot.position,
-                                    [0,0,0]
+                                    spot.positionCamera,
+                                    spot.target,
+                                    spot.duration ?? 1800
                                 );
 
                             }}

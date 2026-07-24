@@ -22,7 +22,7 @@ function Inmersive() {
     return (
         <>
         <div className="">
-            <GaussianViewer />
+            <GaussianViewer url='/splats/test2.ply'/>
         </div>
         </>
     );

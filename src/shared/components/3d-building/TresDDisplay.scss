@@ -1,0 +1,24 @@
+.tres-d-display {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  //background-color: $bg-0;
+}
+
+.description-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+
+  .section-title {
+    h2 {
+      margin-bottom: 20px;
+    }
+    span {
+      margin-bottom: 20px;
+    }
+  }
+}

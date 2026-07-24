@@ -74,3 +74,21 @@ export const SERVICES_NAV: NavItem[] = [
     path: '/contacto',
   },
 ];
+
+export const INMERSIVE_NAV: NavItem[] = [
+  {
+    label: 'Home',
+    path: '/studio',
+    hash: 'hero'
+  },
+  {
+    label: 'Solución',
+    path: '/studio',
+    hash: 'problem'
+  },
+  {
+    label: 'CTA',
+    path: '/studio',
+    hash: 'cta'
+  },
+];

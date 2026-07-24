@@ -9,6 +9,7 @@ import Contact from './pages/contactc/Contact';
 import ScrollToHash from './hooks/scrollToHash';
 import Nav from './shared/components/nav/Nav';
 import Inmersive from './pages/inmersive/Inmersive';
+import InteractiveLanding from './pages/gaussian/InteractiveLanding';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -40,6 +41,7 @@ function App() {
         <Route path="/servicios" element={<Services />} />
         <Route path="/contacto" element={<Contact />} />
         <Route path="/inmersive" element={<Inmersive />} />
+        <Route path="/studio" element={<InteractiveLanding />} />
       </Routes>
       <Footer />
     </>

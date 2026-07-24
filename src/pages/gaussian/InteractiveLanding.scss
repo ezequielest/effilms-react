@@ -1,0 +1,317 @@
+/* ==========================================================
+   EF INTERACTIVE
+   Global Styles
+   ========================================================== */
+
+:root {
+    /* Colors */
+    --color-background: #050505;
+    --color-surface: #0f0f0f;
+    --color-surface-light: #1b1b1b;
+
+    --color-primary: #ffffff;
+    --color-secondary: rgba(255, 255, 255, 0.72);
+    //--color-muted: rgba(255, 255, 255, 0.45);
+
+    //--color-accent: #d4af37;
+
+
+    --color-muted: rgba(2, 242, 255, 0.156);
+    --color-accent: #1bc6bb;
+
+    --border-color: rgba(255, 255, 255, 0.08);
+
+    /* Layout */
+    --container-width: 1440px;
+
+    /* Spacing */
+    --space-xs: .5rem;
+    --space-sm: 1rem;
+    --space-md: 2rem;
+    --space-lg: 4rem;
+    --space-xl: 6rem;
+    --space-2xl: 8rem;
+    --space-3xl: 12rem;
+
+    /* Radius */
+    --radius-sm: 8px;
+    --radius-md: 14px;
+    --radius-lg: 24px;
+    --radius-xl: 40px;
+
+    /* Transition */
+    --transition: .35s ease;
+
+    /* Navbar */
+    --navbar-height: 88px;
+}
+
+/* ==========================================================
+   Base
+   ========================================================== */
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: var(--color-background);
+    color: var(--color-primary);
+
+    font-family: "Poppins", sans-serif;
+
+    overflow-x: hidden;
+}
+
+.interactive {
+
+    position: relative;
+
+    background: radial-gradient(
+            circle at top right,
+            rgba(212,175,55,.08),
+            transparent 35%
+        ),
+        linear-gradient(
+            180deg,
+            #070707 0%,
+            #050505 40%,
+            #030303 100%
+        );
+
+    min-height: 100vh;
+
+}
+
+/* ==========================================================
+   Sections
+   ========================================================== */
+
+.interactive section {
+
+    position: relative;
+
+    width: 100%;
+
+}
+
+.interactive section:not(:first-child){
+
+    padding: var(--space-3xl) 0;
+
+}
+
+/* ==========================================================
+   Bootstrap Container Override
+   ========================================================== */
+
+.interactive .container {
+
+    max-width: var(--container-width);
+
+}
+
+/* ==========================================================
+   Typography
+   ========================================================== */
+
+.interactive h1,
+.interactive h2,
+.interactive h3,
+.interactive h4{
+
+    margin:0;
+
+    font-weight:600;
+
+    line-height:1;
+
+    letter-spacing:-0.04em;
+
+}
+
+.interactive h1{
+
+    font-size:clamp(3rem,5vw,5rem);
+    color:var(--color-primary);
+
+}
+
+.interactive h2{
+
+    font-size:clamp(2rem,4vw,4rem);
+    color:var(--color-primary);
+
+}
+
+.interactive p{
+
+    margin:0;
+
+    color:var(--color-secondary);
+
+    line-height:1.8;
+
+    font-size:1.05rem;
+
+}
+
+/* ==========================================================
+   Links
+   ========================================================== */
+
+.interactive a{
+
+    color:inherit;
+
+    text-decoration:none;
+
+    transition:var(--transition);
+
+}
+
+/* ==========================================================
+   Buttons
+   ========================================================== */
+
+.interactive button{
+
+    border:none;
+
+    outline:none;
+
+    cursor:pointer;
+
+    transition:var(--transition);
+
+}
+
+    .button {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+
+    min-width: 200px;
+    height: 58px;
+
+    padding: 0 2rem;
+
+    border-radius: 999px;
+
+    text-decoration: none;
+
+    transition: .35s ease;
+
+    &--primary {
+        background: #fff;
+        color: #050505;
+
+        &:hover {
+            color: #050505;
+            transform: translateY(-4px);
+        }
+    }
+
+    &--secondary {
+        background: transparent;
+        color: #fff;
+        border: 1px solid rgba(255,255,255,.12);
+
+        &:hover {
+            color: #fff;
+        }
+    }
+}
+
+/* ==========================================================
+   Images
+   ========================================================== */
+
+.interactive img{
+
+    display:block;
+
+    width:100%;
+
+}
+
+/* ==========================================================
+   Selection
+   ========================================================== */
+
+::selection{
+
+    background:var(--color-accent);
+
+    color:#000;
+
+}
+
+/* ==========================================================
+   Scrollbar
+   ========================================================== */
+
+::-webkit-scrollbar{
+
+    width:8px;
+
+}
+
+::-webkit-scrollbar-track{
+
+    background:#080808;
+
+}
+
+::-webkit-scrollbar-thumb{
+
+    background:#2c2c2c;
+
+    border-radius:50px;
+
+}
+
+::-webkit-scrollbar-thumb:hover{
+
+    background:#555;
+
+}
+
+/* ==========================================================
+   Responsive
+   ========================================================== */
+
+@media (max-width: 992px){
+
+    :root{
+
+        --space-lg:3rem;
+        --space-xl:4rem;
+        --space-2xl:5rem;
+        --space-3xl:7rem;
+
+    }
+
+}
+
+@media (max-width:768px){
+
+    .interactive h1{
+
+        font-size:3.2rem;
+
+    }
+
+    .interactive h2{
+
+        font-size:2.3rem;
+
+    }
+
+    .interactive p{
+
+        font-size:.98rem;
+
+    }
+
+}

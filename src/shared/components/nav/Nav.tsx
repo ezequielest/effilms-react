@@ -14,7 +14,7 @@ import {
 } from '@fortawesome/free-brands-svg-icons';
 
 import Navigation from './Navigation';
-import { HOME_NAV, SERVICES_NAV } from '../../../data/navigations';
+import { HOME_NAV, INMERSIVE_NAV, SERVICES_NAV } from '../../../data/navigations';
 import { useScrollSpy } from '../../../hooks/useScrollSpy';
 
 const Nav: React.FC = () => {
@@ -22,6 +22,8 @@ const Nav: React.FC = () => {
 
   const [menuOpen, setMenuOpen] = useState(false);
   const [showNav, setShowNav] = useState(false);
+  const [isEFfilms, setIsEFfilms] = useState(false);
+
 
   const activeSection = useScrollSpy([
     'equipo',
@@ -46,9 +48,12 @@ const Nav: React.FC = () => {
 
   const navigation = useMemo(() => {
     if (location.pathname.startsWith('/servicios')) {
+      setIsEFfilms(true);
       return SERVICES_NAV;
+    } else if (location.pathname.startsWith('/studio')) {
+      return INMERSIVE_NAV;
     }
-
+    setIsEFfilms(false);
     return HOME_NAV;
   }, [location.pathname]);
 
@@ -75,7 +80,8 @@ const Nav: React.FC = () => {
         className={`header offcanvas-menu-wrapper ${menuOpen ? 'active' : ''}`}
       >
         <div className="offcanvas__logo">
-          EF FILMS
+          {/*EF FILMS*/}
+          {isEFfilms ? 'EF FILMS' : 'EF STUDIO'}
         </div>
 
         <nav className="header-mobile">
@@ -147,17 +153,31 @@ const Nav: React.FC = () => {
             <div className="col-lg-3">
 
               <div className="header__logo">
+                { isEFfilms && (
+                  <Link
+                    to="/"
+                    className="logo"
+                  >
+                    <span className="bebas">EF</span>
+                    <span className="dot">.</span>
+                    <span className="bebas films">
+                      FILMS
+                    </span>
+                  </Link>
+                )}   
 
-                <Link
-                  to="/"
-                  className="logo"
-                >
-                  <span className="bebas">EF</span>
-                  <span className="dot">.</span>
-                  <span className="bebas films">
-                    FILMS
-                  </span>
-                </Link>
+                { !isEFfilms && (
+                  <Link
+                    to="/"
+                    className="logo"
+                  >
+                    <span className="bebas">EF</span>
+                    <span className="dot">.</span>
+                    <span className="bebas films" style={{marginLeft: "2px"}}>
+                      STUDIO
+                    </span>
+                  </Link>
+                )}              
 
               </div>
 

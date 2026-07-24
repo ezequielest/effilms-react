@@ -1,0 +1,155 @@
+.cta {
+
+    padding: 10rem 0;
+
+    &__wrapper {
+
+        position: relative;
+
+        max-width: 980px;
+
+        margin: auto;
+
+        padding: 6rem;
+
+        text-align: center;
+
+        border-radius: 36px;
+
+        overflow: hidden;
+
+        background:
+            radial-gradient(circle at top,
+            rgba(212,175,55,.08),
+            transparent 55%),
+            rgba(255,255,255,.03);
+
+        border: 1px solid rgba(255,255,255,.08);
+
+        backdrop-filter: blur(24px);
+
+    }
+
+    &__eyebrow {
+
+        display: inline-block;
+
+        margin-bottom: 1.5rem;
+
+        color: var(--color-accent);
+
+        text-transform: uppercase;
+
+        letter-spacing: .2em;
+
+        font-size: .8rem;
+
+        font-weight: 600;
+
+    }
+
+    &__title {
+
+        margin-bottom: 2rem;
+
+    }
+
+    &__description {
+
+        max-width: 650px;
+
+        margin: auto;
+
+    }
+
+    &__actions {
+
+        display: flex;
+
+        justify-content: center;
+
+        gap: 1rem;
+
+        flex-wrap: wrap;
+
+    }
+
+    &__button {
+
+        display: inline-flex;
+
+        justify-content: center;
+
+        align-items: center;
+
+        min-width: 220px;
+
+        height: 60px;
+
+        padding: 0 2rem;
+
+        border-radius: 999px;
+
+        font-weight: 600;
+
+        transition: .35s ease;
+
+        &--primary {
+
+            background: #fff;
+
+            color: #000 !important;
+
+            &:hover {
+
+                transform: translateY(-4px);
+
+                box-shadow: 0 20px 40px rgba(255,255,255,.15);
+
+            }
+
+        }
+
+        &--secondary {
+
+            border: 1px solid rgba(255,255,255,.12);
+
+            background: rgba(255,255,255,.03);
+
+            color: #fff;
+
+            &:hover {
+
+                border-color: rgba(255,255,255,.25);
+
+                background: rgba(255,255,255,.06);
+
+            }
+
+        }
+
+    }
+
+}
+
+@media (max-width: 768px) {
+
+    .cta {
+
+        padding: 6rem 0;
+
+        &__wrapper {
+
+            padding: 3rem 2rem;
+
+        }
+
+        &__button {
+
+            width: 100%;
+
+        }
+
+    }
+
+}
