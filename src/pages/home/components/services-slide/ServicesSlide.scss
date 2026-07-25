@@ -35,27 +35,27 @@
   }
 
   &.bg-1 {
-    background-image: url('/img/services/arq.jpg');
+    background-image: url("/img/services/arq.jpg");
     background-position: 55%;
   }
 
   &.bg-2 {
-    background-image: url('/img/services/realestate-2.jpg');
+    background-image: url("/img/services/realestate-2.jpg");
     background-position-x: center;
   }
 
   &.bg-3 {
-    background-image: url('/img/services/desarrollos.jpg');
+    background-image: url("/img/services/desarrollos.jpg");
     background-position: 20%;
   }
 
   &.bg-4 {
-    background-image: url('/img/services/hotel-4.jpg');
+    background-image: url("/img/services/hotel-4.jpg");
     background-position-x: center;
   }
 
   &.bg-5 {
-    background-image: url('/img/services/gm-institucional.jpg');
+    background-image: url("/img/services/gm-institucional.jpg");
     background-position-x: center;
   }
 
@@ -78,7 +78,7 @@
 
   &::after {
     display: block;
-    content: '';
+    content: "";
     height: 100%;
     width: 100%;
     background-color: rgba(0, 0, 0, 0.7);

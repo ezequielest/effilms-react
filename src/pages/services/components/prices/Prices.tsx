@@ -1,43 +1,42 @@
-import { ServiceGroup } from '../../../../core/models/ServiceGroup.enum';
-import { customArray, servicesArray } from '../../../../data/services';
-import { serviceTypes } from '../../../../data/serviceType';
-import ServiceCard from '../../../../shared/components/card-price/ServiceCard';
-import CardSmallPrice from '../../../../shared/components/card-small-price/CardSmallPrice';
-import './Prices.scss';
+import { ServiceGroup } from "../../../../core/models/ServiceGroup.enum";
+import { customArray, servicesArray } from "../../../../data/services";
+import { serviceTypes } from "../../../../data/serviceType";
+import ServiceCard from "../../../../shared/components/card-price/ServiceCard";
+import CardSmallPrice from "../../../../shared/components/card-small-price/CardSmallPrice";
+import "./Prices.scss";
 
 export const Prices: React.FC = () => {
-
-
   return (
     <>
       {serviceTypes.map((serviceType) => {
         const filteredServices = servicesArray.filter((s) => s.group === serviceType.key);
 
         return (
-          (serviceType.key !== ServiceGroup.CONTENT_CREATION &&
-          <section
-            id="custom"
-            key={serviceType.id}
-            className={`values-page spad ${serviceType.class}`}
-          >
-            <div className="container">
-              <div className="row">
-                <div className="col-lg-12 text-center">
-                  <h2 className="title">{serviceType.title}</h2>
-                  <h4 className="sub-title">{serviceType.subTitle}</h4>
-                  <p className="description">{serviceType.description}</p>
+          serviceType.key !== ServiceGroup.CONTENT_CREATION && (
+            <section
+              id="custom"
+              key={serviceType.id}
+              className={`values-page spad ${serviceType.class}`}
+            >
+              <div className="container">
+                <div className="row">
+                  <div className="col-lg-12 text-center">
+                    <h2 className="title">{serviceType.title}</h2>
+                    <h4 className="sub-title">{serviceType.subTitle}</h4>
+                    <p className="description">{serviceType.description}</p>
+                  </div>
+                </div>
+                <div className="row">
+                  <div className="service-card-container">
+                    {filteredServices.map((service) => (
+                      <ServiceCard key={service.id} service={service} serviceType={serviceType} />
+                    ))}
+                  </div>
                 </div>
               </div>
-              <div className="row">
-                <div className="service-card-container">
-                  {filteredServices.map((service) => (
-                    <ServiceCard key={service.id} service={service} serviceType={serviceType} />
-                  ))}
-                </div>
-              </div>
-            </div>
-          </section>
-        ));
+            </section>
+          )
+        );
       })}
       <section id="custom" className={`values-page spad`}>
         <div className="container">

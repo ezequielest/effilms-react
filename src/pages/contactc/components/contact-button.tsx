@@ -1,13 +1,13 @@
-import React from 'react';
-import './contact-button.scss';
+import React from "react";
+import "./contact-button.scss";
 import {
   faInstagram,
   faServicestack,
   faWebAwesome,
   faWhatsapp,
   faYoutube,
-} from '@fortawesome/free-brands-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+} from "@fortawesome/free-brands-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export const ContactButton: React.FC = () => {
   return (
@@ -18,7 +18,7 @@ export const ContactButton: React.FC = () => {
             <div className="col-lg-12">
               <div className="selection-buttons">
                 <a className="btn-value" target="_blank" href="./">
-                  {' '}
+                  {" "}
                   <FontAwesomeIcon icon={faWebAwesome} /> SITIO WEB
                 </a>
                 <a

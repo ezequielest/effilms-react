@@ -8,87 +8,87 @@ export interface NavItem {
 
 export const HOME_NAV: NavItem[] = [
   {
-    label: 'Home',
-    path: '/',
+    label: "Home",
+    path: "/",
   },
   {
-    label: 'Equipo',
-    path: '/',
-    hash: 'equipo',
+    label: "Equipo",
+    path: "/",
+    hash: "equipo",
   },
   {
-    label: 'Servicios',
-    path: '/servicios',
+    label: "Servicios",
+    path: "/servicios",
   },
   {
-    label: 'Testimonios',
-    path: '/',
-    hash: 'testimonials',
+    label: "Testimonios",
+    path: "/",
+    hash: "testimonials",
   },
   {
-    label: 'Blog',
-    path: '/blog',
+    label: "Blog",
+    path: "/blog",
   },
   {
-    label: 'FAQs',
-    path: '/',
-    hash: 'faqs',
+    label: "FAQs",
+    path: "/",
+    hash: "faqs",
   },
   {
-    label: 'Contacto',
-    path: '/contacto',
+    label: "Contacto",
+    path: "/contacto",
   },
 ];
 
 export const SERVICES_NAV: NavItem[] = [
   {
-    label: 'Home',
-    path: '/',
+    label: "Home",
+    path: "/",
   },
   {
-    label: 'Servicios',
-    path: '/servicios',
+    label: "Servicios",
+    path: "/servicios",
   },
   {
-    label: 'Modalidad',
-    path: '/servicios',
-    hash: 'modalidad',
+    label: "Modalidad",
+    path: "/servicios",
+    hash: "modalidad",
   },
   {
-    label: 'Individuales',
-    path: '/servicios',
-    hash: 'individuals',
+    label: "Individuales",
+    path: "/servicios",
+    hash: "individuals",
   },
   {
-    label: 'Mensuales',
-    path: '/servicios',
-    hash: 'monthly',
+    label: "Mensuales",
+    path: "/servicios",
+    hash: "monthly",
   },
   {
-    label: 'Plan 6M',
-    path: '/servicios',
-    hash: 'plan6m',
+    label: "Plan 6M",
+    path: "/servicios",
+    hash: "plan6m",
   },
   {
-    label: 'Contacto',
-    path: '/contacto',
+    label: "Contacto",
+    path: "/contacto",
   },
 ];
 
 export const INMERSIVE_NAV: NavItem[] = [
   {
-    label: 'Home',
-    path: '/studio',
-    hash: 'hero'
+    label: "Home",
+    path: "/studio",
+    hash: "hero",
   },
   {
-    label: 'Solución',
-    path: '/studio',
-    hash: 'problem'
+    label: "Solución",
+    path: "/studio",
+    hash: "problem",
   },
   {
-    label: 'CTA',
-    path: '/studio',
-    hash: 'cta'
+    label: "CTA",
+    path: "/studio",
+    hash: "cta",
   },
 ];

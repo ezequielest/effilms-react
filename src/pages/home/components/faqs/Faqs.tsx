@@ -1,5 +1,5 @@
-import React from 'react';
-import './Faqs.scss';
+import React from "react";
+import "./Faqs.scss";
 
 export const Faqs: React.FC = () => {
   return (
@@ -39,7 +39,7 @@ export const Faqs: React.FC = () => {
                     data-parent="#accordionExample1"
                   >
                     <div className="card-body">
-                      Contamos con una amplia variedad de opciones, podes conocer más haciendo{' '}
+                      Contamos con una amplia variedad de opciones, podes conocer más haciendo{" "}
                       <a target="_blank" href="/valores-inmobiliaria">
                         click aquí
                       </a>
@@ -475,7 +475,7 @@ export const Faqs: React.FC = () => {
                   >
                     <div className="card-body">
                       Los precios dependen del tipo de servicio que se requiera y requisitos
-                      específicos del proyecto. Podes conultar valores de referencia haciendo{' '}
+                      específicos del proyecto. Podes conultar valores de referencia haciendo{" "}
                       <a target="_blank" href="/valores-inmobiliaria">
                         click aquí
                       </a>
@@ -531,7 +531,8 @@ export const Faqs: React.FC = () => {
                   >
                     <div className="card-body">
                       Si, podes obtener descuentos contratando 3 producciones mensuales y obtener un
-                      descuento extra. Tambien contamos con ofertas en servicios especificos todos los meses.
+                      descuento extra. Tambien contamos con ofertas en servicios especificos todos
+                      los meses.
                     </div>
                   </div>
                 </div>

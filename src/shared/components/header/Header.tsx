@@ -1,4 +1,4 @@
-import './Header.scss';
+import "./Header.scss";
 
 interface IHeader {
   preTitle: string;

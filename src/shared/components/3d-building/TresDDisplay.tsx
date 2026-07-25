@@ -1,7 +1,7 @@
-import { Canvas } from '@react-three/fiber';
-import { useGLTF, Environment, OrbitControls } from '@react-three/drei';
-import { Suspense } from 'react';
-import './TresDDisplay.scss';
+import { Canvas } from "@react-three/fiber";
+import { useGLTF, Environment, OrbitControls } from "@react-three/drei";
+import { Suspense } from "react";
+import "./TresDDisplay.scss";
 //import YoutubeModal from '../youtube-modal/YoutubeModal';
 
 // Props de transformación opcionales
@@ -22,7 +22,7 @@ interface TresDViewer {
   heightContainer?: string;
 }
 
-function TresDDisplay({url, heightContainer = '450px'}: TresDViewer){
+function TresDDisplay({ url, heightContainer = "450px" }: TresDViewer) {
   //const [videoUrl, setVideoUrl] = useState('');
   //const [showModal, setShowModal] = useState(false);
 
@@ -35,17 +35,12 @@ function TresDDisplay({url, heightContainer = '450px'}: TresDViewer){
     <div className="tres-d-display">
       <Canvas
         camera={{ position: [140, 100, 10], fov: 30 }}
-        style={{ width: '100%', height: heightContainer }}
+        style={{ width: "100%", height: heightContainer }}
       >
         <ambientLight intensity={0.5} />
         <directionalLight position={[-2, 5, 2]} intensity={1} />
         <Suspense fallback={null}>
-          <Model
-            url={url}
-            position={[0, 15, 0]}
-            scale={1}
-            rotation={[0, Math.PI / 2, 0]}
-          />
+          <Model url={url} position={[0, 15, 0]} scale={1} rotation={[0, Math.PI / 2, 0]} />
           <Environment preset="sunset" />
         </Suspense>
         <OrbitControls
@@ -55,8 +50,7 @@ function TresDDisplay({url, heightContainer = '450px'}: TresDViewer){
         />
       </Canvas>
     </div>
-  
   );
-};
+}
 
 export default TresDDisplay;

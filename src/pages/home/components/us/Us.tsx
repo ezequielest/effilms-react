@@ -1,5 +1,5 @@
-import React from 'react';
-import './Us.scss';
+import React from "react";
+import "./Us.scss";
 
 export const Us: React.FC = () => {
   return (

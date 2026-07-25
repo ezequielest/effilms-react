@@ -1,40 +1,40 @@
-import React from 'react';
-import './Extras.scss';
-import BoxCardInverted from '../../../../shared/components/box-card-inverted/Box-card-inverted';
+import React from "react";
+import "./Extras.scss";
+import BoxCardInverted from "../../../../shared/components/box-card-inverted/Box-card-inverted";
 
 export const Extras: React.FC = () => {
   const promotions = [
     {
-      preDiscount: '$',
+      preDiscount: "$",
       discount: 10000,
-      postDiscount: '.-',
-      preDescription: '',
-      description: 'Logística de llave',
-      postDescription: '',
+      postDiscount: ".-",
+      preDescription: "",
+      description: "Logística de llave",
+      postDescription: "",
     },
     {
-      preDiscount: '$',
+      preDiscount: "$",
       discount: 25000,
-      postDiscount: '.-',
-      preDescription: '',
-      description: 'Adaptación de formato',
-      postDescription: '',
+      postDiscount: ".-",
+      preDescription: "",
+      description: "Adaptación de formato",
+      postDescription: "",
     },
     {
-      preDiscount: '',
+      preDiscount: "",
       discount: 60,
-      postDiscount: '% del valor',
-      preDescription: '',
-      description: 'Solo Crudos',
-      postDescription: '',
+      postDiscount: "% del valor",
+      preDescription: "",
+      description: "Solo Crudos",
+      postDescription: "",
     },
     {
-      preDiscount: '',
+      preDiscount: "",
       discount: 25,
-      postDiscount: '% del valor',
-      preDescription: '',
-      description: 'Crudo adicional',
-      postDescription: '',
+      postDiscount: "% del valor",
+      preDescription: "",
+      description: "Crudo adicional",
+      postDescription: "",
     },
   ];
   return (

@@ -71,42 +71,42 @@
         Navigation
       --------------------*/
 
-      $('.mobile-menu').slicknav({
-        prependTo: '#mobile-menu-wrap',
+      $(".mobile-menu").slicknav({
+        prependTo: "#mobile-menu-wrap",
         allowParentLinks: true,
       });
 
-      document.addEventListener('DOMContentLoaded', function () {
+      document.addEventListener("DOMContentLoaded", function () {
         // Your JavaScript code here will execute once the DOM is ready
-        console.log('The DOM is fully loaded and parsed!');
+        console.log("The DOM is fully loaded and parsed!");
         // You can now safely manipulate HTML elements, add event listeners, etc.
       });
 
-      window.addEventListener('scroll', (event) => {
+      window.addEventListener("scroll", (event) => {
         let scroll = this.scrollY;
         if (scroll > 700) {
-          document.getElementsByClassName('header')[0].classList.add('fixed');
-          document.getElementsByClassName('header')[0].classList.add('animate__fadeIn');
+          document.getElementsByClassName("header")[0].classList.add("fixed");
+          document.getElementsByClassName("header")[0].classList.add("animate__fadeIn");
 
-          document.getElementsByClassName('header__menu')[0].style.top = '0px';
-          document.getElementsByClassName('header__menu')[0].classList.remove('hide');
-          document.getElementsByClassName('header__menu')[0].classList.add('show');
+          document.getElementsByClassName("header__menu")[0].style.top = "0px";
+          document.getElementsByClassName("header__menu")[0].classList.remove("hide");
+          document.getElementsByClassName("header__menu")[0].classList.add("show");
 
-          document.getElementsByClassName('whatsapp-footer')[0].classList.remove('hide');
-          document.getElementsByClassName('whatsapp-footer')[0].classList.add('animate__fadeIn');
+          document.getElementsByClassName("whatsapp-footer")[0].classList.remove("hide");
+          document.getElementsByClassName("whatsapp-footer")[0].classList.add("animate__fadeIn");
         } else {
-          document.getElementsByClassName('header')[0].classList.remove('fixed');
-          document.getElementsByClassName('header')[0].classList.remove('animate__fadeIn');
+          document.getElementsByClassName("header")[0].classList.remove("fixed");
+          document.getElementsByClassName("header")[0].classList.remove("animate__fadeIn");
           //document.getElementsByClassName('header')[0].classList.remove('hide');
-          document.getElementsByClassName('header__menu')[0].style.top = '26px';
+          document.getElementsByClassName("header__menu")[0].style.top = "26px";
 
-          document.getElementsByClassName('header')[0].classList.add('show');
+          document.getElementsByClassName("header")[0].classList.add("show");
 
           //document.getElementsByClassName('header__menu')[0].classList.add('hide');
           //document.getElementsByClassName('header__menu')[0].classList.remove('show');
 
-          document.getElementsByClassName('whatsapp-footer')[0].classList.remove('animate__fadeIn');
-          document.getElementsByClassName('whatsapp-footer')[0].classList.add('hide');
+          document.getElementsByClassName("whatsapp-footer")[0].classList.remove("animate__fadeIn");
+          document.getElementsByClassName("whatsapp-footer")[0].classList.add("hide");
         }
       });
     </script>

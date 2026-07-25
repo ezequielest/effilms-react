@@ -1,4 +1,4 @@
-@use 'variables' as *;
+@use "variables" as *;
 
 /*--------------------------------- Responsive Media Quaries -----------------------------*/
 @media only screen and (min-width: 1200px) {
@@ -99,7 +99,7 @@
     height: 100%;
     width: 100%;
     background: rgba(0, 0, 0, 0.7);
-    content: '';
+    content: "";
     z-index: 98;
     -webkit-transition: all, 0.5s;
     -moz-transition: all, 0.5s;
@@ -194,7 +194,7 @@
   .offcanvas__widget {
     span {
       font-size: 14px;
-      font-family: 'Aldrich', sans-serif;
+      font-family: "Aldrich", sans-serif;
       color: #b7b7b7;
       display: block;
       margin-bottom: 10px;
@@ -268,7 +268,7 @@
     height: 100%;
     width: 100%;
     background: rgba(0, 0, 0, 0.7);
-    content: '';
+    content: "";
     z-index: 98;
     -webkit-transition: all, 0.5s;
     -moz-transition: all, 0.5s;
@@ -365,7 +365,7 @@
   .offcanvas__widget {
     span {
       font-size: 14px;
-      font-family: 'Aldrich', sans-serif;
+      font-family: "Aldrich", sans-serif;
       color: #b7b7b7;
       display: block;
       margin-bottom: 10px;

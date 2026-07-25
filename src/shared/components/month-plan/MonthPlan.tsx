@@ -1,11 +1,11 @@
-import { useEffect, useState } from 'react';
-import './MonthPlan.scss';
-import { plans } from '../../../data/plans';
-import CardPlan from './card-plan/CardPlan';
-import type { Iplans } from '../../../core/models/Iplans';
-import { servicesArray } from '../../../data/services';
-import { ADITIONALS } from '../../../core/models/Aditionals.enum';
-import { ServiceGroup } from '../../../core/models/ServiceGroup.enum';
+import { useEffect, useState } from "react";
+import "./MonthPlan.scss";
+import { plans } from "../../../data/plans";
+import CardPlan from "./card-plan/CardPlan";
+import type { Iplans } from "../../../core/models/Iplans";
+import { servicesArray } from "../../../data/services";
+import { ADITIONALS } from "../../../core/models/Aditionals.enum";
+import { ServiceGroup } from "../../../core/models/ServiceGroup.enum";
 
 function MonthPlan() {
   const [cantMonthSelected, setCantMonthSelected] = useState(2);
@@ -29,7 +29,7 @@ function MonthPlan() {
   function updateFinalPrice() {
     const updatedPlans = plans.map((plan) => {
       const service = servicesArray.find(
-        (service) => service.isBaseMontly && service.group === plan.type,
+        (service) => service.isBaseMontly && service.group === plan.type
       );
 
       if (service) {
@@ -52,8 +52,8 @@ function MonthPlan() {
             }*/
 
             //CUENTA TODOS LOS ADICIONALES QUE TENGA
-             let aditionalPrice = 0;
-             service.aditionals.forEach(item => {
+            let aditionalPrice = 0;
+            service.aditionals.forEach((item) => {
               aditionalPrice += item.price;
             });
 
@@ -84,7 +84,7 @@ function MonthPlan() {
             let aditionalPrice = 0;
             service.aditionals.forEach((item) => {
               //if (item.type !== ADITIONALS.CONTENT) {
-                aditionalPrice += item.price;
+              aditionalPrice += item.price;
               //}
             });
 
@@ -156,7 +156,7 @@ function MonthPlan() {
   }
 
   return (
-    <>   
+    <>
       <section id="plans" className="monthly spad table-price bg-gray-4">
         {/*<div className="monthly__header">
           <h2 className="title">

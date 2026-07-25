@@ -1,31 +1,31 @@
-import Landing from './components/landing/Landing';
-import Video from './components/video/Video';
-import ServicesSlide from './components/services-slide/ServicesSlide';
-import './Home.scss';
+import Landing from "./components/landing/Landing";
+import Video from "./components/video/Video";
+import ServicesSlide from "./components/services-slide/ServicesSlide";
+import "./Home.scss";
 
-import Counters from '../../shared/components/counters/Counters';
-import BoxServices from './components/box-services/BoxServices';
-import MonthPlan from '../../shared/components/month-plan/MonthPlan';
-import Team from './components/team/Team';
-import Testimonials from './components/testimonials/Testimonials';
-import Us from './components/us/Us';
-import Faqs from './components/faqs/Faqs';
-import Clients from './components/clients/Clients';
-import Callto from '../../shared/components/callto/Callto';
-import { useEffect } from 'react';
-import InmersiveInfo from './components/inmersive/InmersiveInfo';
+import Counters from "../../shared/components/counters/Counters";
+import BoxServices from "./components/box-services/BoxServices";
+import MonthPlan from "../../shared/components/month-plan/MonthPlan";
+import Team from "./components/team/Team";
+import Testimonials from "./components/testimonials/Testimonials";
+import Us from "./components/us/Us";
+import Faqs from "./components/faqs/Faqs";
+import Clients from "./components/clients/Clients";
+import Callto from "../../shared/components/callto/Callto";
+import { useEffect } from "react";
+import InmersiveInfo from "./components/inmersive/InmersiveInfo";
 
 function Home() {
   useEffect(() => {
     if (location.hash) {
       const element = document.querySelector(location.hash);
       if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
+        element.scrollIntoView({ behavior: "smooth" });
       } else {
         window.scrollTo({
           top: 0,
           left: 0,
-          behavior: 'smooth', // or 'auto' for instant scroll
+          behavior: "smooth", // or 'auto' for instant scroll
         });
       }
     }
@@ -43,10 +43,7 @@ function Home() {
         <BoxServices />
         <MonthPlan />
         <div className="quiero-ver-todo text-center bg-gray-4">
-          <a
-            className="btn primary-btn"
-            href="/servicios"
-          >
+          <a className="btn primary-btn" href="/servicios">
             QUIERO VER TODOS LOS PLANES
           </a>
         </div>

@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from 'react';
-import type { IAditionals, IServices } from '../../../core/models/Iservices';
-import './ServiceCard.scss';
-import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import type { IServiceType } from '../../../core/models/IServiceType';
-import ToggleSwitch from '../toggle-switch/ToggleSwitch';
-import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
-import Popover from 'react-bootstrap/Popover';
-import { ADITIONALS } from '../../../core/models/Aditionals.enum';
-import { formatNumber } from '../../utils/numbers';
-import { ServiceGroup } from '../../../core/models/ServiceGroup.enum';
+import React, { useEffect, useState } from "react";
+import type { IAditionals, IServices } from "../../../core/models/Iservices";
+import "./ServiceCard.scss";
+import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import type { IServiceType } from "../../../core/models/IServiceType";
+import ToggleSwitch from "../toggle-switch/ToggleSwitch";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import Popover from "react-bootstrap/Popover";
+import { ADITIONALS } from "../../../core/models/Aditionals.enum";
+import { formatNumber } from "../../utils/numbers";
+import { ServiceGroup } from "../../../core/models/ServiceGroup.enum";
 
 interface CardProps {
   key: number;
@@ -127,7 +127,7 @@ function ServiceCard({ service, serviceType }: CardProps) {
     if (model) {
       total += service.aditionals.find((a) => a.type === ADITIONALS.MODEL)?.hours || 0;
     }
-   /* if (content) {
+    /* if (content) {
       total += service.aditionals.find((a) => a.type === ADITIONALS.CONTENT)?.hours || 0;
     }*/
     if (ia) {
@@ -171,7 +171,7 @@ function ServiceCard({ service, serviceType }: CardProps) {
     const base = Math.floor(hours); // parte entera (ej: 2)
     const decimal = hours - base; // parte decimal (ej: 0.3)
 
-    const text = base === 1 ? 'hora' : 'horas';
+    const text = base === 1 ? "hora" : "horas";
 
     if (decimal === 0) {
       return `${base} ${text}`;
@@ -243,7 +243,7 @@ function ServiceCard({ service, serviceType }: CardProps) {
   return (
     <>
       <div
-        className={`card-value highlighted${service.isHighlighted ? 'highlighted' : ''}`}
+        className={`card-value highlighted${service.isHighlighted ? "highlighted" : ""}`}
         key={service.id}
       >
         {service.isPromo && <div className="label-highlighted">{service.discount}</div>}
@@ -275,7 +275,7 @@ function ServiceCard({ service, serviceType }: CardProps) {
 
           <div className={`aditionals ` + service.group}>
             {shouldShowThis(service.aditionals, ADITIONALS.BROKER) && (
-             <div className="title">Adicionar</div>
+              <div className="title">Adicionar</div>
             )}
             {shouldShowThis(service.aditionals, ADITIONALS.BROKER) && (
               <div>
@@ -287,9 +287,9 @@ function ServiceCard({ service, serviceType }: CardProps) {
                     onChange={(checked) => handleToggle(checked, ADITIONALS.BROKER)}
                   />
                 </div>
-                <div className={'info-icon'}>
+                <div className={"info-icon"}>
                   <OverlayTrigger
-                    trigger={['hover', 'focus', 'click']}
+                    trigger={["hover", "focus", "click"]}
                     placement="top"
                     overlay={popoverBroker}
                   >
@@ -310,9 +310,9 @@ function ServiceCard({ service, serviceType }: CardProps) {
                     }}
                   />
                 </div>
-                <div className={'info-icon'}>
+                <div className={"info-icon"}>
                   <OverlayTrigger
-                    trigger={['hover', 'focus', 'click']}
+                    trigger={["hover", "focus", "click"]}
                     placement="top"
                     overlay={popoverModeling}
                   >
@@ -356,9 +356,9 @@ function ServiceCard({ service, serviceType }: CardProps) {
                     }}
                   />
                 </div>
-                <div className={'info-icon'}>
+                <div className={"info-icon"}>
                   <OverlayTrigger
-                    trigger={['hover', 'focus', 'click']}
+                    trigger={["hover", "focus", "click"]}
                     placement="top"
                     overlay={popoverDron}
                   >
@@ -379,9 +379,9 @@ function ServiceCard({ service, serviceType }: CardProps) {
                     }}
                   />
                 </div>
-                <div className={'info-icon'}>
+                <div className={"info-icon"}>
                   <OverlayTrigger
-                    trigger={['hover', 'focus', 'click']}
+                    trigger={["hover", "focus", "click"]}
                     placement="top"
                     overlay={popoverIa}
                   >

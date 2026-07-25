@@ -1,6 +1,6 @@
-import type { Iplans } from '../../../../core/models/Iplans';
-import { formatNumber } from '../../../utils/numbers';
-import './CardPlan.scss';
+import type { Iplans } from "../../../../core/models/Iplans";
+import { formatNumber } from "../../../utils/numbers";
+import "./CardPlan.scss";
 
 interface CardProps {
   index: number;
@@ -14,7 +14,7 @@ function CardPlan({ index, plan, cantMonthSelected }: CardProps) {
 
   return (
     <>
-      <div className={`monthly-container ${index % 2 === 0 ? 'middle' : ''}`}>
+      <div className={`monthly-container ${index % 2 === 0 ? "middle" : ""}`}>
         {plan.isHighlighted && <div className={`monthy-highlighted`}>MÁS SOLICITADO</div>}
 
         {plan.availablePlaces > 0 && (

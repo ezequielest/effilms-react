@@ -1,13 +1,13 @@
-@use '@/styles/index.scss' as *;
+@use "@/styles/index.scss" as *;
 
 .quiero-ver-todo {
-    padding-bottom: 7rem;
+  padding-bottom: 7rem;
 
-    .primary-btn {
+  .primary-btn {
     background-color: $effilms-color;
     &:hover {
-        background-color: #000000;
-        color: white;
+      background-color: #000000;
+      color: white;
     }
-    }
+  }
 }

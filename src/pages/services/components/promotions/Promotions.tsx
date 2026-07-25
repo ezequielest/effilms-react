@@ -1,41 +1,41 @@
-import React from 'react';
-import './Promotions.scss';
-import BoxCard from '../../../../shared/components/box-card/Box-card';
-import type { IBoxcard } from '../../../../core/models/IBoxCard';
+import React from "react";
+import "./Promotions.scss";
+import BoxCard from "../../../../shared/components/box-card/Box-card";
+import type { IBoxcard } from "../../../../core/models/IBoxCard";
 
 export const Promotions: React.FC = () => {
   const promotions: Array<IBoxcard> = [
     {
-      preDiscount: '',
+      preDiscount: "",
       discount: 10,
-      postDiscount: '',
-      preDescription: '',
-      description: 'En tu primera producción',
-      postDescription: '%OFF',
+      postDiscount: "",
+      preDescription: "",
+      description: "En tu primera producción",
+      postDescription: "%OFF",
     },
     {
-      preDiscount: '',
+      preDiscount: "",
       discount: 10,
-      postDiscount: '',
-      preDescription: '',
-      description: 'Contratando 5 o más producciones',
-      postDescription: '%OFF',
+      postDiscount: "",
+      preDescription: "",
+      description: "Contratando 5 o más producciones",
+      postDescription: "%OFF",
     },
     {
-      preDiscount: '',
+      preDiscount: "",
       discount: 10,
-      postDiscount: '',
-      preDescription: '',
-      description: 'Cobertura de monoambientes',
-      postDescription: '%OFF',
+      postDiscount: "",
+      preDescription: "",
+      description: "Cobertura de monoambientes",
+      postDescription: "%OFF",
     },
     {
-      preDiscount: '',
+      preDiscount: "",
       discount: 10,
-      postDiscount: '',
-      preDescription: '',
-      description: 'Producciones en días nublados',
-      postDescription: '%OFF',
+      postDiscount: "",
+      preDescription: "",
+      description: "Producciones en días nublados",
+      postDescription: "%OFF",
     },
   ];
   return (

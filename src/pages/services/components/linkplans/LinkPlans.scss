@@ -1,4 +1,6 @@
-$transition-smooth: transform 0.3s ease, box-shadow 0.3s ease;
+$transition-smooth:
+  transform 0.3s ease,
+  box-shadow 0.3s ease;
 
 .link-plans {
   padding: 12rem 0 !important;
@@ -20,9 +22,9 @@ $transition-smooth: transform 0.3s ease, box-shadow 0.3s ease;
     transition: $transition-smooth;
     background-color: transparent;
     border: none !important; // Limpiamos bordes nativos de la card de Bootstrap
-    
+
     // --- LÓGICA DE BORDES SEPARADORES RESPONSIVE ---
-    
+
     // En Mobile (pantallas chicas): El separador va abajo
     border-bottom: 1px solid rgba(128, 128, 128, 0.4) !important;
     padding-bottom: 1.5rem; // Espaciado extra antes de la línea
@@ -33,13 +35,13 @@ $transition-smooth: transform 0.3s ease, box-shadow 0.3s ease;
       border-right: 1px solid rgba(128, 128, 128, 0.4) !important;
       padding-bottom: 0;
     }
-    
+
     // Efecto de elevación al pasar el cursor (Hover)
     &:hover {
       transform: translateY(-5px);
-      // Al ser transparente, un shadow muy fuerte puede quedar raro, 
+      // Al ser transparente, un shadow muy fuerte puede quedar raro,
       // pero si te gusta cómo queda, este está perfecto:
-      box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.1) !important; 
+      box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.1) !important;
     }
 
     .card-title {
@@ -58,8 +60,6 @@ $transition-smooth: transform 0.3s ease, box-shadow 0.3s ease;
       &.content-creation {
         margin-top: 1.1rem;
       }
-
-
     }
 
     // Botón personalizado sobre las clases de Bootstrap
@@ -84,7 +84,7 @@ $transition-smooth: transform 0.3s ease, box-shadow 0.3s ease;
   }
 
   // --- QUITAR BORDES EXTREMOS (INICIO Y FINAL) ---
-  
+
   // En Mobile: Le sacamos el borde de abajo a la última tarjeta
   .col-12:last-child .link-card {
     border-bottom: none !important;
@@ -99,11 +99,11 @@ $transition-smooth: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .card-body {
-      .pro {
-        .list-group-item {
-          color: $white-color !important;
-          background-color: transparent !important;
-          border-color: #313131 !important;
-        }
-      }
+  .pro {
+    .list-group-item {
+      color: $white-color !important;
+      background-color: transparent !important;
+      border-color: #313131 !important;
+    }
+  }
 }

@@ -1,31 +1,32 @@
-$transition-smooth: transform 0.3s ease, box-shadow 0.3s ease;
+$transition-smooth:
+  transform 0.3s ease,
+  box-shadow 0.3s ease;
 
 .service-type {
-
   .general-title {
     color: $white-color;
     margin-bottom: 3rem;
   }
 
   .picture {
-      height: 150px;
-      width: 100%;
-      margin-bottom: 1rem;
-      margin: 0 auto;
-      border-radius: 16px;
-      margin-bottom: 2rem;
+    height: 150px;
+    width: 100%;
+    margin-bottom: 1rem;
+    margin: 0 auto;
+    border-radius: 16px;
+    margin-bottom: 2rem;
 
-      &.pic-initial {
+    &.pic-initial {
       background:
         linear-gradient(rgba(0, 0, 0, 0.796), rgba(27, 27, 27, 0.5)),
-        url('/img/services/iphone.jpg');
+        url("/img/services/iphone.jpg");
       background-size: cover;
-            background-position: center;
+      background-position: center;
     }
 
     &.pic-standard {
       background:
-      linear-gradient(rgba(0, 0, 0, 0.796), rgba(182, 0, 0, 0.5)), url('/img/services/camera.jpg');
+        linear-gradient(rgba(0, 0, 0, 0.796), rgba(182, 0, 0, 0.5)), url("/img/services/camera.jpg");
       background-size: cover;
       background-position: center;
     }
@@ -33,39 +34,34 @@ $transition-smooth: transform 0.3s ease, box-shadow 0.3s ease;
     &.pic-premium {
       background:
         linear-gradient(rgba(0, 0, 0, 0.796), rgba(20, 196, 0, 0.8)),
-        url('/img/services/premium.jpg');
+        url("/img/services/premium.jpg");
       background-size: cover;
-            background-position: center;
+      background-position: center;
     }
 
     &.pic-content-creation {
       background:
         linear-gradient(rgba(0, 0, 0, 0.796), rgba(238, 255, 0, 0.642)),
-        url('/img/services/content-creator.jpg');
+        url("/img/services/content-creator.jpg");
       background-size: cover;
       background-position: center;
     }
   }
 
-    .card {
-      transition: $transition-smooth;
+  .card {
+    transition: $transition-smooth;
 
-      &:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 1rem 2rem rgb(182, 182, 182) !important; 
-      }
-    
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 1rem 2rem rgb(182, 182, 182) !important;
     }
-
-
-
-
+  }
 
   .service-type {
     border-radius: 0;
     transition: $transition-smooth;
     border: none !important; // Limpiamos bordes nativos de la card de Bootstrap        // --- LÓGICA DE BORDES SEPARADORES RESPONSIVE ---
-    
+
     // En Mobile (pantallas chicas): El separador va abajo
     border-bottom: 1px solid rgba(128, 128, 128, 0.4) !important;
     padding-bottom: 1.5rem; // Espaciado extra antes de la línea
@@ -76,18 +72,14 @@ $transition-smooth: transform 0.3s ease, box-shadow 0.3s ease;
       border-right: 1px solid rgba(128, 128, 128, 0.4) !important;
       padding-bottom: 0;
     }
-    
+
     // Efecto de elevación al pasar el cursor (Hover)
     &:hover {
       transform: translateY(-5px);
-      // Al ser transparente, un shadow muy fuerte puede quedar raro, 
+      // Al ser transparente, un shadow muy fuerte puede quedar raro,
       // pero si te gusta cómo queda, este está perfecto:
-      box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.1) !important; 
+      box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.1) !important;
     }
-
-
-
-    
 
     .card-title {
       letter-spacing: 1px;
@@ -126,7 +118,7 @@ $transition-smooth: transform 0.3s ease, box-shadow 0.3s ease;
   }
 
   // --- QUITAR BORDES EXTREMOS (INICIO Y FINAL) ---
-  
+
   // En Mobile: Le sacamos el borde de abajo a la última tarjeta
   .col-12:last-child .service-type {
     border-bottom: none !important;
@@ -139,4 +131,3 @@ $transition-smooth: transform 0.3s ease, box-shadow 0.3s ease;
     }
   }
 }
-

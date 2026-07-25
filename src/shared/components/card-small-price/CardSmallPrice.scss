@@ -1,4 +1,4 @@
-@use 'sass:color';
+@use "sass:color";
 
 .card-value {
   width: 320px;
@@ -46,7 +46,7 @@
     color: white;
     background:
       linear-gradient(rgba(0, 0, 0, 0.796), rgba(255, 242, 0, 0.876)),
-      url('/img/services/hotel-2.jpeg');
+      url("/img/services/hotel-2.jpeg");
     background-size: cover;
     background-position: center;
 

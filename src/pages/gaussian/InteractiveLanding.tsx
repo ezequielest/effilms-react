@@ -10,43 +10,41 @@ import Proyects from "./sections/Proyects/Proyects";
 import LiveAction from "./sections/LiveAction/LiveAction";
 
 const InteractiveLanding = () => {
-    return (
-        <main className="interactive">
+  return (
+    <main className="interactive">
+      <section id="hero">
+        <Hero />
+      </section>
 
-            <section id="hero">
-                <Hero/>
-            </section>
+      <section id="problem">
+        <Problem />
+      </section>
 
-            <section id="problem">
-                <Problem />
-            </section>
+      <section id="vision">
+        <Vision />
+      </section>
 
-            <section id="vision">
-                <Vision />
-            </section>
+      <section id="experience">
+        <Experience />
+      </section>
 
-            <section id="experience">
-                <Experience />
-            </section>
+      <section>
+        <LiveAction />
+      </section>
 
-            <section>
-                <LiveAction />
-            </section>
+      <section id="cases">
+        <Process />
+      </section>
 
-            <section id="cases">
-                <Process />
-            </section>
+      <section id="demo">
+        <Proyects />
+      </section>
 
-            <section id="demo">
-                <Proyects />
-            </section>
-
-            <section id="contact">
-                <CTA />
-            </section>
-
-        </main>
-    );
+      <section id="contact">
+        <CTA />
+      </section>
+    </main>
+  );
 };
 
 export default InteractiveLanding;

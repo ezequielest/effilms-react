@@ -1,14 +1,14 @@
-import './ServicesSlide.scss';
+import "./ServicesSlide.scss";
 
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
-import Slider from 'react-slick';
-import { useState } from 'react';
-import YoutubeModal from '../../../../shared/components/youtube-modal/YoutubeModal';
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import Slider from "react-slick";
+import { useState } from "react";
+import YoutubeModal from "../../../../shared/components/youtube-modal/YoutubeModal";
 
 export default function ServicesSlide() {
   const [showModal, setShowModal] = useState(false);
-  const [videoUrl, setVideoUrl] = useState('');
+  const [videoUrl, setVideoUrl] = useState("");
 
   const settings = {
     dots: false,
@@ -59,24 +59,24 @@ export default function ServicesSlide() {
 
   const services = [
     {
-      type: 'arq',
-      name: 'Arquitectura',
-      example: 'https://www.youtube.com/embed/c4BdDy8lVjc?si=YDF28O-R1uGOao8A',
+      type: "arq",
+      name: "Arquitectura",
+      example: "https://www.youtube.com/embed/c4BdDy8lVjc?si=YDF28O-R1uGOao8A",
     },
     {
-      type: 'realestate',
-      name: 'Real Estate',
-      example: 'https://www.youtube.com/embed/UqVSL2XISdY?si=DZEyxjOgRcU5P29G',
+      type: "realestate",
+      name: "Real Estate",
+      example: "https://www.youtube.com/embed/UqVSL2XISdY?si=DZEyxjOgRcU5P29G",
     },
     {
-      type: 'devs',
-      name: 'Desarrollos',
-      example: 'https://www.youtube.com/embed/cj5IrhTj8Xs?si=Or_d2TNP8rBJAHVS',
+      type: "devs",
+      name: "Desarrollos",
+      example: "https://www.youtube.com/embed/cj5IrhTj8Xs?si=Or_d2TNP8rBJAHVS",
     },
     {
-      type: 'inst',
-      name: 'Institucionales',
-      example: 'https://www.youtube.com/embed/WNKtXL7lc-o?si=ulgTv9riPMb063cz',
+      type: "inst",
+      name: "Institucionales",
+      example: "https://www.youtube.com/embed/WNKtXL7lc-o?si=ulgTv9riPMb063cz",
     },
   ];
 
@@ -103,7 +103,7 @@ export default function ServicesSlide() {
                       target="_blank"
                       onClick={(e) => {
                         e.preventDefault();
-                        handleOpenModal('arq');
+                        handleOpenModal("arq");
                       }}
                       className="btn primary-btn btn-center"
                     >
@@ -121,7 +121,7 @@ export default function ServicesSlide() {
                       target="_blank"
                       onClick={(e) => {
                         e.preventDefault(); // opcional: si querés evitar comportamiento predeterminado
-                        handleOpenModal('realestate');
+                        handleOpenModal("realestate");
                       }}
                       className="btn primary-btn btn-center"
                     >
@@ -139,7 +139,7 @@ export default function ServicesSlide() {
                       target="_blank"
                       onClick={(e) => {
                         e.preventDefault(); // opcional: si querés evitar comportamiento predeterminado
-                        handleOpenModal('devs');
+                        handleOpenModal("devs");
                       }}
                       className="btn primary-btn btn-center"
                     >
@@ -168,7 +168,7 @@ export default function ServicesSlide() {
                       target="_blank"
                       onClick={(e) => {
                         e.preventDefault(); // opcional: si querés evitar comportamiento predeterminado
-                        handleOpenModal('inst');
+                        handleOpenModal("inst");
                       }}
                       className="btn primary-btn btn-center"
                     >

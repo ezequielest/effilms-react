@@ -1,4 +1,4 @@
-@use 'sass:color';
+@use "sass:color";
 
 .card-value {
   width: 320px;
@@ -13,8 +13,8 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
   overflow: hidden;
   transition:
-  transform 0.25s ease,
-  box-shadow 0.25s ease;
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
 
   &:hover {
     transform: translateY(-4px);
@@ -52,13 +52,13 @@
     &.initial {
       background:
         linear-gradient(rgba(0, 0, 0, 0.796), rgba(27, 27, 27, 0.5)),
-        url('/img/services/iphone.jpg');
+        url("/img/services/iphone.jpg");
       background-size: cover;
     }
 
     &.standard {
       background:
-        linear-gradient(rgba(0, 0, 0, 0.796), rgba(182, 0, 0, 0.5)), url('/img/services/camera.jpg');
+        linear-gradient(rgba(0, 0, 0, 0.796), rgba(182, 0, 0, 0.5)), url("/img/services/camera.jpg");
       background-size: cover;
       background-position: center;
     }
@@ -66,7 +66,7 @@
     &.premium {
       background:
         linear-gradient(rgba(0, 0, 0, 0.796), rgba(20, 196, 0, 0.5)),
-        url('/img/services/gimbal.jpg');
+        url("/img/services/gimbal.jpg");
       background-size: cover;
       background-position: center;
     }

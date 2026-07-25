@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import './ToggleSwitch.scss';
+import React, { useState } from "react";
+import "./ToggleSwitch.scss";
 
 interface ToggleSwitchProps {
   checked?: boolean;
@@ -25,8 +25,8 @@ const ToggleSwitch: React.FC<ToggleSwitchProps> = ({
     <div
       className={`
       toggle-switch
-      ${checked ? 'on' : 'off'}
-      ${disabled ? 'disabled' : ''}
+      ${checked ? "on" : "off"}
+      ${disabled ? "disabled" : ""}
     `}
       onClick={handleToggle}
     >

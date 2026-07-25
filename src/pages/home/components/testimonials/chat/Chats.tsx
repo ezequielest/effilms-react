@@ -1,5 +1,5 @@
-import './Chats.scss';
-import type { ClientMessage } from '../../../../../core/models/ITestimonials.js';
+import "./Chats.scss";
+import type { ClientMessage } from "../../../../../core/models/ITestimonials.js";
 
 interface ChatsProps {
   client: ClientMessage;

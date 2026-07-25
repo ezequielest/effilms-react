@@ -1,6 +1,6 @@
-import React from 'react';
-import type { IServices } from '../../../core/models/Iservices';
-import './ServiceCard.scss';
+import React from "react";
+import type { IServices } from "../../../core/models/Iservices";
+import "./ServiceCard.scss";
 
 interface CardProps {
   service: IServices;
@@ -9,7 +9,7 @@ interface CardProps {
 function ServiceCard({ service }: CardProps) {
   return (
     <>
-      <div className={`card-value ${service.isHighlighted ? 'highlighted' : ''}`}>
+      <div className={`card-value ${service.isHighlighted ? "highlighted" : ""}`}>
         {service.isHighlighted && <div className="label-highlighted">RECOMENDADO</div>}
 
         {service.isPromo && <div className="label-highlighted">10% OFF</div>}
@@ -24,7 +24,7 @@ function ServiceCard({ service }: CardProps) {
           <div className="subtitle">{service.description}</div>
 
           {service.hours && (
-            <div style={{ fontSize: '10px', fontWeight: 'bold', color: '#4d7d51' }}>
+            <div style={{ fontSize: "10px", fontWeight: "bold", color: "#4d7d51" }}>
               Tiempo estimado de producción: {service.hours}hs
             </div>
           )}

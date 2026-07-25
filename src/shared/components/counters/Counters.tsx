@@ -1,21 +1,21 @@
-import './Counter.scss';
+import "./Counter.scss";
 
 function Counter() {
   const countArray = [
     {
-      title: 'Proyectos entregados',
+      title: "Proyectos entregados",
       number: 548,
     },
     {
-      title: 'Clientes felices',
+      title: "Clientes felices",
       number: 32,
     },
     {
-      title: 'Horas editando',
+      title: "Horas editando",
       number: 2689,
     },
     {
-      title: 'Tazas de cafe',
+      title: "Tazas de cafe",
       number: 1239,
     },
   ];

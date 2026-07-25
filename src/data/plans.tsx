@@ -1,26 +1,26 @@
 /*BASEPRICE ES EL VALOR NETO POR PRODUCCION (CON DESCUENTO), CON ESTE SE CALCULA EL AHORRO*/
 
-import type { Iplans } from '../core/models/Iplans';
-import { ServiceGroup } from '../core/models/ServiceGroup.enum';
+import type { Iplans } from "../core/models/Iplans";
+import { ServiceGroup } from "../core/models/ServiceGroup.enum";
 
 export const plans: Array<Iplans> = [
   {
     type: ServiceGroup.INITIAL,
-    title: 'INICIAL',
-    class: 'initial',
+    title: "INICIAL",
+    class: "initial",
     availablePlaces: 0,
     included: [
       {
-        description: 'Servicio SMARTPHONE',
-        class: 'bold',
+        description: "Servicio SMARTPHONE",
+        class: "bold",
       },
       {
-        description: 'Ideal para iniciar',
-        class: '',
+        description: "Ideal para iniciar",
+        class: "",
       },
       {
-        description: 'Broker conduciendo video',
-        class: '',
+        description: "Broker conduciendo video",
+        class: "",
       },
     ],
     hasPhoto: false,
@@ -31,25 +31,25 @@ export const plans: Array<Iplans> = [
   },
   {
     type: ServiceGroup.STANDARD,
-    title: 'ESTANDAR',
-    class: 'standard',
+    title: "ESTANDAR",
+    class: "standard",
     availablePlaces: 2,
     included: [
       {
-        description: 'Servicio PROFESIONAL',
-        class: 'bold',
+        description: "Servicio PROFESIONAL",
+        class: "bold",
       },
       {
-        description: 'Equipo profesional',
-        class: '',
+        description: "Equipo profesional",
+        class: "",
       },
       {
-        description: 'Video CÁMARA + DRON',
-        class: '',
+        description: "Video CÁMARA + DRON",
+        class: "",
       },
       {
-        description: 'Broker conduciendo video',
-        class: '',
+        description: "Broker conduciendo video",
+        class: "",
       },
     ],
     hasPhoto: false,
@@ -60,29 +60,29 @@ export const plans: Array<Iplans> = [
   },
   {
     type: ServiceGroup.PREMIUM,
-    title: 'PREMIUM',
-    class: 'premium',
+    title: "PREMIUM",
+    class: "premium",
     availablePlaces: 0,
     included: [
       {
-        description: 'Servicio PREMIUM',
-        class: 'bold',
+        description: "Servicio PREMIUM",
+        class: "bold",
       },
       {
-        description: 'Videos de alto impacto',
-        class: '',
+        description: "Videos de alto impacto",
+        class: "",
       },
       {
-        description: 'Adaptación de formato',
-        class: '',
+        description: "Adaptación de formato",
+        class: "",
       },
       {
-        description: 'Efectos de texto',
-        class: '',
+        description: "Efectos de texto",
+        class: "",
       },
       {
-        description: 'Broker y modelados',
-        class: '',
+        description: "Broker y modelados",
+        class: "",
       },
     ],
     hasPhoto: false,

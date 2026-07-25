@@ -59,25 +59,25 @@
   transition: transform 0.3s ease-in-out;
 
   &.eze {
-    background-image: url('/img/team/lequi-1.jpg');
+    background-image: url("/img/team/lequi-1.jpg");
   }
   &.debo {
-    background-image: url('/img/team/debo-1.jpg');
+    background-image: url("/img/team/debo-1.jpg");
     background-position-x: left;
   }
   &.benja {
-    background-image: url('/img/team/benja-1.jpg');
+    background-image: url("/img/team/benja-1.jpg");
   }
   &.anonimus {
-    background-image: url('/img/team/anonimus-1.png');
+    background-image: url("/img/team/anonimus-1.png");
     //border: 1px solid $primary-color;
     background-position-y: -60px;
   }
   &.martu {
-    background-image: url('/img/team/martu-1.jpg');
+    background-image: url("/img/team/martu-1.jpg");
   }
   &.emma {
-    background-image: url('/img/team/emma-1.jpg');
+    background-image: url("/img/team/emma-1.jpg");
   }
 
   &:after {
@@ -87,7 +87,7 @@
     height: 100%;
     width: 100%;
     background: rgba(17, 17, 17, 0.9);
-    content: '';
+    content: "";
     z-index: -1;
     opacity: 0;
   }
@@ -142,7 +142,7 @@
     h5 {
       color: $white-color;
       font-weight: 600;
-      font-family: 'Poppins', sans-serif;
+      font-family: "Poppins", sans-serif;
       margin-bottom: 6px;
     }
 

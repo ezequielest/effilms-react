@@ -1,7 +1,7 @@
 // components/Nav/Navigation.tsx
 
-import type { NavItem } from '../../../data/navigations';
-import NavigationItem from './NavigationItem';
+import type { NavItem } from "../../../data/navigations";
+import NavigationItem from "./NavigationItem";
 
 interface Props {
   items: NavItem[];
@@ -10,17 +10,12 @@ interface Props {
   onNavigate?: () => void;
 }
 
-const Navigation = ({
-  items,
-  activeSection,
-  mobile = false,
-  onNavigate,
-}: Props) => {
+const Navigation = ({ items, activeSection, mobile = false, onNavigate }: Props) => {
   return (
     <ul>
       {items.map((item) => (
         <NavigationItem
-          key={`${item.path}-${item.hash ?? ''}`}
+          key={`${item.path}-${item.hash ?? ""}`}
           item={item}
           activeSection={activeSection}
           mobile={mobile}

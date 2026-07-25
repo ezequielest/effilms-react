@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
 export const useScrollSpy = (ids: string[]) => {
-  const [activeId, setActiveId] = useState('');
+  const [activeId, setActiveId] = useState("");
 
   useEffect(() => {
     if (!ids.length) return;
@@ -10,7 +10,7 @@ export const useScrollSpy = (ids: string[]) => {
       () => {
         const center = window.innerHeight / 2;
 
-        let closestId = '';
+        let closestId = "";
         let closestDistance = Infinity;
 
         ids.forEach((id) => {

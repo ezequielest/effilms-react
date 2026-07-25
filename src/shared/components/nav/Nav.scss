@@ -1,4 +1,4 @@
-@use '@/styles/index.scss' as *;
+@use "@/styles/index.scss" as *;
 
 /*---------------------
   Header
@@ -150,7 +150,7 @@
           height: 2px;
           width: 100%;
           background: $primary-color;
-          content: '';
+          content: "";
           @include transition(all, 0.4s);
           -webkit-transform: scale(0);
           transform: scale(0);
@@ -165,7 +165,7 @@
 
   span {
     font-size: 14px;
-    font-family: 'Aldrich', sans-serif;
+    font-family: "Aldrich", sans-serif;
     color: #b7b7b7;
     display: block;
     margin-bottom: 10px;
@@ -202,7 +202,7 @@
 }
 
 .bebas {
-  font-family: 'Bebas Neue', sans-serif;
+  font-family: "Bebas Neue", sans-serif;
 }
 
 .row.no-gutters {
@@ -211,7 +211,7 @@
 }
 
 .offcanvas__logo {
-  font-family: 'Bebas Neue', sans-serif;
+  font-family: "Bebas Neue", sans-serif;
   color: white;
   font-size: 42px;
 }

@@ -1,8 +1,8 @@
-import type { IServicesSmall } from '../../../core/models/Iservices';
-import { formatNumber } from '../../utils/numbers';
-import './CardSmallPrice.scss';
-import { faArrowRightLong } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import type { IServicesSmall } from "../../../core/models/Iservices";
+import { formatNumber } from "../../utils/numbers";
+import "./CardSmallPrice.scss";
+import { faArrowRightLong } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 interface CardProps {
   key: number;
@@ -13,7 +13,7 @@ function CardSmallPrice({ service }: CardProps) {
   return (
     <>
       <div
-        className={`card-value highlighted${service.isHighlighted ? 'highlighted' : ''}`}
+        className={`card-value highlighted${service.isHighlighted ? "highlighted" : ""}`}
         key={service.id}
       >
         {service.isPromo && <div className="label-highlighted">{service.discount}</div>}
@@ -27,7 +27,7 @@ function CardSmallPrice({ service }: CardProps) {
         <div className="content">
           <div className="description">
             {service.description}
-            <div className={'examples'}>
+            <div className={"examples"}>
               {service.video && (
                 <a target="_blank" href={service.video} className="link" rel="noopener noreferrer">
                   <FontAwesomeIcon icon={faArrowRightLong} className="icon" /> ver ejemplo

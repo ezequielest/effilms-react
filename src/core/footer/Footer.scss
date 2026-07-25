@@ -5,7 +5,7 @@
   position: relative;
 
   &.footer-bg {
-    background-image: url('/img/footer-bg.jpg');
+    background-image: url("/img/footer-bg.jpg");
   }
 
   .data {
@@ -130,7 +130,7 @@
   h6 {
     color: $white-color;
     font-weight: 600;
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
     margin-bottom: 30px;
   }
 
@@ -153,7 +153,7 @@
   h6 {
     color: $white-color;
     font-weight: 600;
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
     margin-bottom: 30px;
   }
 
@@ -205,7 +205,7 @@
       position: absolute;
       right: -22px;
       top: -3px;
-      content: '|';
+      content: "|";
     }
 
     &:last-child {

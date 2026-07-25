@@ -1,6 +1,6 @@
 // src/components/YoutubeModal.tsx
 
-import { Modal } from 'react-bootstrap';
+import { Modal } from "react-bootstrap";
 
 interface YoutubeModalProps {
   show: boolean;
@@ -18,7 +18,7 @@ const YoutubeModal = ({ show, onHide, videoUrl }: YoutubeModalProps) => {
               className="embed-responsive-item"
               src={videoUrl}
               allowFullScreen
-              style={{ width: '100%', height: '400px', border: 'none' }}
+              style={{ width: "100%", height: "400px", border: "none" }}
             ></iframe>
           )}
         </div>

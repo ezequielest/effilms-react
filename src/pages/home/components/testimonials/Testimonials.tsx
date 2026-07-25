@@ -1,12 +1,12 @@
-import { useEffect } from 'react';
-import './Testimonials.scss';
-import { backWhatsapp, whatsappCustomer } from './testimonials-fn.js';
-import Chats from './chat/Chats.js';
-import type { ClientMessage } from '../../../../core/models/ITestimonials.js';
+import { useEffect } from "react";
+import "./Testimonials.scss";
+import { backWhatsapp, whatsappCustomer } from "./testimonials-fn.js";
+import Chats from "./chat/Chats.js";
+import type { ClientMessage } from "../../../../core/models/ITestimonials.js";
 
 function Testimonials() {
   useEffect(() => {
-    whatsappCustomer('bianchi', true);
+    whatsappCustomer("bianchi", true);
   });
 
   function handleBackWhatsapp() {
@@ -15,31 +15,31 @@ function Testimonials() {
 
   const clientsMessage: Array<ClientMessage> = [
     {
-      name: 'Etchegorry',
-      image: '/img/testimonial/etchegorry.jpg',
-      preMessage: 'Impecable !!!!...',
-      hour: '14:09',
-      cant: '5',
+      name: "Etchegorry",
+      image: "/img/testimonial/etchegorry.jpg",
+      preMessage: "Impecable !!!!...",
+      hour: "14:09",
+      cant: "5",
       messages: [
         {
-          message: 'Impecable !!!!!!',
-          hour: '14:09',
+          message: "Impecable !!!!!!",
+          hour: "14:09",
         },
         {
-          message: 'Nuestros inversores contentos !!!!!!',
-          hour: '14:09',
+          message: "Nuestros inversores contentos !!!!!!",
+          hour: "14:09",
         },
         {
-          message: '👏🏻👏🏻👏🏻👏🏻👏🏻',
-          hour: '14:09',
+          message: "👏🏻👏🏻👏🏻👏🏻👏🏻",
+          hour: "14:09",
         },
         {
-          message: 'Cuando puedas pasamelo al formato horizontal para el canal',
-          hour: '14:09',
+          message: "Cuando puedas pasamelo al formato horizontal para el canal",
+          hour: "14:09",
         },
         {
-          message: 'Muchas gracias',
-          hour: '14:09',
+          message: "Muchas gracias",
+          hour: "14:09",
         },
       ],
     },
@@ -91,7 +91,7 @@ function Testimonials() {
               <div
                 className="customer bianchi"
                 onClick={() => {
-                  whatsappCustomer('bianchi', false);
+                  whatsappCustomer("bianchi", false);
                 }}
               >
                 <div className="container-img">
@@ -111,7 +111,7 @@ function Testimonials() {
               <div
                 className="customer moire"
                 onClick={() => {
-                  whatsappCustomer('moire', false);
+                  whatsappCustomer("moire", false);
                 }}
               >
                 <div className="container-img moire">
@@ -131,7 +131,7 @@ function Testimonials() {
               <div
                 className="customer malov"
                 onClick={() => {
-                  whatsappCustomer('malov', false);
+                  whatsappCustomer("malov", false);
                 }}
               >
                 <div className="container-img">
@@ -151,7 +151,7 @@ function Testimonials() {
               <div
                 className="customer soldeabril"
                 onClick={() => {
-                  whatsappCustomer('soldeabril', false);
+                  whatsappCustomer("soldeabril", false);
                 }}
               >
                 <div className="container-img">

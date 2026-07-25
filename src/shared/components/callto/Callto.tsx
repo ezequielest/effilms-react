@@ -1,5 +1,5 @@
-import React from 'react';
-import './Callto.scss';
+import React from "react";
+import "./Callto.scss";
 
 export const Callto: React.FC = () => {
   return (

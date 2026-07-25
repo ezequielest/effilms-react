@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import './Landing.scss';
-import { faFacebook, faInstagram, faWhatsapp, faYoutube } from '@fortawesome/free-brands-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowDown } from '@fortawesome/free-solid-svg-icons';
+import React, { useEffect, useState } from "react";
+import "./Landing.scss";
+import { faFacebook, faInstagram, faWhatsapp, faYoutube } from "@fortawesome/free-brands-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowDown } from "@fortawesome/free-solid-svg-icons";
 
 export const Landing: React.FC = () => {
   const [loaded, setLoaded] = useState(false);
@@ -23,13 +23,13 @@ export const Landing: React.FC = () => {
 
   // Escucha la carga real del video
   useEffect(() => {
-    const video = document.querySelector('video');
+    const video = document.querySelector("video");
     if (!video) return;
 
     const handleCanPlay = () => setLoaded(true);
-    video.addEventListener('canplaythrough', handleCanPlay, { once: true });
+    video.addEventListener("canplaythrough", handleCanPlay, { once: true });
 
-    return () => video.removeEventListener('canplaythrough', handleCanPlay);
+    return () => video.removeEventListener("canplaythrough", handleCanPlay);
   }, []);
 
   function round(val: number) {
@@ -50,7 +50,7 @@ export const Landing: React.FC = () => {
         loop
         muted
         autoPlay
-        style={{ display: 'none' }}
+        style={{ display: "none" }}
         preload="auto"
       >
         <source src="/videos/background-mobile.m4v" type="video/mp4" />

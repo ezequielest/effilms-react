@@ -1,6 +1,6 @@
-import React from 'react';
-import './Box-card.scss';
-import type { IBoxcard } from '../../../core/models/IBoxCard';
+import React from "react";
+import "./Box-card.scss";
+import type { IBoxcard } from "../../../core/models/IBoxCard";
 
 interface BoxCardProps {
   boxArray: Array<IBoxcard>;

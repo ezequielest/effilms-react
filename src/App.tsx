@@ -1,15 +1,15 @@
-import { useState, useEffect } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import './App.scss';
-import Home from './pages/home/Home';
-import { Routes, Route } from 'react-router-dom';
-import Services from './pages/services/Services';
-import Footer from './core/footer/Footer';
-import Contact from './pages/contactc/Contact';
-import ScrollToHash from './hooks/scrollToHash';
-import Nav from './shared/components/nav/Nav';
-import Inmersive from './pages/inmersive/Inmersive';
-import InteractiveLanding from './pages/gaussian/InteractiveLanding';
+import { useState, useEffect } from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./App.scss";
+import Home from "./pages/home/Home";
+import { Routes, Route } from "react-router-dom";
+import Services from "./pages/services/Services";
+import Footer from "./core/footer/Footer";
+import Contact from "./pages/contactc/Contact";
+import ScrollToHash from "./hooks/scrollToHash";
+import Nav from "./shared/components/nav/Nav";
+import Inmersive from "./pages/inmersive/Inmersive";
+import InteractiveLanding from "./pages/gaussian/InteractiveLanding";
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -20,17 +20,17 @@ function App() {
       setTimeout(() => setLoaded(true), 200);
     };
 
-    if (document.readyState === 'complete') {
+    if (document.readyState === "complete") {
       handleLoad();
     } else {
-      window.addEventListener('load', handleLoad);
-      return () => window.removeEventListener('load', handleLoad);
+      window.addEventListener("load", handleLoad);
+      return () => window.removeEventListener("load", handleLoad);
     }
   });
 
   return (
     <>
-      <div id="preloder" className={`preloader ${loaded ? 'fade-out' : ''}`}>
+      <div id="preloder" className={`preloader ${loaded ? "fade-out" : ""}`}>
         <div className="loader" />
       </div>
       <ScrollToHash />

@@ -2,7 +2,7 @@ export function incressProd() {
   if (prodsConfig.cantProdSelected < prodsConfig.maxProds) {
     ++prodsConfig.cantProdSelected;
 
-    console.log('price ', plans);
+    console.log("price ", plans);
 
     updateFinalPrice();
     updateCantProds();
@@ -12,7 +12,7 @@ export function incressProd() {
 export function decreaseProd() {
   if (prodsConfig.cantProdSelected > prodsConfig.minProds) {
     --prodsConfig.cantProdSelected;
-    console.log('price ', plans);
+    console.log("price ", plans);
     updateFinalPrice();
     updateCantProds();
   }
@@ -23,7 +23,7 @@ export function updateAddPhotoPrice(planType) {
     return el.type === planType;
   });
 
-  const addPhotoIsChequed = document.getElementById(planType + '_photo').checked;
+  const addPhotoIsChequed = document.getElementById(planType + "_photo").checked;
 
   if (addPhotoIsChequed) {
     plan.finalPrice = plan.finalPrice + basicArray[3].addPhoto * prodsConfig.cantProdSelected;
@@ -51,10 +51,10 @@ export function updateAddPhotoPrice(planType) {
 
   document.getElementById(plan.id).innerHTML = plan.finalPrice
     .toString()
-    .replace(/\B(?=(\d{3})+(?!\d))/g, '.');
-  document.getElementById(plan.id + 'Discont').innerHTML = plan.savings
+    .replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+  document.getElementById(plan.id + "Discont").innerHTML = plan.savings
     .toString()
-    .replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+    .replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 }
 
 export function updateAddAdaptationPrice(planType) {
@@ -62,7 +62,7 @@ export function updateAddAdaptationPrice(planType) {
     return el.type === planType;
   });
 
-  const addAdaptationIsChequed = document.getElementById(planType + '_adaptation').checked;
+  const addAdaptationIsChequed = document.getElementById(planType + "_adaptation").checked;
 
   if (addAdaptationIsChequed) {
     plan.finalPrice = plan.finalPrice + basicArray[3].addAdaptation * prodsConfig.cantProdSelected;
@@ -86,6 +86,6 @@ export function updateAddAdaptationPrice(planType) {
 
   document.getElementById(plan.id).innerHTML = plan.finalPrice
     .toString()
-    .replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+    .replace(/\B(?=(\d{3})+(?!\d))/g, ".");
   //document.getElementById(plan.id + 'Discont').innerHTML=plan.savings.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 }

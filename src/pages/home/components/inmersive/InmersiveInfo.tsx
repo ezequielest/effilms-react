@@ -1,5 +1,5 @@
-import './InmersiveInfo.scss';
-import TresDDisplay from '../../../../shared/components/3d-building/TresDDisplay';
+import "./InmersiveInfo.scss";
+import TresDDisplay from "../../../../shared/components/3d-building/TresDDisplay";
 //import YoutubeModal from '../youtube-modal/YoutubeModal';
 
 function InmersiveInfo() {
@@ -16,7 +16,7 @@ function InmersiveInfo() {
       <div className="container">
         <div className="row">
           <div className="col-md-12 col-lg-6 text-center building">
-            <TresDDisplay url={'/3d/torre.glb'} />
+            <TresDDisplay url={"/3d/torre.glb"} />
           </div>
           <div className="col-md-12 col-lg-6 text-center">
             <div className="description-container">
@@ -24,7 +24,8 @@ function InmersiveInfo() {
                 <label>Próximamente</label>
                 <h2>3D INMERSIVO</h2>
                 <span>
-                  Vende el proyecto de la manera más innovadora, desplega todo el potencial en un solo lugar.
+                  Vende el proyecto de la manera más innovadora, desplega todo el potencial en un
+                  solo lugar.
                 </span>
                 {/*<a
                   target="_blank"

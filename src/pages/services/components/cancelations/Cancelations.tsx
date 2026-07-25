@@ -1,24 +1,24 @@
-import React from 'react';
-import './Cancelations.scss';
-import BoxCardInverted from '../../../../shared/components/box-card-inverted/Box-card-inverted';
+import React from "react";
+import "./Cancelations.scss";
+import BoxCardInverted from "../../../../shared/components/box-card-inverted/Box-card-inverted";
 
 export const Cancelations: React.FC = () => {
   const promotions = [
     {
-      preDiscount: 'con ',
+      preDiscount: "con ",
       discount: 48,
-      postDiscount: ' de anticipación',
-      preDescription: '',
-      description: 'Reprogramaciones',
-      postDescription: '',
+      postDiscount: " de anticipación",
+      preDescription: "",
+      description: "Reprogramaciones",
+      postDescription: "",
     },
     {
-      preDiscount: '',
+      preDiscount: "",
       discount: 20,
-      postDiscount: '% del valor de la producción',
-      preDescription: '',
-      description: 'Ante no show',
-      postDescription: '',
+      postDiscount: "% del valor de la producción",
+      preDescription: "",
+      description: "Ante no show",
+      postDescription: "",
     },
   ];
   return (

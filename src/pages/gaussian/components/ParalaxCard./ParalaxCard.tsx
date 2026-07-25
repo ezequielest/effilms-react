@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef } from "react";
 
 // Definición de las interfaces para las propiedades del componente
 interface ParallaxCardProps {
@@ -7,10 +7,10 @@ interface ParallaxCardProps {
   maxRotation?: number; // Permite personalizar la intensidad del efecto (por defecto 15)
 }
 
-export const ParallaxCard: React.FC<ParallaxCardProps> = ({ 
-  imgSrc, 
+export const ParallaxCard: React.FC<ParallaxCardProps> = ({
+  imgSrc,
   altText = "Imagen Parallax",
-  maxRotation = 15 
+  maxRotation = 15,
 }) => {
   // Tipado explícito de las referencias del DOM
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -30,7 +30,7 @@ export const ParallaxCard: React.FC<ParallaxCardProps> = ({
     const mouseY = e.clientY - top;
 
     // Calcular rotación basada en la propiedad maxRotation
-    const rotateY = ((mouseX / width) * (maxRotation * 2)) - maxRotation;
+    const rotateY = (mouseX / width) * (maxRotation * 2) - maxRotation;
     const rotateX = -((mouseY / height) * (maxRotation * 2)) + maxRotation;
 
     // Aplicar transformación
@@ -39,33 +39,33 @@ export const ParallaxCard: React.FC<ParallaxCardProps> = ({
 
   const handleMouseEnter = (): void => {
     if (imageRef.current) {
-      imageRef.current.style.transition = 'transform 0.1s ease-out';
+      imageRef.current.style.transition = "transform 0.1s ease-out";
     }
   };
 
   const handleMouseLeave = (): void => {
     if (imageRef.current) {
-      imageRef.current.style.transition = 'transform 0.5s ease-in-out';
-      imageRef.current.style.transform = 'rotateY(0deg) rotateX(0deg)';
+      imageRef.current.style.transition = "transform 0.5s ease-in-out";
+      imageRef.current.style.transform = "rotateY(0deg) rotateX(0deg)";
     }
   };
 
   // Tipado explícito de los estilos en línea
   const containerStyle: React.CSSProperties = {
-    perspective: '1000px',
-    width: '100%',
-    maxWidth: '600px',
-    margin: '0 auto',
-    cursor: 'pointer',
+    perspective: "1000px",
+    width: "100%",
+    maxWidth: "600px",
+    margin: "0 auto",
+    cursor: "pointer",
   };
 
   const imageStyle: React.CSSProperties = {
-    width: '100%',
-    height: 'auto',
-    borderRadius: '12px',
-    boxShadow: '0 20px 40px rgba(0, 0, 0, 0.3)',
-    transformStyle: 'preserve-3d',
-    willChange: 'transform',
+    width: "100%",
+    height: "auto",
+    borderRadius: "12px",
+    boxShadow: "0 20px 40px rgba(0, 0, 0, 0.3)",
+    transformStyle: "preserve-3d",
+    willChange: "transform",
   };
 
   return (
@@ -76,12 +76,7 @@ export const ParallaxCard: React.FC<ParallaxCardProps> = ({
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      <img
-        ref={imageRef}
-        src={imgSrc}
-        alt={altText}
-        style={imageStyle}
-      />
+      <img ref={imageRef} src={imgSrc} alt={altText} style={imageStyle} />
     </div>
   );
 };

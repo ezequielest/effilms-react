@@ -1,46 +1,46 @@
 // src/home/components/BoxServices.tsx
 
-import { useState } from 'react';
+import { useState } from "react";
 
-import './BoxServices.scss';
-import YoutubeModal from '../../../../shared/components/youtube-modal/YoutubeModal';
+import "./BoxServices.scss";
+import YoutubeModal from "../../../../shared/components/youtube-modal/YoutubeModal";
 
 const services = [
   {
-    type: 'video',
-    name: 'VIDEO',
-    example: 'https://www.youtube.com/embed/qtWw8xcVfXI?si=m5ocbQHuud1U6Par',
+    type: "video",
+    name: "VIDEO",
+    example: "https://www.youtube.com/embed/qtWw8xcVfXI?si=m5ocbQHuud1U6Par",
   },
   {
-    type: 'videoDron',
-    name: 'VIDEO + DRON',
-    example: 'https://www.youtube.com/embed/oaGRbR6nAA8',
+    type: "videoDron",
+    name: "VIDEO + DRON",
+    example: "https://www.youtube.com/embed/oaGRbR6nAA8",
   },
   {
-    type: 'conduccion',
-    name: 'CONDUCCIÓN',
-    example: 'https://www.youtube.com/embed/A-cVVHbjDhc',
+    type: "conduccion",
+    name: "CONDUCCIÓN",
+    example: "https://www.youtube.com/embed/A-cVVHbjDhc",
   },
   {
-    type: 'conduccionDron',
-    name: 'CONDUCCIÓN + DRON',
-    example: 'https://www.youtube.com/embed/6hjBbI25YD0',
+    type: "conduccionDron",
+    name: "CONDUCCIÓN + DRON",
+    example: "https://www.youtube.com/embed/6hjBbI25YD0",
   },
   {
-    type: 'dron',
-    name: 'DRON EXTERIOR',
-    example: 'https://www.youtube.com/embed/kzp4n9qXIeY',
+    type: "dron",
+    name: "DRON EXTERIOR",
+    example: "https://www.youtube.com/embed/kzp4n9qXIeY",
   },
   {
-    type: 'fpv',
-    name: 'DRON FPV',
-    example: 'https://www.youtube.com/embed/PT5w3ITbgBE',
+    type: "fpv",
+    name: "DRON FPV",
+    example: "https://www.youtube.com/embed/PT5w3ITbgBE",
   },
 ];
 
 function BoxServices() {
   const [showModal, setShowModal] = useState(false);
-  const [videoUrl, setVideoUrl] = useState('');
+  const [videoUrl, setVideoUrl] = useState("");
 
   const handleOpenModal = (type: string) => {
     const service = services.find((s) => s.type === type);

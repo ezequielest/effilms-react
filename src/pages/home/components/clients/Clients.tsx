@@ -1,4 +1,4 @@
-import './Clients.scss';
+import "./Clients.scss";
 
 function Clients() {
   return (

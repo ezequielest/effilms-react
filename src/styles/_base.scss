@@ -29,12 +29,12 @@
 /* Template default CSS
 /*----------------------------------------*/
 
-@use 'variables' as *;
-@use 'mixins' as *;
-@use 'responsive' as *;
-@use 'fonts' as *;
-@import 'https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap';
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+@use "variables" as *;
+@use "mixins" as *;
+@use "responsive" as *;
+@use "fonts" as *;
+@import "https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap";
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap");
 
 html {
   scroll-behavior: smooth;
@@ -48,7 +48,7 @@ html,
 body {
   height: 100%;
   background-color: #222;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -62,7 +62,7 @@ h6 {
   color: #111111;
   font-weight: 400;
   //font-family: 'Aldrich', sans-serif;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
 }
 
 h1 {
@@ -91,7 +91,7 @@ h6 {
 
 p {
   font-size: 1.1rem;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   color: #707070;
   font-weight: 400;
   line-height: 1.8rem;
@@ -222,7 +222,7 @@ ul li i {
     width: 28px;
     border-left: 2px solid rgba(255, 255, 255, 0.2);
     border-bottom: 2px solid rgba(255, 255, 255, 0.2);
-    content: '';
+    content: "";
     border-radius: 0 0 0 4px;
     @include transition(all, 0.5s);
   }
@@ -235,7 +235,7 @@ ul li i {
     width: 28px;
     border-right: 2px solid rgba(255, 255, 255, 0.2);
     border-top: 2px solid rgba(255, 255, 255, 0.2);
-    content: '';
+    content: "";
     border-radius: 0 4px 0 0;
     @include transition(all, 0.5s);
   }

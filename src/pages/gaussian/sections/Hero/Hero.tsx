@@ -7,15 +7,15 @@ interface ParallaxCardProps {
   maxRotation?: number; // Permite personalizar la intensidad del efecto (por defecto 15)
 }
 
-  // Tipado explícito de los estilos en línea
-  const containerStyle: React.CSSProperties = {
-    perspective: '1200px',
-    width: '110%',
-    margin: '0 auto',
-    cursor: 'pointer',
-  };
+// Tipado explícito de los estilos en línea
+const containerStyle: React.CSSProperties = {
+  perspective: "1200px",
+  width: "110%",
+  margin: "0 auto",
+  cursor: "pointer",
+};
 
-  /*const imageStyle: React.CSSProperties = {
+/*const imageStyle: React.CSSProperties = {
     width: '100%',
     height: 'auto',
     borderRadius: '32px',
@@ -24,9 +24,9 @@ interface ParallaxCardProps {
     willChange: 'transform',
   };*/
 
-export const Hero: React.FC<ParallaxCardProps> = ({  
+export const Hero: React.FC<ParallaxCardProps> = ({
   //altText = "Imagen Parallax",
-  maxRotation = 15 
+  maxRotation = 15,
 }) => {
   // Tipado explícito de las referencias del DOM
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -46,7 +46,7 @@ export const Hero: React.FC<ParallaxCardProps> = ({
     const mouseY = e.clientY - top;
 
     // Calcular rotación basada en la propiedad maxRotation
-    const rotateY = ((mouseX / width) * (maxRotation * 2)) - maxRotation;
+    const rotateY = (mouseX / width) * (maxRotation * 2) - maxRotation;
     const rotateX = -((mouseY / height) * (maxRotation * 2)) + maxRotation;
 
     // Aplicar transformación
@@ -55,128 +55,99 @@ export const Hero: React.FC<ParallaxCardProps> = ({
 
   const handleMouseEnter = (): void => {
     if (imageRef.current) {
-      imageRef.current.style.transition = 'transform 0.1s ease-out';
+      imageRef.current.style.transition = "transform 0.1s ease-out";
     }
   };
 
   const handleMouseLeave = (): void => {
     if (imageRef.current) {
-      imageRef.current.style.transition = 'transform 0.5s ease-in-out';
-      imageRef.current.style.transform = 'rotateY(0deg) rotateX(0deg)';
+      imageRef.current.style.transition = "transform 0.5s ease-in-out";
+      imageRef.current.style.transform = "rotateY(0deg) rotateX(0deg)";
     }
   };
 
-    return (
-        <header className="hero"
-              ref={containerRef}
-              style={containerStyle}
-              onMouseMove={handleMouseMove}
-              onMouseEnter={handleMouseEnter}
-              onMouseLeave={handleMouseLeave}
-        >
-
-            <div className="container h-100">
-
-                <div className="row align-items-center h-100">
-
-                    {/* ==========================
+  return (
+    <header
+      className="hero"
+      ref={containerRef}
+      style={containerStyle}
+      onMouseMove={handleMouseMove}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
+      <div className="container h-100">
+        <div className="row align-items-center h-100">
+          {/* ==========================
                         LEFT CONTENT
                     =========================== */}
 
-                    <div className="col-lg-6">
+          <div className="col-lg-6">
+            <div className="hero__content">
+              <span className="hero__eyebrow">EF Interactive</span>
 
-                        <div className="hero__content">
+              <h1 className="hero__title">
+                Hacemos visible
+                <br />
+                lo que todavía
+                <br />
+                no existe.
+              </h1>
 
-                            <span className="hero__eyebrow">
-                                EF Interactive
-                            </span>
+              <p className="hero__description mb-5 mt-3">
+                Creamos experiencias inmersivas, recorridos interactivos y contenido CGI para que
+                tus clientes puedan descubrir, recorrer y comprar un proyecto antes de que sea
+                construido.
+              </p>
 
-                            <h1 className="hero__title">
-                                Hacemos visible
-                                <br />
-                                lo que todavía
-                                <br />
-                                no existe.
-                            </h1>
+              <div className="hero__actions">
+                <a href="#demo" className="hero__button hero__button--primary">
+                  Ver Demo
+                </a>
 
-                            <p className="hero__description mb-5 mt-3">
-                                Creamos experiencias inmersivas,
-                                recorridos interactivos y contenido
-                                CGI para que tus clientes puedan
-                                descubrir, recorrer y comprar un
-                                proyecto antes de que sea construido.
-                            </p>
+                <a href="#contact" className="hero__button hero__button--secondary">
+                  Solicitar reunión
+                </a>
+              </div>
+            </div>
+          </div>
 
-                            <div className="hero__actions">
-                                <a
-                                    href="#demo"
-                                    className="hero__button hero__button--primary"
-                                >
-                                    Ver Demo
-                                </a>
-
-                                <a
-                                    href="#contact"
-                                    className="hero__button hero__button--secondary"
-                                >
-                                    Solicitar reunión
-                                </a>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                    {/* ==========================
+          {/* ==========================
                         RIGHT VISUAL
                     =========================== */}
 
-                    <div className="col-lg-6">
-
-                        <div className="hero__visual">
-
-                            {/* Placeholder temporal.
+          <div className="col-lg-6">
+            <div className="hero__visual">
+              {/* Placeholder temporal.
                                Luego será un video o un Canvas */}
-                            <div className="hero__viewer">
+              <div className="hero__viewer">
+                <div className="hero__viewer-overlay" />
 
-                                <div className="hero__viewer-overlay" />
-
-                                <div className="hero__viewer-placeholder">
-                                    <TresDDisplay url={'/3d/torre.glb'} heightContainer="650px"/>
-                                      {/*<img
+                <div className="hero__viewer-placeholder">
+                  <TresDDisplay url={"/3d/torre.glb"} heightContainer="650px" />
+                  {/*<img
                                         ref={imageRef}
                                         src={"/img-inmersive/9.png"}
                                         alt={altText}
                                         style={imageStyle}
                                       />*/}
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-
                 </div>
-
+              </div>
             </div>
+          </div>
+        </div>
+      </div>
 
-            {/* ==========================
+      {/* ==========================
                 Scroll Indicator
             =========================== */}
 
-            <div className="hero__scroll">
+      <div className="hero__scroll">
+        <span />
 
-                <span />
-
-                <small>Scroll</small>
-
-            </div>
-
-        </header>
-    );
+        <small>Scroll</small>
+      </div>
+    </header>
+  );
 };
 
 export default Hero;
