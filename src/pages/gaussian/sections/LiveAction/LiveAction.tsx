@@ -18,7 +18,7 @@ export const Hero: React.FC = () => {
                 <div className="hero__viewer-overlay" />
 
                 <div className="hero__viewer-placeholder">
-                  <GaussianViewer url={"/splats/test.ply"} />
+                  <GaussianViewer url={"/splats/full-map.ply"} />
                 </div>
               </div>
             </div>

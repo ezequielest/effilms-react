@@ -55,10 +55,13 @@ export default function GaussianViewer({ url }: Gaussian) {
 
   const hotspotAnimationRef = useRef<number | null>(null);
 
-  const hotspotRefs = useRef<Record<string, HTMLButtonElement | null>>({});
+  const hotspotRefs = useRef<Record<string, HTMLDivElement | null>>({});
   const hotspotsRef = useRef<Hotspot[]>([]);
+  const hotspotLineRefs = useRef<Hotspot[]>([]);
 
   const [autoRotate, setAutoRotate] = useState(false);
+
+  const[showInfo, setShowInfo] = useState(false);
 
   const DEBUG = true;
 
@@ -99,9 +102,19 @@ export default function GaussianViewer({ url }: Gaussian) {
       visible: true,
     },
     {
-      id: "cafeMartinez",
-      label: "Cafe Martinez",
-      initialPoint: [0.5, -0.5, 0.05], //posicion del disparador flotante
+      id: "vea",
+      label: "Vea",
+      initialPoint:[-0.015,-0.1, 0.704], //posicion del disparador flotante
+      positionCamera: [0.5, -0.5, 0.05],
+      target: [0, 0, 0],
+      duration: 2500,
+      category: "superMarket",
+      visible: false,
+    },
+    {
+      id: "starbacks",
+      label: "Starback",
+      initialPoint: [3.913,-0.1,-1.501], //posicion del disparador flotante
       positionCamera: [0.5, -0.5, 0.05],
       target: [0, 0, 0],
       duration: 2500,
@@ -111,11 +124,52 @@ export default function GaussianViewer({ url }: Gaussian) {
     {
       id: "toledo",
       label: "Toledo",
-      initialPoint: [0.2, -0.2, 0.02], //posicion del disparador flotante
+      initialPoint:[2.276,-0.05,-0.423], //posicion del disparador flotante
       positionCamera: [0.2, -0.2, 0.02],
       target: [0, 0, 0],
       duration: 2500,
       category: "superMarket",
+      visible: false,
+    },
+    {
+      id: "ypf",
+      label: "YPF",
+      initialPoint: [0.276,-0.05,0.448], //posicion del disparador flotante
+      positionCamera: [0.2, -0.2, 0.02],
+      target: [0, 0, 0],
+      duration: 2500,
+      category: "serviceStation",
+      visible: false,
+    },
+    {
+      id: "shell",
+      label: "shell",
+      initialPoint: [2.629,-0.05,-0.788], //posicion del disparador flotante
+      positionCamera: [0.2, -0.2, 0.02],
+      target: [0, 0, 0],
+      duration: 2500,
+      category: "serviceStation",
+      visible: false,
+    },
+    {
+      id: "feria",
+      label: "Feria",
+      initialPoint: [1.043, -0.05,0.055], //posicion del disparador flotante 
+      positionCamera: [0.2, -0.2, 0.02],
+      target: [0, 0, 0],
+      duration: 2500,
+      category: "superMarket",
+      visible: false,
+    },
+    
+    {
+      id: "bna",
+      label: "BNA",
+      initialPoint: [0.276,-0.05,0.448], //posicion del disparador flotante 
+      positionCamera: [0.2, -0.2, 0.02],
+      target: [0, 0, 0],
+      duration: 2500,
+      category: "bank",
       visible: false,
     },
   ]);
@@ -136,6 +190,7 @@ export default function GaussianViewer({ url }: Gaussian) {
 
   useEffect(() => {
     hotspotsRef.current = hotspots;
+    hotspotLineRefs.current = hotspots;
   }, [hotspots]);
 
   useEffect(() => {
@@ -161,7 +216,6 @@ export default function GaussianViewer({ url }: Gaussian) {
       }
 
       try {
-        console.log("url ", url);
         await viewer.addSplatScene(url);
 
         if (disposed) return;
@@ -239,7 +293,7 @@ export default function GaussianViewer({ url }: Gaussian) {
   };
 
   const addNewHotspotTest = () => {
-    console.log("hotspots pre", hotspots);
+
     setHotspots((prev) => [
       ...prev,
       {
@@ -254,7 +308,6 @@ export default function GaussianViewer({ url }: Gaussian) {
       },
     ]);
 
-    console.log("hotspots post", hotspots);
   };
 
   const exportHotspots = () => {
@@ -411,37 +464,54 @@ target: [${target.join(",")}]`
   };
 
   const showPointOfInterest = (category: string) => {
-    console.log("hotspot", hotspots);
-    const filterSpots = hotspots.filter((spot) => {
-      return spot.category === category;
+
+    let camPosition: Vector3=[0,0,0];
+    if (category === 'superMarket') {
+      camPosition = [-2.168,-0.957,-1.111];
+    } else {
+      camPosition = [-0.58,-0.902,2.104];
+    }
+
+    flyTo(camPosition,[0,0,0]).then(()=>{
+      setHotspots((prev) =>
+        prev.map((spot) => ({
+          ...spot,
+          visible: spot.category === category || spot.category === 'building',
+        }))
+      );
+
+      setShowInfo(true);
     });
 
-    console.log(filterSpots);
 
-    setHotspots((prev) =>
-      prev.map((spot) => ({
-        ...spot,
-        visible: spot.category === category,
-      }))
-    );
   };
 
-  const flyTo = (
-    position: Vector3,
+const flyTo = (
+  position: Vector3,
+  target: Vector3,
+  duration = 1800
+): Promise<void> => {
 
-    target: Vector3,
+  return new Promise((resolve) => {
 
-    duration = 1800
-  ) => {
     const viewer = viewerRef.current;
 
-    if (!viewer) return;
+    if (!viewer) {
+      resolve();
+      return;
+    }
 
     const camera = viewer.camera;
-
     const controls = viewer.controls;
 
-    if (!controls) return;
+    if (!controls) {
+      resolve();
+      return;
+    }
+
+    if (animationRef.current) {
+      cancelAnimationFrame(animationRef.current);
+    }
 
     const startPosition = {
       x: camera.position.x,
@@ -459,28 +529,32 @@ target: [${target.join(",")}]`
 
     const animate = (time: number) => {
       const progress = Math.min((time - start) / duration, 1);
-
       const eased = easeInOutCubic(progress);
 
       camera.position.set(
         startPosition.x + (position[0] - startPosition.x) * eased,
-
         startPosition.y + (position[1] - startPosition.y) * eased,
-
         startPosition.z + (position[2] - startPosition.z) * eased
       );
 
       controls.target.set(
         startTarget.x + (target[0] - startTarget.x) * eased,
-
         startTarget.y + (target[1] - startTarget.y) * eased,
-
         startTarget.z + (target[2] - startTarget.z) * eased
       );
 
       controls.update();
+
+      if (progress < 1) {
+        animationRef.current = requestAnimationFrame(animate);
+      } else {
+        resolve();
+      }
     };
-  };
+
+    animationRef.current = requestAnimationFrame(animate);
+  });
+};
 
   return (
     <div
@@ -564,6 +638,31 @@ target: [${target.join(",")}]`
         </div>
       )}
 
+      {showInfo && (
+        <div
+          style={{
+            position: "absolute",
+            top: 20,
+            right: 20,
+            width: 320,
+            padding: 20,
+            background: "rgba(0,0,0,.75)",
+            backdropFilter: "blur(20px)",
+            borderRadius: 12,
+            color: "#fff",
+            fontFamily: "monospace",
+            fontSize: 13,
+            zIndex: 999,
+          }}
+        >
+          <h6>INFO</h6>
+          {hotspots.map((spot)=>(
+            <div>{spot.label}</div>
+          ))}
+
+        </div>
+      )}
+
       <div
         ref={containerRef}
 
@@ -574,16 +673,22 @@ target: [${target.join(",")}]`
       />
 
       {hotspots.map((spot) => (
-        <button
+        <div
           key={spot.id}
+          className="hotspot-container"
           ref={(el) => {
             hotspotRefs.current[spot.id] = el;
           }}
-          className="hotspot-name"
-          onClick={() => flyTo(spot.positionCamera, spot.target, spot.duration ?? 1800)}
         >
-          {spot.label}
-        </button>
+          <button
+            className="hotspot-label"
+            onClick={() => flyTo(spot.positionCamera, spot.target, spot.duration ?? 1800).then()}
+          >
+            {spot.label}
+          </button>
+          <div
+            className="hotspot-line"></div>
+        </div>
       ))}
 
       <div
@@ -608,7 +713,7 @@ target: [${target.join(",")}]`
             key={view.name}
             className="btn btn-primary"
             onClick={() => {
-              flyTo(view.position, view.target);
+              flyTo(view.position, view.target).then();
             }}
           >
             {view.name}
@@ -622,7 +727,27 @@ target: [${target.join(",")}]`
             showPointOfInterest("cafes");
           }}
         >
-          Ver cafes
+          Cafés
+        </button>
+
+        <button
+          key="cafes"
+          className="btn btn-primary"
+          onClick={() => {
+            showPointOfInterest("bank");
+          }}
+        >
+          Bancos
+        </button>
+
+        <button
+          key="cafes"
+          className="btn btn-primary"
+          onClick={() => {
+            showPointOfInterest("serviceStation");
+          }}
+        >
+          Est de Servicio
         </button>
 
         <button
@@ -632,10 +757,10 @@ target: [${target.join(",")}]`
             showPointOfInterest("superMarket");
           }}
         >
-          Ver mercados
+          Comercios
         </button>
 
-        <button
+        {/*<button
           key="test"
           className="btn btn-primary"
           onClick={() => {
@@ -643,7 +768,7 @@ target: [${target.join(",")}]`
           }}
         >
           NUEVO HOTSPOT TEST
-        </button>
+        // </button>*/}
       </div>
     </div>
   );

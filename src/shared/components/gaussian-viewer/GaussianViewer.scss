@@ -1,7 +1,31 @@
-.hotspot-name {
+.hotspot-container {
   position: absolute;
   transform: translate(-50%, -50%);
-  padding: 5px;
-  border-radius: 5px;
+
+  .hotspot-label {
+    padding: 5px;
+    border-radius: 5px;
+    border: 0;
+  }
+
+  .hotspot-line {
+    height: 42px;
+    width: 2px;
+    left: 49%;
+    top: 54px;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    display: block;
+    background-color: white;
+  }
+}
+
+.btn-primary {
+  border-radius: 2px;
+  background-color: $primary-color;
   border: 0;
+
+  &:hover {
+    background-color: black;
+  }
 }
