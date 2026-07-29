@@ -1,3 +1,70 @@
+.info-hotspot {
+  .title {
+    color: aliceblue;
+  }
+  .hotspot-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .hotspot-card {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 14px;
+    padding: 18px;
+    transition: 0.25s;
+    backdrop-filter: blur(10px);
+
+    &:hover {
+      border-color: rgba(255, 255, 255, 0.18);
+      transform: translateY(-2px);
+    }
+
+    &.active {
+      border-color: red;
+      box-shadow: 0 0 25px rgba(red, 0.25);
+    }
+
+    .label {
+      display: block;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: rgba(255, 255, 255, 0.55);
+      margin-bottom: 3px;
+    }
+
+    h5 {
+      margin: 0;
+      font-size: 1rem;
+      font-weight: 600;
+      color: white;
+    }
+
+    p {
+      margin: 0;
+      color: rgba(255, 255, 255, 0.85);
+    }
+  }
+
+  .hotspot-card__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 18px;
+  }
+
+  .hotspot-card__body {
+    margin-bottom: 20px;
+  }
+
+  .hotspot-card__footer {
+    display: flex;
+    justify-content: flex-end;
+  }
+}
+
 .hotspot-container {
   position: absolute;
   transform: translate(-50%, -50%);
@@ -6,6 +73,11 @@
     padding: 5px;
     border-radius: 5px;
     border: 0;
+
+    &.active {
+      background-color: rgb(48, 172, 239);
+      color: aliceblue;
+    }
   }
 
   .hotspot-line {
@@ -17,6 +89,10 @@
     transform: translate(-50%, -50%);
     display: block;
     background-color: white;
+
+    &.active {
+      background-color: rgb(48, 172, 239);
+    }
   }
 }
 

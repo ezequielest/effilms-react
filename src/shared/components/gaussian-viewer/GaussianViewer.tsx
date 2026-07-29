@@ -19,15 +19,21 @@ type ScreenPosition = {
 
 type Hotspot = {
   id: string;
-  label: string;
-  description?: string;
-  initialPoint: Vector3;
-  positionCamera: Vector3;
-  target: Vector3;
-  duration?: number;
-  icon?: string;
   category: string;
   visible: boolean;
+  selected: boolean;
+  navigation: {
+    initialPoint: Vector3;
+    positionCamera: Vector3;
+    target: Vector3;
+    duration: number;
+  };
+  info: {
+    label: string;
+    address: string;
+    description?: string;
+    image?: string;
+  };
 };
 
 type PointsOfInterests = {
@@ -61,7 +67,7 @@ export default function GaussianViewer({ url }: Gaussian) {
 
   const [autoRotate, setAutoRotate] = useState(false);
 
-  const[showInfo, setShowInfo] = useState(false);
+  const [showInfo, setShowInfo] = useState(false);
 
   const DEBUG = true;
 
@@ -70,106 +76,169 @@ export default function GaussianViewer({ url }: Gaussian) {
     target: [0, 0, 0] as Vector3,
   });
 
-  const [editor, setEditor] = useState({
-    id: "nuevo",
-    label: "Nuevo Hotspot",
-    initialPoint: [0, 0, 0] as Vector3,
-    positionCamera: [0, 0, 0] as Vector3,
-    target: [0, 0, 0] as Vector3,
-    category: "none",
+  const [editor, setEditor] = useState<Hotspot>({
+    id: "centro",
+    selected: false,
+    info: {
+      label: "Centro",
+      address: "",
+      description: "",
+    },
+    navigation: {
+      initialPoint: [5, -0.2, -5],
+      positionCamera: [-0.768, -0.629, 1.424],
+      target: [0, 0, 0],
+      duration: 2500,
+    },
+    category: "closeness",
     visible: true,
   });
 
   const [hotspots, setHotspots] = useState<Hotspot[]>([
     {
       id: "centro",
-      label: "Centro",
-      initialPoint: [5, -0.2, -5],
-      positionCamera: [-0.768, -0.629, 1.424],
-      target: [0, 0, 0],
-      duration: 2500,
+      selected: false,
+      info: {
+        label: "Centro",
+        address: "",
+        description: "",
+      },
+      navigation: {
+        initialPoint: [5, -0.2, -5],
+        positionCamera: [-0.768, -0.629, 1.424],
+        target: [0, 0, 0],
+        duration: 2500,
+      },
       category: "closeness",
       visible: true,
     },
     {
       id: "itaim",
-      label: "Itaim II",
-      initialPoint: [0, -0.2, 0.025], //posicion del disparador flotante
-      positionCamera: [-0.17, -0.304, 0.637],
-      target: [0, 0, 0],
-      duration: 2500,
+      info: {
+        label: "Itaim II",
+        address: "Quintana e Independencia",
+      },
+      navigation: {
+        initialPoint: [0, -0.2, 0.025], //posicion del disparador flotante
+        positionCamera: [-0.17, -0.304, 0.637],
+        target: [0, 0, 0],
+        duration: 2500,
+      },
       category: "building",
+      selected: true,
       visible: true,
     },
     {
       id: "vea",
-      label: "Vea",
-      initialPoint:[-0.015,-0.1, 0.704], //posicion del disparador flotante
-      positionCamera: [0.5, -0.5, 0.05],
-      target: [0, 0, 0],
-      duration: 2500,
+      info: {
+        label: "Vea",
+        address: "Quintana e Independencia",
+      },
+      navigation: {
+        initialPoint: [-0.015, -0.1, 0.704], //posicion del disparador flotante
+        positionCamera: [-2.168, -0.957, -1.111],
+        target: [0, 0, 0],
+        duration: 2500,
+      },
       category: "superMarket",
+      selected: false,
       visible: false,
     },
     {
       id: "starbacks",
-      label: "Starback",
-      initialPoint: [3.913,-0.1,-1.501], //posicion del disparador flotante
-      positionCamera: [0.5, -0.5, 0.05],
-      target: [0, 0, 0],
-      duration: 2500,
+      info: {
+        label: "Starback",
+        address: "",
+      },
+      navigation: {
+        initialPoint: [3.913, -0.1, -1.501], //posicion del disparador flotante
+        positionCamera: [0.5, -0.5, 0.05],
+        target: [0, 0, 0],
+        duration: 2500,
+      },
       category: "cafes",
+      selected: false,
       visible: false,
     },
     {
       id: "toledo",
-      label: "Toledo",
-      initialPoint:[2.276,-0.05,-0.423], //posicion del disparador flotante
-      positionCamera: [0.2, -0.2, 0.02],
-      target: [0, 0, 0],
-      duration: 2500,
+      info: {
+        label: "Toledo",
+        address: "",
+      },
+      navigation: {
+        initialPoint: [2.276, -0.05, -0.423], //posicion del disparador flotante
+        positionCamera: [0.2, -0.2, 0.02],
+        target: [0, 0, 0],
+        duration: 2500,
+      },
       category: "superMarket",
+      selected: false,
       visible: false,
     },
     {
       id: "ypf",
-      label: "YPF",
-      initialPoint: [0.276,-0.05,0.448], //posicion del disparador flotante
-      positionCamera: [0.2, -0.2, 0.02],
-      target: [0, 0, 0],
-      duration: 2500,
+      info: {
+        label: "YPF",
+        address: "",
+      },
+      navigation: {
+        initialPoint: [0.276, -0.05, 0.448], //posicion del disparador flotante
+        positionCamera: [-0.595, -0.263, 0.127],
+        target: [-0.009, -0.026, 0.298],
+        duration: 2500,
+      },
       category: "serviceStation",
+      selected: false,
       visible: false,
     },
     {
       id: "shell",
-      label: "shell",
-      initialPoint: [2.629,-0.05,-0.788], //posicion del disparador flotante
-      positionCamera: [0.2, -0.2, 0.02],
-      target: [0, 0, 0],
-      duration: 2500,
+      info: {
+        label: "shell",
+        address: "",
+      },
+      navigation: {
+        initialPoint: [2.629, -0.05, -0.788], //posicion del disparador flotante
+        positionCamera: [-1.124, -0.805, -0.879],
+        target: [0.131, -0.162, -0.486],
+        duration: 2500,
+      },
       category: "serviceStation",
+      selected: false,
       visible: false,
     },
     {
       id: "feria",
-      label: "Feria",
-      initialPoint: [1.043, -0.05,0.055], //posicion del disparador flotante 
-      positionCamera: [0.2, -0.2, 0.02],
-      target: [0, 0, 0],
-      duration: 2500,
+      info: {
+        label: "Feria",
+        address: "",
+      },
+      navigation: {
+        initialPoint: [1.043, -0.05, 0.055], //posicion del disparador flotante
+        positionCamera: [0.2, -0.2, 0.02],
+        target: [0, 0, 0],
+        duration: 2500,
+      },
       category: "superMarket",
+      selected: false,
       visible: false,
     },
-    
+
     {
       id: "bna",
-      label: "BNA",
-      initialPoint: [0.276,-0.05,0.448], //posicion del disparador flotante 
-      positionCamera: [0.2, -0.2, 0.02],
-      target: [0, 0, 0],
-      duration: 2500,
+      info: {
+        label: "BNA",
+        address: "",
+      },
+      navigation: {
+        initialPoint: [0.276, -0.05, 0.448], //posicion del disparador flotante
+        positionCamera: [0.2, -0.2, 0.02],
+        target: [0, 0, 0],
+        duration: 2500,
+      },
       category: "bank",
+      selected: false,
       visible: false,
     },
   ]);
@@ -256,13 +325,28 @@ export default function GaussianViewer({ url }: Gaussian) {
   const addHotspot = () => {
     setHotspots((prev) => [
       ...prev,
-
       {
         ...editor,
-
-        duration: 1800,
+        visible: true,
       },
     ]);
+  };
+
+  const selectHotspot = async (hotspot: Hotspot) => {
+    // Deselecciona todos y selecciona el elegido
+    setHotspots((prev) =>
+      prev.map((spot) => ({
+        ...spot,
+        selected: spot.id === hotspot.id,
+      }))
+    );
+
+    // Mueve la cámara
+    await flyTo(
+      hotspot.navigation.positionCamera,
+      hotspot.navigation.target,
+      hotspot.navigation.duration
+    );
   };
 
   const project = (point: Vector3): ScreenPosition => {
@@ -293,21 +377,25 @@ export default function GaussianViewer({ url }: Gaussian) {
   };
 
   const addNewHotspotTest = () => {
-
     setHotspots((prev) => [
       ...prev,
       {
         id: "test",
-        label: "NEW TEST",
-        initialPoint: [5, -0.2, -3],
-        positionCamera: [-0.768, -0.629, 1.424],
-        target: [0, 0, 0],
-        duration: 2500,
+        info: {
+          label: "NEW TEST",
+          address: "",
+        },
+        navigation: {
+          initialPoint: [5, -0.2, -3],
+          positionCamera: [-0.768, -0.629, 1.424],
+          target: [0, 0, 0],
+          duration: 2500,
+        },
         visible: true,
+        selected: false,
         category: "closeness",
       },
     ]);
-
   };
 
   const exportHotspots = () => {
@@ -410,13 +498,13 @@ target: [${target.join(",")}]`
     console.log({
       id: editor.id,
 
-      label: editor.label,
+      label: editor.info.label,
 
-      initialPoint: editor.initialPoint,
+      initialPoint: editor.navigation.initialPoint,
 
-      positionCamera: editor.positionCamera,
+      positionCamera: editor.navigation.positionCamera,
 
-      target: editor.target,
+      target: editor.navigation.target,
     });
   };
 
@@ -436,7 +524,7 @@ target: [${target.join(",")}]`
 
       if (!button) return;
 
-      const screen = project(spot.initialPoint);
+      const screen = project(spot.navigation.initialPoint);
 
       console.log(spot.id, screen);
 
@@ -464,97 +552,100 @@ target: [${target.join(",")}]`
   };
 
   const showPointOfInterest = (category: string) => {
-
-    let camPosition: Vector3=[0,0,0];
-    if (category === 'superMarket') {
-      camPosition = [-2.168,-0.957,-1.111];
+    let camPosition: Vector3 = [0, 0, 0];
+    if (category === "superMarket") {
+      camPosition = [-2.168, -0.957, -1.111];
     } else {
-      camPosition = [-0.58,-0.902,2.104];
+      camPosition = [-0.58, -0.902, 2.104];
     }
 
-    flyTo(camPosition,[0,0,0]).then(()=>{
+    flyTo(camPosition, [0, 0, 0]).then(() => {
       setHotspots((prev) =>
         prev.map((spot) => ({
           ...spot,
-          visible: spot.category === category || spot.category === 'building',
+          visible: spot.category === category || spot.category === "building",
         }))
       );
 
       setShowInfo(true);
     });
-
-
   };
 
-const flyTo = (
-  position: Vector3,
-  target: Vector3,
-  duration = 1800
-): Promise<void> => {
+  const handleLabelHotspot = (spot: Hotspot) => {
+    //aca tengo que mostrar la info del spot en el modal
 
-  return new Promise((resolve) => {
+    flyTo(
+      spot.navigation.positionCamera,
+      spot.navigation.target,
+      spot.navigation.duration ?? 1800
+    ).then();
+  };
 
-    const viewer = viewerRef.current;
+  const flyTo = (position: Vector3, target: Vector3, duration = 1800): Promise<void> => {
+    return new Promise((resolve) => {
+      const viewer = viewerRef.current;
 
-    if (!viewer) {
-      resolve();
-      return;
-    }
-
-    const camera = viewer.camera;
-    const controls = viewer.controls;
-
-    if (!controls) {
-      resolve();
-      return;
-    }
-
-    if (animationRef.current) {
-      cancelAnimationFrame(animationRef.current);
-    }
-
-    const startPosition = {
-      x: camera.position.x,
-      y: camera.position.y,
-      z: camera.position.z,
-    };
-
-    const startTarget = {
-      x: controls.target.x,
-      y: controls.target.y,
-      z: controls.target.z,
-    };
-
-    const start = performance.now();
-
-    const animate = (time: number) => {
-      const progress = Math.min((time - start) / duration, 1);
-      const eased = easeInOutCubic(progress);
-
-      camera.position.set(
-        startPosition.x + (position[0] - startPosition.x) * eased,
-        startPosition.y + (position[1] - startPosition.y) * eased,
-        startPosition.z + (position[2] - startPosition.z) * eased
-      );
-
-      controls.target.set(
-        startTarget.x + (target[0] - startTarget.x) * eased,
-        startTarget.y + (target[1] - startTarget.y) * eased,
-        startTarget.z + (target[2] - startTarget.z) * eased
-      );
-
-      controls.update();
-
-      if (progress < 1) {
-        animationRef.current = requestAnimationFrame(animate);
-      } else {
+      if (!viewer) {
         resolve();
+        return;
       }
-    };
 
-    animationRef.current = requestAnimationFrame(animate);
-  });
-};
+      const camera = viewer.camera;
+      const controls = viewer.controls;
+
+      if (!controls) {
+        resolve();
+        return;
+      }
+
+      if (animationRef.current) {
+        cancelAnimationFrame(animationRef.current);
+      }
+
+      const startPosition = {
+        x: camera.position.x,
+        y: camera.position.y,
+        z: camera.position.z,
+      };
+
+      const startTarget = {
+        x: controls.target.x,
+        y: controls.target.y,
+        z: controls.target.z,
+      };
+
+      const start = performance.now();
+
+      const animate = (time: number) => {
+        const progress = Math.min((time - start) / duration, 1);
+        const eased = easeInOutCubic(progress);
+
+        camera.position.set(
+          startPosition.x + (position[0] - startPosition.x) * eased,
+          startPosition.y + (position[1] - startPosition.y) * eased,
+          startPosition.z + (position[2] - startPosition.z) * eased
+        );
+
+        controls.target.set(
+          startTarget.x + (target[0] - startTarget.x) * eased,
+          startTarget.y + (target[1] - startTarget.y) * eased,
+          startTarget.z + (target[2] - startTarget.z) * eased
+        );
+
+        controls.update();
+
+        if (progress < 1) {
+          animationRef.current = requestAnimationFrame(animate);
+        } else {
+          resolve();
+        }
+      };
+
+      animationRef.current = requestAnimationFrame(animate);
+    });
+  };
+
+  const visibleHotspots = hotspots.filter((spot) => spot.visible && spot.category !== "building");
 
   return (
     <div
@@ -571,7 +662,7 @@ const flyTo = (
           style={{
             position: "absolute",
             top: 20,
-            right: 20,
+            left: 20,
             width: 320,
             padding: 20,
             background: "rgba(0,0,0,.75)",
@@ -609,7 +700,7 @@ const flyTo = (
 
           <input
             className="form-control mb-2"
-            value={editor.label}
+            value={editor.info.label}
             onChange={(e) =>
               setEditor((prev) => ({
                 ...prev,
@@ -640,6 +731,7 @@ const flyTo = (
 
       {showInfo && (
         <div
+          className="info-hotspot"
           style={{
             position: "absolute",
             top: 20,
@@ -655,14 +747,40 @@ const flyTo = (
             zIndex: 999,
           }}
         >
-          <h6>INFO</h6>
-          {hotspots.map((spot)=>(
-            <div>{spot.label}</div>
-          ))}
+          <h3 className="title mb-4">HOTSPOTS</h3>
 
+          <div className="hotspot-list">
+            {visibleHotspots.map((spot) => (
+              <div key={spot.id} className={`hotspot-card ${spot.selected ? "active" : ""}`}>
+                <div className="hotspot-card__header">
+                  <div>
+                    <span className="label">Nombre</span>
+                    <h5>{spot.info.label}</h5>
+                  </div>
+
+                  <span className="badge bg-secondary">{spot.category}</span>
+                </div>
+
+                <div className="hotspot-card__body">
+                  <span className="label">Ubicación</span>
+                  <p>{spot.info.address}</p>
+                </div>
+
+                <div className="hotspot-card__footer">
+                  <button
+                    className="btn btn-outline-light btn-sm"
+                    onClick={() => selectHotspot(spot)}
+                  >
+                    Ver más
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       )}
 
+      {/* LABEL SPOT */}
       <div
         ref={containerRef}
 
@@ -675,19 +793,18 @@ const flyTo = (
       {hotspots.map((spot) => (
         <div
           key={spot.id}
-          className="hotspot-container"
+          className={`hotspot-container`}
           ref={(el) => {
             hotspotRefs.current[spot.id] = el;
           }}
         >
           <button
-            className="hotspot-label"
-            onClick={() => flyTo(spot.positionCamera, spot.target, spot.duration ?? 1800).then()}
+            className={`hotspot-label ${spot.selected ? "active" : ""}`}
+            onClick={() => handleLabelHotspot(spot)}
           >
-            {spot.label}
+            {spot.info.label}
           </button>
-          <div
-            className="hotspot-line"></div>
+          <div className={`hotspot-line ${spot.selected ? "active" : ""}`}></div>
         </div>
       ))}
 
@@ -731,7 +848,7 @@ const flyTo = (
         </button>
 
         <button
-          key="cafes"
+          key="bank"
           className="btn btn-primary"
           onClick={() => {
             showPointOfInterest("bank");
@@ -741,7 +858,7 @@ const flyTo = (
         </button>
 
         <button
-          key="cafes"
+          key="service-station"
           className="btn btn-primary"
           onClick={() => {
             showPointOfInterest("serviceStation");
