@@ -1,6 +1,13 @@
+body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
 .info-hotspot {
   .title {
     color: aliceblue;
+    font-weight: 600;
   }
   .hotspot-list {
     display: flex;
@@ -22,8 +29,8 @@
     }
 
     &.active {
-      border-color: red;
-      box-shadow: 0 0 25px rgba(red, 0.25);
+      border-color: rgb(0, 101, 164);
+      box-shadow: 0 0 25px rgba(rgb(0, 115, 255), 0.25);
     }
 
     .label {
@@ -45,6 +52,7 @@
     p {
       margin: 0;
       color: rgba(255, 255, 255, 0.85);
+      font-size: 0.875rem;
     }
   }
 
@@ -71,8 +79,12 @@
 
   .hotspot-label {
     padding: 5px;
-    border-radius: 5px;
+    border-radius: 3px;
     border: 0;
+    font-size: 12px;
+    padding: 8px 12px;
+    font-weight: bold;
+    color: rgb(63, 63, 63);
 
     &.active {
       background-color: rgb(48, 172, 239);
@@ -82,7 +94,7 @@
 
   .hotspot-line {
     height: 42px;
-    width: 2px;
+    width: 1px;
     left: 49%;
     top: 54px;
     position: absolute;
@@ -94,14 +106,51 @@
       background-color: rgb(48, 172, 239);
     }
   }
+
+  .hotspot-dot {
+    height: 12px;
+    width: 12px;
+    left: 49%;
+    top: 68px;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    display: block;
+    background-color: white;
+    border-radius: 50%;
+  }
 }
 
-.btn-primary {
-  border-radius: 2px;
-  background-color: $primary-color;
+.btn-footer {
+  background-color: transparent;
   border: 0;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  color: white;
 
   &:hover {
-    background-color: black;
+    background-color: rgba(255, 255, 255, 0.23);
   }
+}
+
+.btn-lateral {
+  background-color: transparent;
+  border: 0;
+  color: white;
+  text-align: left;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.23);
+  }
+}
+
+.gaussian-loader {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
 }

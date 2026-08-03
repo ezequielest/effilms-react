@@ -44,7 +44,10 @@ const Nav: React.FC = () => {
       setIsEFfilms(true);
       return SERVICES_NAV;
     } else if (location.pathname.startsWith("/studio")) {
+      setIsEFfilms(false);
       return INMERSIVE_NAV;
+    } else if (location.pathname.startsWith("/inmersive")) {
+      return [];
     }
     setIsEFfilms(false);
     return HOME_NAV;
@@ -146,11 +149,13 @@ const Nav: React.FC = () => {
               </div>
             </div>
 
-            <div className="col-lg-9">
-              <nav className={`header__menu ${showNav ? "position-fix" : ""}`}>
-                <Navigation items={navigation} activeSection={activeSection} />
-              </nav>
-            </div>
+            {!isEFfilms && (
+              <div className="col-lg-9">
+                <nav className={`header__menu ${showNav ? "position-fix" : ""}`}>
+                  <Navigation items={navigation} activeSection={activeSection} />
+                </nav>
+              </div>
+            )}
           </div>
 
           <div className="canvas__open" onClick={toggleMenu}>

@@ -2,6 +2,10 @@ import { useEffect, useRef, useState } from "react";
 import * as GS from "@mkkellogg/gaussian-splats-3d";
 import * as THREE from "three";
 import "./GaussianViewer.scss";
+import ImageSlider from "../image-slider/ImageSlider";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPause, faPlay } from "@fortawesome/free-solid-svg-icons";
+import { RevolvingDot } from "react-loader-spinner";
 
 type Vector3 = [number, number, number];
 
@@ -36,13 +40,6 @@ type Hotspot = {
   };
 };
 
-type PointsOfInterests = {
-  name: string;
-  positionCamera: Vector3;
-  target: Vector3;
-  points: Array<Vector3>;
-};
-
 // Easing cinematográfico
 function easeInOutCubic(t: number) {
   return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
@@ -65,11 +62,21 @@ export default function GaussianViewer({ url }: Gaussian) {
   const hotspotsRef = useRef<Hotspot[]>([]);
   const hotspotLineRefs = useRef<Hotspot[]>([]);
 
-  const [autoRotate, setAutoRotate] = useState(false);
+  const [sliderFlats, setSliderFlats] = useState<Array<string>>([]);
+
+  const [autoRotate, setAutoRotate] = useState(true);
 
   const [showInfo, setShowInfo] = useState(false);
 
-  const DEBUG = true;
+  const [showFlatModal, setFlatModal] = useState(false);
+
+  const [isLoading, setIsLoading] = useState(true);
+
+  const [loadingProgress, setLoadingProgress] = useState(0);
+
+  const [showInfoBuilding, setShowInfoBuilding] = useState(false);
+
+  const DEBUG = false;
 
   const [debugInfo, setDebugInfo] = useState({
     camera: [0, 0, 0] as Vector3,
@@ -119,7 +126,7 @@ export default function GaussianViewer({ url }: Gaussian) {
         address: "Quintana e Independencia",
       },
       navigation: {
-        initialPoint: [0, -0.2, 0.025], //posicion del disparador flotante
+        initialPoint: [0, -0.18, 0.025], //posicion del disparador flotante
         positionCamera: [-0.17, -0.304, 0.637],
         target: [0, 0, 0],
         duration: 2500,
@@ -136,8 +143,8 @@ export default function GaussianViewer({ url }: Gaussian) {
       },
       navigation: {
         initialPoint: [-0.015, -0.1, 0.704], //posicion del disparador flotante
-        positionCamera: [-2.168, -0.957, -1.111],
-        target: [0, 0, 0],
+        positionCamera: [-0.595, -0.263, 0.127],
+        target: [-0.009, -0.026, 0.298],
         duration: 2500,
       },
       category: "superMarket",
@@ -145,14 +152,14 @@ export default function GaussianViewer({ url }: Gaussian) {
       visible: false,
     },
     {
-      id: "starbacks",
+      id: "Starbucks",
       info: {
-        label: "Starback",
+        label: "Starbucks",
         address: "",
       },
       navigation: {
-        initialPoint: [3.913, -0.1, -1.501], //posicion del disparador flotante
-        positionCamera: [0.5, -0.5, 0.05],
+        initialPoint: [3.913, -0.05, -1.501], //posicion del disparador flotante
+        positionCamera: [-0.595, -0, 0.127],
         target: [0, 0, 0],
         duration: 2500,
       },
@@ -161,14 +168,30 @@ export default function GaussianViewer({ url }: Gaussian) {
       visible: false,
     },
     {
-      id: "toledo",
+      id: "burgerKing",
       info: {
-        label: "Toledo",
+        label: "Burger King",
         address: "",
       },
       navigation: {
+        initialPoint: [3.913, -0.1, -1.501], //posicion del disparador flotante
+        positionCamera: [-0.595, -0.263, 0.127],
+        target: [0, 0, 0],
+        duration: 2500,
+      },
+      category: "restaurants",
+      selected: false,
+      visible: false,
+    },
+    {
+      id: "toledo",
+      info: {
+        label: "Toledo",
+        address: "Av. Independencia 3445",
+      },
+      navigation: {
         initialPoint: [2.276, -0.05, -0.423], //posicion del disparador flotante
-        positionCamera: [0.2, -0.2, 0.02],
+        positionCamera: [-0.595, -0.263, 0.127],
         target: [0, 0, 0],
         duration: 2500,
       },
@@ -177,10 +200,26 @@ export default function GaussianViewer({ url }: Gaussian) {
       visible: false,
     },
     {
+      id: "palkin",
+      info: {
+        label: "Palkin",
+        address: "Av. Independencia 3501",
+      },
+      navigation: {
+        initialPoint: [0.276, -0.05, 0.448], //posicion del disparador flotante
+        positionCamera: [-0.595, -0.263, 0.127],
+        target: [-0.009, -0.026, 0.298],
+        duration: 2500,
+      },
+      category: "pharmacy",
+      selected: false,
+      visible: false,
+    },
+    {
       id: "ypf",
       info: {
         label: "YPF",
-        address: "",
+        address: "Independencia y Quintana",
       },
       navigation: {
         initialPoint: [0.276, -0.05, 0.448], //posicion del disparador flotante
@@ -195,7 +234,7 @@ export default function GaussianViewer({ url }: Gaussian) {
     {
       id: "shell",
       info: {
-        label: "shell",
+        label: "Shell",
         address: "",
       },
       navigation: {
@@ -211,12 +250,12 @@ export default function GaussianViewer({ url }: Gaussian) {
     {
       id: "feria",
       info: {
-        label: "Feria",
+        label: "Paseo de compras",
         address: "",
       },
       navigation: {
         initialPoint: [1.043, -0.05, 0.055], //posicion del disparador flotante
-        positionCamera: [0.2, -0.2, 0.02],
+        positionCamera: [-2.168, -0.957, -1.111],
         target: [0, 0, 0],
         duration: 2500,
       },
@@ -224,6 +263,22 @@ export default function GaussianViewer({ url }: Gaussian) {
       selected: false,
       visible: false,
     },
+    /*{
+      id: "sushi",
+      info: {
+        label: "Sushi POP",
+        address: "Av Independencia 3385",
+      },
+      navigation: {
+        initialPoint: [1.043, -0.05, 0.055], //posicion del disparador flotante
+        positionCamera: [-2.168, -0.957, -1.111],
+        target: [0, 0, 0],
+        duration: 2500,
+      },
+      category: "superMarket",
+      selected: false,
+      visible: false,
+    },*/
 
     {
       id: "bna",
@@ -232,8 +287,27 @@ export default function GaussianViewer({ url }: Gaussian) {
         address: "",
       },
       navigation: {
-        initialPoint: [0.276, -0.05, 0.448], //posicion del disparador flotante
-        positionCamera: [0.2, -0.2, 0.02],
+        //initialPoint: [0.276, -0.05, 0.448], //posicion del disparador flotante
+        initialPoint: [0.619, -0.052, 0.264],
+        //positionCamera: [-0.257,-0.353,-0.138],
+        //target: [0.619,0.052,0.264],
+        positionCamera: [-2.168, -0.957, -1.111],
+        target: [0, 0, 0],
+        duration: 2500,
+      },
+      category: "bank",
+      selected: false,
+      visible: false,
+    },
+    {
+      id: "provincia",
+      info: {
+        label: "Provincia",
+        address: "Av Independencia 3205",
+      },
+      navigation: {
+        initialPoint: [3.403, -0.05, -1.117], //posicion del disparador flotante
+        positionCamera: [-2.168, -0.957, -1.0],
         target: [0, 0, 0],
         duration: 2500,
       },
@@ -245,9 +319,19 @@ export default function GaussianViewer({ url }: Gaussian) {
 
   const views: CameraView[] = [
     {
-      name: "Primer plano",
+      name: "Frente izquierdo",
       position: [-0.149, -0.177, 0.424],
       target: [0.007, -0.002, 0.003],
+    },
+    {
+      name: "Frente derecho",
+      position: [-0.385, -0.271, -0.078],
+      target: [0.007, -0.002, 0.003],
+    },
+    {
+      name: "Contrafrente",
+      position: [0.283, -0.299, 0.031],
+      target: [0, 0, 0],
     },
   ];
 
@@ -282,10 +366,20 @@ export default function GaussianViewer({ url }: Gaussian) {
 
       if (viewer.controls) {
         viewer.controls.maxPolarAngle = 1.2;
+
+        viewer.controls.minDistance = 0.3;
+        viewer.controls.maxDistance = 2.8;
+        viewer.controls.enableDamping = false;
       }
 
       try {
-        await viewer.addSplatScene(url);
+        await loadWithProgress(url);
+
+        setIsLoading(true);
+        //await viewer.addSplatScene(url);
+        await viewer.addSplatScene(url, {
+          showLoadingUI: false,
+        });
 
         if (disposed) return;
 
@@ -294,12 +388,16 @@ export default function GaussianViewer({ url }: Gaussian) {
         viewer.start();
 
         startHotspotTracking();
+
+        setIsLoading(false);
       } catch (error) {
         console.error("Error loading gaussian splat:", error);
+        setIsLoading(false);
       }
     };
 
     init();
+    toggleRotation();
 
     return () => {
       window.removeEventListener("keydown", onKeyDown);
@@ -321,6 +419,53 @@ export default function GaussianViewer({ url }: Gaussian) {
       }
     };
   }, []);
+
+  const loadWithProgress = async (url: string) => {
+    const response = await fetch(url);
+
+    if (!response.body) {
+      throw new Error("El navegador no soporta ReadableStream");
+    }
+
+    const contentLength = response.headers.get("Content-Length");
+
+    if (!contentLength) {
+      console.warn("No hay Content-Length");
+      return;
+    }
+
+    const total = Number(contentLength);
+
+    const reader = response.body.getReader();
+
+    let loaded = 0;
+
+    const chunks: ArrayBuffer[] = [];
+
+    while (true) {
+      const { done, value } = await reader.read();
+
+      if (done) break;
+
+      if (value) {
+        const buffer = new ArrayBuffer(value.byteLength);
+
+        new Uint8Array(buffer).set(value);
+
+        chunks.push(buffer);
+
+        loaded += value.byteLength;
+
+        const progress = loaded / total;
+
+        setLoadingProgress(progress);
+      }
+    }
+
+    const blob = new Blob(chunks);
+
+    return URL.createObjectURL(blob);
+  };
 
   const addHotspot = () => {
     setHotspots((prev) => [
@@ -376,7 +521,34 @@ export default function GaussianViewer({ url }: Gaussian) {
     };
   };
 
-  const addNewHotspotTest = () => {
+  const setIsGalleryOpen = (state: boolean) => {
+    console.log("se abrio la galeria", state);
+    setFlatModal(false);
+  };
+
+  const openModal = (modalType: string) => {
+    if (modalType === "flats") {
+      setSliderFlats([
+        "/itaim/planos/2-6.jpg",
+        "/itaim/planos/7.jpg",
+        "/itaim/planos/8-9.jpg",
+        "/itaim/planos/terraza.jpg",
+        "/itaim/planos/quincho.jpg",
+        "/itaim/planos/pb.jpg",
+      ]);
+    } else if (modalType === "renders") {
+      const renderImage = [];
+      for (let i = 1; i <= 16; i++) {
+        renderImage.push(`/itaim/renders/${i}.jpg`);
+      }
+
+      setSliderFlats(renderImage);
+    }
+    setShowInfo(false);
+    setFlatModal(true);
+  };
+
+  /*const addNewHotspotTest = () => {
     setHotspots((prev) => [
       ...prev,
       {
@@ -396,7 +568,7 @@ export default function GaussianViewer({ url }: Gaussian) {
         category: "closeness",
       },
     ]);
-  };
+  };*/
 
   const exportHotspots = () => {
     console.clear();
@@ -470,9 +642,9 @@ export default function GaussianViewer({ url }: Gaussian) {
 
     console.clear();
 
-    console.log("positionCamera:", positionCamera);
+    //console.log("positionCamera:", positionCamera);
 
-    console.log("target:", target);
+    //console.log("target:", target);
 
     navigator.clipboard.writeText(
       `positionCamera: [${positionCamera.join(",")}],
@@ -526,7 +698,7 @@ target: [${target.join(",")}]`
 
       const screen = project(spot.navigation.initialPoint);
 
-      console.log(spot.id, screen);
+      //console.log(spot.id, screen);
 
       button.style.left = `${screen.x}px`;
       button.style.top = `${screen.y}px`;
@@ -536,6 +708,7 @@ target: [${target.join(",")}]`
   };
 
   const toggleRotation = () => {
+    console.log("togglerotation");
     const viewer = viewerRef.current;
 
     if (!viewer) return;
@@ -546,14 +719,16 @@ target: [${target.join(",")}]`
 
     controls.autoRotate = !controls.autoRotate;
 
-    controls.autoRotateSpeed = 1.2;
+    controls.autoRotateSpeed = 0.2;
 
     setAutoRotate(controls.autoRotate);
   };
 
   const showPointOfInterest = (category: string) => {
+    setFlatModal(false);
+    setShowInfoBuilding(false);
     let camPosition: Vector3 = [0, 0, 0];
-    if (category === "superMarket") {
+    if (category === "superMarket" || category === "cafes") {
       camPosition = [-2.168, -0.957, -1.111];
     } else {
       camPosition = [-0.58, -0.902, 2.104];
@@ -572,13 +747,33 @@ target: [${target.join(",")}]`
   };
 
   const handleLabelHotspot = (spot: Hotspot) => {
+    if (spot.category === "building") {
+      setShowInfoBuilding(true);
+      setShowInfo(false);
+      setFlatModal(false);
+    }
+
     //aca tengo que mostrar la info del spot en el modal
+    setHotspots((prev) =>
+      prev.map((s) => ({
+        ...s,
+        selected: s.id === spot.id,
+      }))
+    );
 
     flyTo(
       spot.navigation.positionCamera,
       spot.navigation.target,
       spot.navigation.duration ?? 1800
     ).then();
+  };
+
+  const handleBuildingView = (view: CameraView) => {
+    setShowInfoBuilding(true);
+    setFlatModal(false);
+    setShowInfo(false);
+
+    flyTo(view.position, view.target).then();
   };
 
   const flyTo = (position: Vector3, target: Vector3, duration = 1800): Promise<void> => {
@@ -647,6 +842,8 @@ target: [${target.join(",")}]`
 
   const visibleHotspots = hotspots.filter((spot) => spot.visible && spot.category !== "building");
 
+  const percentage = Math.round(loadingProgress * 100);
+
   return (
     <div
       className="gaussian-container"
@@ -657,12 +854,28 @@ target: [${target.join(",")}]`
         height: "100vh",
       }}
     >
+      {isLoading && (
+        <div className="gaussian-loader">
+          <span>Cargando experiencia</span>
+          <div>{percentage}%</div>
+          <RevolvingDot
+            visible={true}
+            height="80"
+            width="80"
+            color="#fafafa"
+            ariaLabel="revolving-dot-loading"
+            wrapperStyle={{}}
+            wrapperClass=""
+          />
+        </div>
+      )}
+
       {DEBUG && (
         <div
           style={{
             position: "absolute",
             top: 20,
-            left: 20,
+            right: 360,
             width: 320,
             padding: 20,
             background: "rgba(0,0,0,.75)",
@@ -734,45 +947,37 @@ target: [${target.join(",")}]`
           className="info-hotspot"
           style={{
             position: "absolute",
-            top: 20,
+            top: 120,
             right: 20,
-            width: 320,
+            width: 280,
             padding: 20,
-            background: "rgba(0,0,0,.75)",
-            backdropFilter: "blur(20px)",
-            borderRadius: 12,
+            background: "rgba(0, 0, 0, 0.39)",
+            backdropFilter: "blur(3px)",
+            borderRadius: 6,
             color: "#fff",
             fontFamily: "monospace",
             fontSize: 13,
             zIndex: 999,
+            visibility: isLoading ? "hidden" : "visible",
           }}
         >
-          <h3 className="title mb-4">HOTSPOTS</h3>
+          <h6 className="title mb-4">HOTSPOTS</h6>
 
           <div className="hotspot-list">
             {visibleHotspots.map((spot) => (
-              <div key={spot.id} className={`hotspot-card ${spot.selected ? "active" : ""}`}>
+              <div
+                key={spot.id}
+                className={`hotspot-card ${spot.selected ? "active" : ""}`}
+                onClick={() => selectHotspot(spot)}
+              >
                 <div className="hotspot-card__header">
                   <div>
-                    <span className="label">Nombre</span>
                     <h5>{spot.info.label}</h5>
                   </div>
-
-                  <span className="badge bg-secondary">{spot.category}</span>
                 </div>
 
                 <div className="hotspot-card__body">
-                  <span className="label">Ubicación</span>
                   <p>{spot.info.address}</p>
-                </div>
-
-                <div className="hotspot-card__footer">
-                  <button
-                    className="btn btn-outline-light btn-sm"
-                    onClick={() => selectHotspot(spot)}
-                  >
-                    Ver más
-                  </button>
                 </div>
               </div>
             ))}
@@ -780,10 +985,53 @@ target: [${target.join(",")}]`
         </div>
       )}
 
+      {showInfoBuilding && (
+        <div
+          className="info-hotspot"
+          style={{
+            position: "absolute",
+            top: 20,
+            right: 20,
+            width: 180,
+            padding: 10,
+            background: "rgba(0, 0, 0, 0.39)",
+            backdropFilter: "blur(3px)",
+            borderRadius: 6,
+            color: "#fff",
+            fontFamily: "monospace",
+            fontSize: 13,
+            zIndex: 999,
+            visibility: isLoading ? "hidden" : "visible",
+          }}
+        >
+          <h6 className="title mb-4">ITAIM II</h6>
+
+          <div className="hotspot-list">
+            <button
+              key="seeFlats"
+              className="btn btn-footer"
+              onClick={() => {
+                openModal("flats");
+              }}
+            >
+              Ver planos
+            </button>
+            <button
+              key="seeRenders"
+              className="btn btn-footer"
+              onClick={() => {
+                openModal("renders");
+              }}
+            >
+              Ver renders
+            </button>
+          </div>
+        </div>
+      )}
+
       {/* LABEL SPOT */}
       <div
         ref={containerRef}
-
         style={{
           width: "100%",
           height: "100%",
@@ -794,6 +1042,9 @@ target: [${target.join(",")}]`
         <div
           key={spot.id}
           className={`hotspot-container`}
+          style={{
+            visibility: isLoading ? "hidden" : "visible",
+          }}
           ref={(el) => {
             hotspotRefs.current[spot.id] = el;
           }}
@@ -805,8 +1056,96 @@ target: [${target.join(",")}]`
             {spot.info.label}
           </button>
           <div className={`hotspot-line ${spot.selected ? "active" : ""}`}></div>
+          <div className={`hotspot-dot ${spot.selected ? "active" : ""}`}></div>
         </div>
       ))}
+
+      {showFlatModal && (
+        <div
+          style={{
+            position: "absolute",
+            bottom: 80,
+            right: 40,
+            display: "flex",
+            flexDirection: "column",
+            width: "40%",
+            gap: 10,
+            visibility: isLoading ? "hidden" : "visible",
+          }}
+        >
+          <ImageSlider images={sliderFlats} onClose={() => setIsGalleryOpen(false)} />
+        </div>
+      )}
+      <div
+        style={{
+          position: "absolute",
+          top: 220,
+          left: 20,
+          display: "flex",
+          flexDirection: "column",
+          background: "rgba(214, 214, 214, 0.2)",
+          borderRadius: 6,
+          backdropFilter: "blur(3px)",
+          gap: 10,
+          padding: "20px 20px 20px 20px",
+          visibility: isLoading ? "hidden" : "visible",
+        }}
+      >
+        <h6
+          style={{
+            color: "rgb(250, 250, 250)",
+            marginBottom: 20,
+            fontWeight: 600,
+          }}
+        >
+          Puntos de interés
+        </h6>
+        <button
+          key="cafes"
+          className="btn btn-lateral"
+          onClick={() => {
+            showPointOfInterest("cafes");
+          }}
+        >
+          Cafés
+        </button>
+        <button
+          key="bank"
+          className="btn btn-lateral"
+          onClick={() => {
+            showPointOfInterest("bank");
+          }}
+        >
+          Bancos
+        </button>
+        <button
+          key="service-station"
+          className="btn btn-lateral"
+          onClick={() => {
+            showPointOfInterest("serviceStation");
+          }}
+        >
+          Est de Servicio
+        </button>
+        <button
+          key="superMarket"
+          className="btn btn-lateral"
+          onClick={() => {
+            showPointOfInterest("superMarket");
+          }}
+        >
+          Comercios
+        </button>
+        <button
+          key="restaurants"
+          className="btn btn-lateral"
+          onClick={() => {
+            showPointOfInterest("restaurants");
+          }}
+        >
+          Restaurantes
+        </button>
+      </div>
 
       <div
         style={{
@@ -815,68 +1154,28 @@ target: [${target.join(",")}]`
           left: 20,
           display: "flex",
           gap: 10,
+          backgroundColor: "rgba(185, 185, 185, 0.45)",
+          visibility: isLoading ? "hidden" : "visible",
         }}
       >
         <button
-          className="btn btn-primary"
+          className="btn btn-footer"
 
           onClick={toggleRotation}
         >
-          {autoRotate ? "Detener rotación" : "Rotar modelo"}
+          <FontAwesomeIcon icon={autoRotate ? faPause : faPlay} className="me-2" />
         </button>
-
         {views.map((view) => (
           <button
             key={view.name}
-            className="btn btn-primary"
+            className="btn btn-footer"
             onClick={() => {
-              flyTo(view.position, view.target).then();
+              handleBuildingView(view);
             }}
           >
             {view.name}
           </button>
         ))}
-
-        <button
-          key="cafes"
-          className="btn btn-primary"
-          onClick={() => {
-            showPointOfInterest("cafes");
-          }}
-        >
-          Cafés
-        </button>
-
-        <button
-          key="bank"
-          className="btn btn-primary"
-          onClick={() => {
-            showPointOfInterest("bank");
-          }}
-        >
-          Bancos
-        </button>
-
-        <button
-          key="service-station"
-          className="btn btn-primary"
-          onClick={() => {
-            showPointOfInterest("serviceStation");
-          }}
-        >
-          Est de Servicio
-        </button>
-
-        <button
-          key="superMarket"
-          className="btn btn-primary"
-          onClick={() => {
-            showPointOfInterest("superMarket");
-          }}
-        >
-          Comercios
-        </button>
-
         {/*<button
           key="test"
           className="btn btn-primary"
@@ -886,6 +1185,22 @@ target: [${target.join(",")}]`
         >
           NUEVO HOTSPOT TEST
         // </button>*/}
+      </div>
+      <div
+        style={{
+          position: "absolute",
+          bottom: 20,
+          right: 40,
+          display: "flex",
+          flexDirection: "row",
+          backgroundColor: "rgba(185, 185, 185, 0.45)",
+          gap: 10,
+          visibility: isLoading ? "hidden" : "visible",
+        }}
+      >
+        <button key="seeFlats" className="btn btn-footer">
+          Contactanos
+        </button>
       </div>
     </div>
   );
