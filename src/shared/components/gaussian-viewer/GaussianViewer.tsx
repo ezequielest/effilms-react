@@ -4,7 +4,7 @@ import * as THREE from "three";
 import "./GaussianViewer.scss";
 import ImageSlider from "../image-slider/ImageSlider";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPause, faPlay } from "@fortawesome/free-solid-svg-icons";
+import { faArrowLeft, faPause, faPlay } from "@fortawesome/free-solid-svg-icons";
 import { RevolvingDot } from "react-loader-spinner";
 
 type Vector3 = [number, number, number];
@@ -75,6 +75,8 @@ export default function GaussianViewer({ url }: Gaussian) {
   const [loadingProgress, setLoadingProgress] = useState(0);
 
   const [showInfoBuilding, setShowInfoBuilding] = useState(false);
+
+  const [isLeftMenuOpen, setIsLeftMenuOpen] = useState(false);
 
   const DEBUG = false;
 
@@ -348,6 +350,7 @@ export default function GaussianViewer({ url }: Gaussian) {
 
   useEffect(() => {
     window.addEventListener("keydown", onKeyDown);
+    setIsLeftMenuOpen(false);
 
     if (!containerRef.current) return;
 
@@ -648,7 +651,7 @@ export default function GaussianViewer({ url }: Gaussian) {
 
     navigator.clipboard.writeText(
       `positionCamera: [${positionCamera.join(",")}],
-target: [${target.join(",")}]`
+      target: [${target.join(",")}]`
     );
   };
 
@@ -722,6 +725,10 @@ target: [${target.join(",")}]`
     controls.autoRotateSpeed = 0.2;
 
     setAutoRotate(controls.autoRotate);
+  };
+
+  const handleLeftMenu = () => {
+    setIsLeftMenuOpen(!isLeftMenuOpen);
   };
 
   const showPointOfInterest = (category: string) => {
@@ -854,6 +861,7 @@ target: [${target.join(",")}]`
         height: "100vh",
       }}
     >
+      <div className={`overlay-slider ${showFlatModal ? "active" : ""}`}></div>
       {isLoading && (
         <div className="gaussian-loader">
           <span>Cargando experiencia</span>
@@ -871,46 +879,22 @@ target: [${target.join(",")}]`
       )}
 
       {DEBUG && (
-        <div
-          style={{
-            position: "absolute",
-            top: 20,
-            right: 360,
-            width: 320,
-            padding: 20,
-            background: "rgba(0,0,0,.75)",
-            backdropFilter: "blur(20px)",
-            borderRadius: 12,
-            color: "#fff",
-            fontFamily: "monospace",
-            fontSize: 13,
-            zIndex: 999,
-          }}
-        >
+        <div className="debug-info">
           <h6>DEBUG</h6>
-
           <hr />
-
           <strong>Camera</strong>
-
           <pre>{JSON.stringify(debugInfo.camera, null, 2)}</pre>
-
           <strong>Target</strong>
-
           <pre>{JSON.stringify(debugInfo.target, null, 2)}</pre>
-
           <button className="btn btn-success" onClick={captureCamera}>
             Guardar Cámara
           </button>
-
           <button className="btn btn-danger" onClick={captureInitialPoint}>
             Guardar Punto
           </button>
-
           <button className="btn btn-primary" onClick={exportHotspot}>
             Copiar JSON
           </button>
-
           <input
             className="form-control mb-2"
             value={editor.info.label}
@@ -931,101 +915,12 @@ target: [${target.join(",")}]`
               }))
             }
           />
-
           <button className="btn btn-success w-100" onClick={addHotspot}>
             Agregar Hotspot
           </button>
-
           <button className="btn btn-warning w-100 mt-2" onClick={exportHotspots}>
             Exportar Hotspots
           </button>
-        </div>
-      )}
-
-      {showInfo && (
-        <div
-          className="info-hotspot"
-          style={{
-            position: "absolute",
-            top: 120,
-            right: 20,
-            width: 280,
-            padding: 20,
-            background: "rgba(0, 0, 0, 0.39)",
-            backdropFilter: "blur(3px)",
-            borderRadius: 6,
-            color: "#fff",
-            fontFamily: "monospace",
-            fontSize: 13,
-            zIndex: 999,
-            visibility: isLoading ? "hidden" : "visible",
-          }}
-        >
-          <h6 className="title mb-4">HOTSPOTS</h6>
-
-          <div className="hotspot-list">
-            {visibleHotspots.map((spot) => (
-              <div
-                key={spot.id}
-                className={`hotspot-card ${spot.selected ? "active" : ""}`}
-                onClick={() => selectHotspot(spot)}
-              >
-                <div className="hotspot-card__header">
-                  <div>
-                    <h5>{spot.info.label}</h5>
-                  </div>
-                </div>
-
-                <div className="hotspot-card__body">
-                  <p>{spot.info.address}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {showInfoBuilding && (
-        <div
-          className="info-hotspot"
-          style={{
-            position: "absolute",
-            top: 20,
-            right: 20,
-            width: 180,
-            padding: 10,
-            background: "rgba(0, 0, 0, 0.39)",
-            backdropFilter: "blur(3px)",
-            borderRadius: 6,
-            color: "#fff",
-            fontFamily: "monospace",
-            fontSize: 13,
-            zIndex: 999,
-            visibility: isLoading ? "hidden" : "visible",
-          }}
-        >
-          <h6 className="title mb-4">ITAIM II</h6>
-
-          <div className="hotspot-list">
-            <button
-              key="seeFlats"
-              className="btn btn-footer"
-              onClick={() => {
-                openModal("flats");
-              }}
-            >
-              Ver planos
-            </button>
-            <button
-              key="seeRenders"
-              className="btn btn-footer"
-              onClick={() => {
-                openModal("renders");
-              }}
-            >
-              Ver renders
-            </button>
-          </div>
         </div>
       )}
 
@@ -1041,7 +936,7 @@ target: [${target.join(",")}]`
       {hotspots.map((spot) => (
         <div
           key={spot.id}
-          className={`hotspot-container`}
+          className={`hotspot-container-labels`}
           style={{
             visibility: isLoading ? "hidden" : "visible",
           }}
@@ -1062,120 +957,158 @@ target: [${target.join(",")}]`
 
       {showFlatModal && (
         <div
+          className="modal"
           style={{
-            position: "absolute",
-            bottom: 80,
-            right: 40,
-            display: "flex",
-            flexDirection: "column",
-            width: "40%",
-            gap: 10,
             visibility: isLoading ? "hidden" : "visible",
           }}
         >
-          <ImageSlider images={sliderFlats} onClose={() => setIsGalleryOpen(false)} />
+          <div className="modal-container">
+            <ImageSlider images={sliderFlats} onClose={() => setIsGalleryOpen(false)} />
+          </div>
         </div>
       )}
       <div
+        className={`menu ${isLeftMenuOpen ? "open" : "close"}`}
         style={{
-          position: "absolute",
-          top: 220,
-          left: 20,
-          display: "flex",
-          flexDirection: "column",
-          background: "rgba(214, 214, 214, 0.2)",
-          borderRadius: 6,
-          backdropFilter: "blur(3px)",
-          gap: 10,
-          padding: "20px 20px 20px 20px",
           visibility: isLoading ? "hidden" : "visible",
         }}
       >
-        <h6
-          style={{
-            color: "rgb(250, 250, 250)",
-            marginBottom: 20,
-            fontWeight: 600,
-          }}
-        >
-          Puntos de interés
-        </h6>
-        <button
-          key="cafes"
-          className="btn btn-lateral"
-          onClick={() => {
-            showPointOfInterest("cafes");
-          }}
-        >
-          Cafés
-        </button>
-        <button
-          key="bank"
-          className="btn btn-lateral"
-          onClick={() => {
-            showPointOfInterest("bank");
-          }}
-        >
-          Bancos
-        </button>
-        <button
-          key="service-station"
-          className="btn btn-lateral"
-          onClick={() => {
-            showPointOfInterest("serviceStation");
-          }}
-        >
-          Est de Servicio
-        </button>
-        <button
-          key="superMarket"
-          className="btn btn-lateral"
-          onClick={() => {
-            showPointOfInterest("superMarket");
-          }}
-        >
-          Comercios
-        </button>
-        <button
-          key="restaurants"
-          className="btn btn-lateral"
-          onClick={() => {
-            showPointOfInterest("restaurants");
-          }}
-        >
-          Restaurantes
-        </button>
+        <div className="menu__header">
+          <FontAwesomeIcon icon={faArrowLeft} className="me-2" onClick={() => handleLeftMenu()} />
+          <div>
+            {/*showInfoBuilding && (*/}
+            <div
+              className="info-building"
+              style={{
+                visibility: isLoading ? "hidden" : "visible",
+              }}
+            >
+              <h6 className="title mb-4">ITAIM II</h6>
+              <div className="hotspot-list">
+                <button
+                  key="seeFlats"
+                  className="btn btn-lateral"
+                  onClick={() => {
+                    openModal("flats");
+                  }}
+                >
+                  Ver planos
+                </button>
+                <button
+                  key="seeRenders"
+                  className="btn btn-lateral"
+                  onClick={() => {
+                    openModal("renders");
+                  }}
+                >
+                  Ver renders
+                </button>
+              </div>
+            </div>
+            {/*)}*/}
+          </div>
+          <div>
+            <h6>Puntos de interés</h6>
+            <button
+              key="cafes"
+              className="btn btn-lateral"
+              onClick={() => {
+                showPointOfInterest("cafes");
+              }}
+            >
+              Cafés
+            </button>
+            <button
+              key="bank"
+              className="btn btn-lateral"
+              onClick={() => {
+                showPointOfInterest("bank");
+              }}
+            >
+              Bancos
+            </button>
+            <button
+              key="service-station"
+              className="btn btn-lateral"
+              onClick={() => {
+                showPointOfInterest("serviceStation");
+              }}
+            >
+              Est de Servicio
+            </button>
+            <button
+              key="superMarket"
+              className="btn btn-lateral"
+              onClick={() => {
+                showPointOfInterest("superMarket");
+              }}
+            >
+              Comercios
+            </button>
+            <button
+              key="restaurants"
+              className="btn btn-lateral"
+              onClick={() => {
+                showPointOfInterest("restaurants");
+              }}
+            >
+              Restaurantes
+            </button>
+          </div>
+        </div>
+        <div className="menu__line"></div>
+        <div>
+          {showInfo && (
+            <div className="info-hotspot">
+              <h6 className="title mb-4">HOTSPOTS</h6>
+              <div className="hotspot-list">
+                {visibleHotspots.map((spot) => (
+                  <div
+                    key={spot.id}
+                    className={`hotspot-card ${spot.selected ? "active" : ""}`}
+                    onClick={() => selectHotspot(spot)}
+                  >
+                    <div className="hotspot-card__header">
+                      <div>
+                        <h5>{spot.info.label}</h5>
+                      </div>
+                    </div>
+                    <div className="hotspot-card__body">
+                      <p>{spot.info.address}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
       </div>
 
       <div
+        className={`footer-buttons ${isLeftMenuOpen ? "open" : "close"}`}
         style={{
-          position: "absolute",
-          bottom: 20,
-          left: 20,
-          display: "flex",
-          gap: 10,
-          backgroundColor: "rgba(185, 185, 185, 0.45)",
           visibility: isLoading ? "hidden" : "visible",
         }}
       >
-        <button
-          className="btn btn-footer"
-
-          onClick={toggleRotation}
-        >
+        <button className="btn btn-footer" onClick={toggleRotation}>
           <FontAwesomeIcon icon={autoRotate ? faPause : faPlay} className="me-2" />
         </button>
-        {views.map((view) => (
-          <button
-            key={view.name}
-            className="btn btn-footer"
-            onClick={() => {
-              handleBuildingView(view);
-            }}
-          >
-            {view.name}
-          </button>
-        ))}
+        <button onClick={() => handleLeftMenu()} className="btn btn-footer">
+          MENÚ
+        </button>
+        <div className="build-views">
+          {views.map((view) => (
+            <button
+              key={view.name}
+              className="btn btn-footer"
+              onClick={() => {
+                handleBuildingView(view);
+              }}
+            >
+              {view.name}
+            </button>
+          ))}
+        </div>
         {/*<button
           key="test"
           className="btn btn-primary"
@@ -1186,21 +1119,8 @@ target: [${target.join(",")}]`
           NUEVO HOTSPOT TEST
         // </button>*/}
       </div>
-      <div
-        style={{
-          position: "absolute",
-          bottom: 20,
-          right: 40,
-          display: "flex",
-          flexDirection: "row",
-          backgroundColor: "rgba(185, 185, 185, 0.45)",
-          gap: 10,
-          visibility: isLoading ? "hidden" : "visible",
-        }}
-      >
-        <button key="seeFlats" className="btn btn-footer">
-          Contactanos
-        </button>
+      <div key="seeFlats" className="contact-us">
+        Contactanos
       </div>
     </div>
   );
