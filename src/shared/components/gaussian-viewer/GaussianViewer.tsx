@@ -52,6 +52,8 @@ interface Gaussian {
 export default function GaussianViewer({ url }: Gaussian) {
   const containerRef = useRef<HTMLDivElement>(null);
 
+  const cityAudioRef = useRef<HTMLAudioElement | null>(null);
+
   const viewerRef = useRef<any>(null);
 
   const animationRef = useRef<number | null>(null);
@@ -74,7 +76,9 @@ export default function GaussianViewer({ url }: Gaussian) {
 
   const [loadingProgress, setLoadingProgress] = useState(0);
 
-  const [showInfoBuilding, setShowInfoBuilding] = useState(false);
+  const [showIntro, setShowIntro] = useState(true);
+
+  //const [showInfoBuilding, setShowInfoBuilding] = useState(false);
 
   const [isLeftMenuOpen, setIsLeftMenuOpen] = useState(false);
 
@@ -342,6 +346,22 @@ export default function GaussianViewer({ url }: Gaussian) {
       captureCamera();
     }
   };
+  useEffect(() => {
+    handleLeftMenu();
+    const cityAudio = new Audio("/sounds/city.mp4");
+
+    cityAudio.loop = true;
+    cityAudio.volume = 0.25;
+
+    cityAudioRef.current = cityAudio;
+
+    return () => {
+      cityAudio.pause();
+      cityAudio.currentTime = 0;
+      cityAudio.src = "";
+      cityAudioRef.current = null;
+    };
+  }, []);
 
   useEffect(() => {
     hotspotsRef.current = hotspots;
@@ -350,7 +370,6 @@ export default function GaussianViewer({ url }: Gaussian) {
 
   useEffect(() => {
     window.addEventListener("keydown", onKeyDown);
-    setIsLeftMenuOpen(false);
 
     if (!containerRef.current) return;
 
@@ -525,11 +544,22 @@ export default function GaussianViewer({ url }: Gaussian) {
   };
 
   const setIsGalleryOpen = (state: boolean) => {
+    handleLeftMenu();
     console.log("se abrio la galeria", state);
     setFlatModal(false);
   };
 
+  const startCitySound = async () => {
+    setShowIntro(false);
+    try {
+      await cityAudioRef.current?.play();
+    } catch (error) {
+      console.error("No se pudo iniciar el sonido:", error);
+    }
+  };
+
   const openModal = (modalType: string) => {
+    handleLeftMenu();
     if (modalType === "flats") {
       setSliderFlats([
         "/itaim/planos/2-6.jpg",
@@ -733,7 +763,7 @@ export default function GaussianViewer({ url }: Gaussian) {
 
   const showPointOfInterest = (category: string) => {
     setFlatModal(false);
-    setShowInfoBuilding(false);
+    //setShowInfoBuilding(false);
     let camPosition: Vector3 = [0, 0, 0];
     if (category === "superMarket" || category === "cafes") {
       camPosition = [-2.168, -0.957, -1.111];
@@ -755,7 +785,7 @@ export default function GaussianViewer({ url }: Gaussian) {
 
   const handleLabelHotspot = (spot: Hotspot) => {
     if (spot.category === "building") {
-      setShowInfoBuilding(true);
+      //setShowInfoBuilding(true);
       setShowInfo(false);
       setFlatModal(false);
     }
@@ -776,7 +806,7 @@ export default function GaussianViewer({ url }: Gaussian) {
   };
 
   const handleBuildingView = (view: CameraView) => {
-    setShowInfoBuilding(true);
+    //setShowInfoBuilding(true);
     setFlatModal(false);
     setShowInfo(false);
 
@@ -925,6 +955,15 @@ export default function GaussianViewer({ url }: Gaussian) {
       )}
 
       {/* LABEL SPOT */}
+      <div className={`intro-user-container ${!isLoading && showIntro ? "show" : "hide"}`}>
+        <div className="content">
+          <h3 className="title">Bienvenidos a EF INTERACTIVE</h3>
+          <p>Una experiencia inmersiva</p>
+          <button className="intro-user-button" onClick={startCitySound}>
+            Entrar
+          </button>
+        </div>
+      </div>
       <div
         ref={containerRef}
         style={{
