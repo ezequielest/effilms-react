@@ -5,3 +5,6 @@ export const ServiceGroup = {
   CUSTOM: "CUSTOM",
   CONTENT_CREATION: "CONTENT_CREATION",
 } as const;
+
+export type ServiceGroup = (typeof ServiceGroup)[keyof typeof ServiceGroup];
+ServiceGroup;
