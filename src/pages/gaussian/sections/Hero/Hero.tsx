@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import "./Hero.scss";
 import TresDDisplay from "../../../../shared/components/3d-building/TresDDisplay";
+import TresDDisplayFBX from "../../../../shared/components/3d-building-fbx/TresDDisplayFBX";
 // Definición de las interfaces para las propiedades del componente
 interface ParallaxCardProps {
   altText?: string;
@@ -123,7 +124,8 @@ export const Hero: React.FC<ParallaxCardProps> = ({
                 <div className="hero__viewer-overlay" />
 
                 <div className="hero__viewer-placeholder">
-                  <TresDDisplay url={"/3d/torre.glb"} heightContainer="650px" />
+                  {/** <TresDDisplay url={"/3d/torre.glb"} heightContainer="650px" /> */}
+                  <TresDDisplayFBX url={"/3d/secabotas-2.fbx"} heightContainer="650px" />
                   {/*<img
                                         ref={imageRef}
                                         src={"/img-inmersive/9.png"}

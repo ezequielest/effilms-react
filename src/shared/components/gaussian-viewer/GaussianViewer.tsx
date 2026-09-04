@@ -6,6 +6,7 @@ import ImageSlider from "../image-slider/ImageSlider";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faPause, faPlay } from "@fortawesome/free-solid-svg-icons";
 import { RevolvingDot } from "react-loader-spinner";
+import { Icon } from "@iconify/react";
 
 type Vector3 = [number, number, number];
 
@@ -1007,119 +1008,105 @@ export default function GaussianViewer({ url }: Gaussian) {
         </div>
       )}
       <div
-        className={`menu ${isLeftMenuOpen ? "open" : "close"}`}
+        className={`menu ${isLeftMenuOpen ? "open" : "closed"}`}
         style={{
           visibility: isLoading ? "hidden" : "visible",
         }}
       >
         <div className="menu__header">
-          <FontAwesomeIcon icon={faArrowLeft} className="me-2" onClick={() => handleLeftMenu()} />
-          <div>
-            {/*showInfoBuilding && (*/}
-            <div
-              className="info-building"
-              style={{
-                visibility: isLoading ? "hidden" : "visible",
-              }}
-            >
+          <button
+            className="menu__toggle"
+            onClick={handleLeftMenu}
+            aria-label={isLeftMenuOpen ? "Cerrar menú" : "Abrir menú"}
+          >
+            <FontAwesomeIcon icon={faArrowLeft} />
+          </button>
+
+          <div className="menu__content">
+            <div className="info-building">
               <h6 className="title mb-4">ITAIM II</h6>
+
               <div className="hotspot-list">
-                <button
-                  key="seeFlats"
-                  className="btn btn-lateral"
-                  onClick={() => {
-                    openModal("flats");
-                  }}
-                >
-                  Ver planos
+                <button className="btn btn-lateral" onClick={() => openModal("flats")}>
+                  <Icon icon="si:map-line" />
+                  <span className="description-menu">Ver planos</span>
                 </button>
-                <button
-                  key="seeRenders"
-                  className="btn btn-lateral"
-                  onClick={() => {
-                    openModal("renders");
-                  }}
-                >
-                  Ver renders
+
+                <button className="btn btn-lateral" onClick={() => openModal("renders")}>
+                  <Icon icon="prime:building" />
+                  <span className="description-menu">Ver renders</span>
                 </button>
               </div>
             </div>
-            {/*)}*/}
-          </div>
-          <div>
-            <h6>Puntos de interés</h6>
-            <button
-              key="cafes"
-              className="btn btn-lateral"
-              onClick={() => {
-                showPointOfInterest("cafes");
-              }}
-            >
-              Cafés
-            </button>
-            <button
-              key="bank"
-              className="btn btn-lateral"
-              onClick={() => {
-                showPointOfInterest("bank");
-              }}
-            >
-              Bancos
-            </button>
-            <button
-              key="service-station"
-              className="btn btn-lateral"
-              onClick={() => {
-                showPointOfInterest("serviceStation");
-              }}
-            >
-              Est de Servicio
-            </button>
-            <button
-              key="superMarket"
-              className="btn btn-lateral"
-              onClick={() => {
-                showPointOfInterest("superMarket");
-              }}
-            >
-              Comercios
-            </button>
-            <button
-              key="restaurants"
-              className="btn btn-lateral"
-              onClick={() => {
-                showPointOfInterest("restaurants");
-              }}
-            >
-              Restaurantes
-            </button>
-          </div>
-        </div>
-        <div className="menu__line"></div>
-        <div>
-          {showInfo && (
-            <div className="info-hotspot">
-              <h6 className="title mb-4">HOTSPOTS</h6>
-              <div className="hotspot-list">
-                {visibleHotspots.map((spot) => (
-                  <div
-                    key={spot.id}
-                    className={`hotspot-card ${spot.selected ? "active" : ""}`}
-                    onClick={() => selectHotspot(spot)}
-                  >
-                    <div className="hotspot-card__header">
-                      <div>
-                        <h5>{spot.info.label}</h5>
+
+            <div className="points-of-interest">
+              <h6>Puntos de interés</h6>
+
+              <button className="btn btn-lateral" onClick={() => showPointOfInterest("cafes")}>
+                <Icon icon="mdi:coffee" />
+                <span className="description-menu">Cafés</span>
+              </button>
+
+              <button className="btn btn-lateral" onClick={() => showPointOfInterest("bank")}>
+                <Icon icon="mdi:bank" />
+                <span className="description-menu">Bancos</span>
+              </button>
+
+              <button
+                className="btn btn-lateral"
+                onClick={() => showPointOfInterest("serviceStation")}
+              >
+                <Icon icon="mdi:gas-station" />
+                <span className="description-menu">Est. de Servicio</span>
+              </button>
+
+              <button
+                className="btn btn-lateral"
+                onClick={() => showPointOfInterest("superMarket")}
+              >
+                <Icon icon="mdi:store" />
+                <span className="description-menu">Comercios</span>
+              </button>
+
+              <button
+                className="btn btn-lateral"
+                onClick={() => showPointOfInterest("restaurants")}
+              >
+                <Icon icon="mdi:silverware-fork-knife" />
+                <span className="description-menu">Restaurantes</span>
+              </button>
+            </div>
+
+            {showInfo && (
+              <>
+                <div className="menu__line"></div>
+
+                <div className="info-hotspot">
+                  <h6 className="title mb-4">HOTSPOTS</h6>
+
+                  <div className="hotspot-list">
+                    {visibleHotspots.map((spot) => (
+                      <div
+                        key={spot.id}
+                        className={`hotspot-card ${spot.selected ? "active" : ""}`}
+                        onClick={() => selectHotspot(spot)}
+                      >
+                        <div className="hotspot-card__header">
+                          <div>
+                            <h5>{spot.info.label}</h5>
+                          </div>
+                        </div>
+
+                        <div className="hotspot-card__body">
+                          <p>{spot.info.address}</p>
+                        </div>
                       </div>
-                    </div>
-                    <div className="hotspot-card__body">
-                      <p>{spot.info.address}</p>
-                    </div>
+                    ))}
                   </div>
-                ))}
-              </div>
-            </div>
-          )}
+                </div>
+              </>
+            )}
+          </div>
         </div>
       </div>
 
