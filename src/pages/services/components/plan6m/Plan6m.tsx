@@ -6,10 +6,10 @@ const Plan6m: React.FC = () => {
     {
       title: "INICIAL",
       items: [
-        { months: "6", price: "$135.000.-" },
-        { months: "12", price: "$260.000.-" },
-        { months: "18", price: "$375.000.-" },
-        { months: "24", price: "$480.000.-" },
+        { months: "6", price: "$145.000.-" },
+        { months: "12", price: "$270.000.-" },
+        { months: "18", price: "$385.000.-" },
+        { months: "24", price: "$490.000.-" },
       ],
     },
     {
@@ -24,8 +24,8 @@ const Plan6m: React.FC = () => {
     {
       title: "PREMIUM",
       items: [
-        { months: "6", price: "$520.000.-" },
-        { months: "12", price: "$1020.000.-" },
+        { months: "6", price: "$540.000.-" },
+        { months: "12", price: "$1060.000.-" },
       ],
     },
   ];
