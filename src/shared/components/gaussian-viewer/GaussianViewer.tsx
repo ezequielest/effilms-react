@@ -48,48 +48,34 @@ function easeInOutCubic(t: number) {
 
 interface Gaussian {
   url: string;
+  showContactUs?: boolean;
+  hasIntro?: boolean;
 }
 
-export default function GaussianViewer({ url }: Gaussian) {
+export default function GaussianViewer({ url, showContactUs = false, hasIntro = false }: Gaussian) {
   const containerRef = useRef<HTMLDivElement>(null);
-
   const cityAudioRef = useRef<HTMLAudioElement | null>(null);
-
   const viewerRef = useRef<any>(null);
-
   const animationRef = useRef<number | null>(null);
-
   const hotspotAnimationRef = useRef<number | null>(null);
-
   const hotspotRefs = useRef<Record<string, HTMLDivElement | null>>({});
   const hotspotsRef = useRef<Hotspot[]>([]);
   const hotspotLineRefs = useRef<Hotspot[]>([]);
 
   const [sliderFlats, setSliderFlats] = useState<Array<string>>([]);
-
   const [autoRotate, setAutoRotate] = useState(true);
-
   const [showInfo, setShowInfo] = useState(false);
-
   const [showFlatModal, setFlatModal] = useState(false);
-
   const [isLoading, setIsLoading] = useState(true);
-
   const [loadingProgress, setLoadingProgress] = useState(0);
-
   const [showIntro, setShowIntro] = useState(true);
-
   //const [showInfoBuilding, setShowInfoBuilding] = useState(false);
-
   const [isLeftMenuOpen, setIsLeftMenuOpen] = useState(false);
-
-  const DEBUG = false;
 
   const [debugInfo, setDebugInfo] = useState({
     camera: [0, 0, 0] as Vector3,
     target: [0, 0, 0] as Vector3,
   });
-
   const [editor, setEditor] = useState<Hotspot>({
     id: "centro",
     selected: false,
@@ -324,6 +310,8 @@ export default function GaussianViewer({ url }: Gaussian) {
     },
   ]);
 
+  const DEBUG = false;
+
   const views: CameraView[] = [
     {
       name: "Frente izquierdo",
@@ -348,7 +336,8 @@ export default function GaussianViewer({ url }: Gaussian) {
     }
   };
   useEffect(() => {
-    handleLeftMenu();
+    setIsLeftMenuOpen(false);
+    //handleLeftMenu();
     const cityAudio = new Audio("/sounds/city.mp4");
 
     cityAudio.loop = true;
@@ -956,15 +945,18 @@ export default function GaussianViewer({ url }: Gaussian) {
       )}
 
       {/* LABEL SPOT */}
-      <div className={`intro-user-container ${!isLoading && showIntro ? "show" : "hide"}`}>
-        <div className="content">
-          <h3 className="title">Bienvenidos a EF INTERACTIVE</h3>
-          <p>Una experiencia inmersiva</p>
-          <button className="intro-user-button" onClick={startCitySound}>
-            Entrar
-          </button>
+      {hasIntro && (
+        <div className={`intro-user-container ${!isLoading && showIntro ? "show" : "hide"}`}>
+          <div className="content">
+            <h3 className="title">Bienvenidos a EF INTERACTIVE</h3>
+            <p>Una experiencia inmersiva</p>
+            <button className="intro-user-button" onClick={startCitySound}>
+              Entrar
+            </button>
+          </div>
         </div>
-      </div>
+      )}
+      {/** acá se despliega el mapa */}
       <div
         ref={containerRef}
         style={{
@@ -1145,9 +1137,11 @@ export default function GaussianViewer({ url }: Gaussian) {
           NUEVO HOTSPOT TEST
         // </button>*/}
       </div>
-      <div key="seeFlats" className="contact-us">
-        Contactanos
-      </div>
+      {showContactUs && (
+        <div key="contactUs" className="contact-us">
+          Contactanos
+        </div>
+      )}
     </div>
   );
 }

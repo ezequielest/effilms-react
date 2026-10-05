@@ -21,6 +21,9 @@ function Inmersive() {
   return (
     <>
       <div className="">
+        {/**torreon-fix
+         * full-map
+         */}
         <GaussianViewer url="/splats/full-map.ply" />
       </div>
     </>
