@@ -10,7 +10,7 @@ import ScrollToHash from "./hooks/scrollToHash";
 import Nav from "./shared/components/nav/Nav";
 import Inmersive from "./pages/inmersive/Inmersive";
 import InteractiveLanding from "./pages/gaussian/InteractiveLanding";
-import AdminPuntos from "./pages/admin-points/adminPoints";
+import AdminPuntos from "./pages/admin/adminPoints";
 import RankingPoints from "./pages/puntos/ranking-points";
 
 function App() {

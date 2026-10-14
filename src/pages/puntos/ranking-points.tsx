@@ -1,11 +1,13 @@
 import { useCallback, useEffect, useState } from "react";
 import { supabase } from "../../lib/supabase";
 import "./ranking-pints.scss";
+import RewardsModal from "../../shared/components/rewards-modal/rewards-modal";
 
 type EmployeePoints = {
   id: string;
   name: string;
-  points: number;
+  annual_points: number;
+  available_points: number;
 };
 
 export default function Ranking() {
@@ -13,6 +15,10 @@ export default function Ranking() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
+
+  const [rewardsOpen, setRewardsOpen] = useState(false);
+const [rewards, setRewards] = useState<Reward[]>([]);
+const [rewardsLoading, setRewardsLoading] = useState(false);
 
   const loadRanking = useCallback(async () => {
     setError("");
@@ -28,7 +34,9 @@ export default function Ranking() {
     const ranking = (data ?? []) as EmployeePoints[];
 
     ranking.sort(
-      (a, b) => Number(b.points) - Number(a.points) || a.name.localeCompare(b.name, "es")
+      (a, b) =>
+        Number(b.annual_points) - Number(a.annual_points) ||
+        a.name.localeCompare(b.name, "es")
     );
 
     setEmployees(ranking);
@@ -57,6 +65,30 @@ export default function Ranking() {
 
   const formatPoints = (points: number) => new Intl.NumberFormat("es-AR").format(Number(points));
 
+  const loadRewards = useCallback(async () => {
+  setRewardsLoading(true);
+
+  const { data, error } = await supabase
+    .from("rewards")
+    .select("id, name, description, points_cost")
+    .eq("active", true)
+    .order("points_cost", { ascending: true });
+
+  if (error) {
+    console.error("Error cargando premios:", error);
+    setRewards([]);
+  } else {
+    setRewards((data ?? []) as Reward[]);
+  }
+
+  setRewardsLoading(false);
+}, []);
+
+const openRewards = () => {
+  setRewardsOpen(true);
+  void loadRewards();
+};
+
   return (
     <main className="points-page">
       <div className="points-container">
@@ -65,7 +97,6 @@ export default function Ranking() {
             <span className="points-brand-mark">EF</span>
             <span>POINTS</span>
           </a>
-
           <div className="points-live">
             <span className="points-live-dot" />
             CLASIFICACIÓN EN VIVO
@@ -73,11 +104,10 @@ export default function Ranking() {
         </header>
 
         <section className="points-intro">
-          <p className="points-eyebrow">RECONOCIMIENTO AL DESEMPEÑO</p>
           <h1>
             El ranking<span>.</span>
           </h1>
-          <p className="points-subtitle">Que sea épico</p>
+          <p className="points-eyebrow">Que sea épico</p>
         </section>
 
         {error && (
@@ -121,8 +151,12 @@ export default function Ranking() {
                         <h3>{employee.name}</h3>
 
                         <div className="points-score">
-                          {formatPoints(employee.points)}
-                          <span> pts</span>
+                          <div className="points-annual">
+                            {formatPoints(employee.annual_points)} pts
+                          </div>
+                          <div className="points-available">
+                           Disponibles: {formatPoints(employee.available_points)} pts
+                          </div>
                         </div>
 
                         <div className="points-rank-label">
@@ -158,9 +192,13 @@ export default function Ranking() {
                       <span className="points-row-name">{employee.name}</span>
 
                       <span className="points-row-score">
-                        {formatPoints(employee.points)}
+                        {formatPoints(employee.annual_points)}
                         <span> pts</span>
                       </span>
+
+                      <div className="points-available">
+                        Disponibles: {formatPoints(employee.available_points)} pts
+                      </div>
                     </article>
                   ))}
                 </div>
@@ -181,6 +219,13 @@ export default function Ranking() {
                 ↻ Actualizar ranking
               </button>
             </div>
+
+
+                      <div className="points-rewards-action">
+  <button onClick={openRewards}>
+    ✦ Ver premios disponibles
+  </button>
+</div>
           </>
         )}
 
@@ -196,6 +241,15 @@ export default function Ranking() {
           </span>
         </footer>
       </div>
+
+<RewardsModal
+  open={rewardsOpen}
+  rewards={rewards}
+  loading={rewardsLoading}
+  onClose={() => setRewardsOpen(false)}
+/>
     </main>
+
+    
   );
 }

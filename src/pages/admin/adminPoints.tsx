@@ -1,7 +1,9 @@
-import { useEffect, useState } from "react";
-import type { FormEvent } from "react";
-import type { User } from "@supabase/supabase-js";
+import { useEffect, useState, type FormEvent } from "react";
+import AdminLayout from "./adminLayout";
+import type { AdminSection } from "./adminSidebar";
+import AdminPremios from "./adminPremios";
 import { supabase } from "../../lib/supabase";
+import type { User } from "@supabase/supabase-js";
 
 type Employee = {
   id: string;
@@ -22,6 +24,8 @@ export default function AdminPuntos() {
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
   const [operation, setOperation] = useState<"add" | "subtract">("add");
+  const [activeSection, setActiveSection] =
+  useState<AdminSection>("points");
 
   useEffect(() => {
     let mounted = true;
@@ -161,23 +165,23 @@ export default function AdminPuntos() {
     return <main className="container py-5">Verificando sesión...</main>;
   }
 
-  return (
-    <main className="container py-5" style={{ maxWidth: 720 }}>
-      <h1 className="mb-4">Administración de puntos</h1>
+ 
+return (
+  <>
+    {checkingSession ? (
+      <main className="container py-5">
+        Verificando sesión...
+      </main>
+    ) : !user ? (
+      <main className="container py-5" style={{ maxWidth: 720 }}>
+        <h1 className="mb-4">Administración de puntos</h1>
 
-      {error && (
-        <div className="alert alert-danger" role="alert">
-          {error}
-        </div>
-      )}
+        {error && (
+          <div className="alert alert-danger" role="alert">
+            {error}
+          </div>
+        )}
 
-      {message && (
-        <div className="alert alert-success" role="status">
-          {message}
-        </div>
-      )}
-
-      {!user ? (
         <section className="card">
           <div className="card-body">
             <h2 className="h4 mb-3">Iniciar sesión</h2>
@@ -213,111 +217,133 @@ export default function AdminPuntos() {
                 />
               </div>
 
-              <button type="submit" className="btn btn-primary" disabled={loading}>
+              <button
+                type="submit"
+                className="btn btn-primary"
+                disabled={loading}
+              >
                 {loading ? "Ingresando..." : "Iniciar sesión"}
               </button>
             </form>
           </div>
         </section>
-      ) : (
-        <section className="card">
-          <div className="card-body">
-            <div className="d-flex justify-content-between align-items-center gap-3 mb-4">
-              <div>
-                <h2 className="h4 mb-1">Registrar puntos</h2>
-                <small className="text-muted">{user.email}</small>
-              </div>
+      </main>
+    ) : (
+      <AdminLayout
+        activeSection={activeSection}
+        onNavigate={setActiveSection}
+        email={user.email}
+        onLogout={handleLogout}
+      >
+        {error && (
+          <div className="alert alert-danger" role="alert">
+            {error}
+          </div>
+        )}
 
-              <button
-                type="button"
-                className="btn btn-outline-secondary btn-sm"
-                onClick={handleLogout}
-              >
-                Cerrar sesión
-              </button>
+        {message && (
+          <div className="alert alert-success" role="status">
+            {message}
+          </div>
+        )}
+
+        {activeSection === "points" ? (
+          <section>
+            <div className="admin-page-heading">
+              <p className="admin-eyebrow">GESTIÓN DEL EQUIPO</p>
+              <h1>Administrar puntos</h1>
+              <p>Registrá los movimientos de puntos de los empleados.</p>
             </div>
 
-            <form onSubmit={handleAddPoints}>
-              <div className="mb-3">
-                <label htmlFor="employee" className="form-label">
-                  Empleado
-                </label>
-                <select
-                  id="employee"
-                  className="form-select"
-                  value={employeeId}
-                  onChange={(event) => setEmployeeId(event.target.value)}
-                  required
-                  disabled={employees.length === 0}
+            <div className="admin-card">
+              <form onSubmit={handleAddPoints}>
+                <div className="mb-3">
+                  <label htmlFor="employee" className="form-label">
+                    Empleado
+                  </label>
+                  <select
+                    id="employee"
+                    className="form-select"
+                    value={employeeId}
+                    onChange={(event) => setEmployeeId(event.target.value)}
+                    required
+                    disabled={employees.length === 0}
+                  >
+                    {employees.length === 0 && (
+                      <option value="">No hay empleados activos</option>
+                    )}
+                    {employees.map((employee) => (
+                      <option key={employee.id} value={employee.id}>
+                        {employee.name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                <div className="mb-3">
+                  <label htmlFor="points" className="form-label">
+                    Cantidad de puntos
+                  </label>
+                  <input
+                    id="points"
+                    type="number"
+                    className="form-control"
+                    min="1"
+                    step="1"
+                    value={points}
+                    onChange={(event) => setPoints(event.target.value)}
+                    required
+                  />
+                </div>
+
+                <div className="mb-3">
+                  <label htmlFor="operation" className="form-label">
+                    Operación
+                  </label>
+                  <select
+                    id="operation"
+                    className="form-select"
+                    value={operation}
+                    onChange={(event) =>
+                      setOperation(event.target.value as "add" | "subtract")
+                    }
+                  >
+                    <option value="add">Sumar puntos</option>
+                    <option value="subtract">Restar puntos</option>
+                  </select>
+                </div>
+
+                <div className="mb-3">
+                  <label htmlFor="reason" className="form-label">
+                    Motivo
+                  </label>
+                  <textarea
+                    id="reason"
+                    className="form-control"
+                    rows={3}
+                    value={reason}
+                    onChange={(event) => setReason(event.target.value)}
+                    placeholder="Ej.: completó una tarea del equipo"
+                    maxLength={500}
+                    required
+                  />
+                </div>
+
+                <button
+                  type="submit"
+                  className="btn btn-primary"
+                  disabled={loading || employees.length === 0}
                 >
-                  {employees.length === 0 && <option value="">No hay empleados activos</option>}
-                  {employees.map((employee) => (
-                    <option key={employee.id} value={employee.id}>
-                      {employee.name}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              <div className="mb-3">
-                <label htmlFor="points" className="form-label">
-                  Cantidad de puntos
-                </label>
-                <input
-                  id="points"
-                  type="number"
-                  className="form-control"
-                  min="1"
-                  step="1"
-                  value={points}
-                  onChange={(event) => setPoints(event.target.value)}
-                  required
-                />
-                <div className="form-text">Para restar puntos, elegí la opción de abajo.</div>
-              </div>
-
-              <div className="mb-3">
-                <label htmlFor="operation" className="form-label">
-                  Operación
-                </label>
-                <select
-                  id="operation"
-                  className="form-select"
-                  value={operation}
-                  onChange={(event) => setOperation(event.target.value as "add" | "subtract")}
-                >
-                  <option value="add">Sumar puntos</option>
-                  <option value="subtract">Restar puntos</option>
-                </select>
-              </div>
-
-              <div className="mb-3">
-                <label htmlFor="reason" className="form-label">
-                  Motivo
-                </label>
-                <textarea
-                  id="reason"
-                  className="form-control"
-                  rows={3}
-                  value={reason}
-                  onChange={(event) => setReason(event.target.value)}
-                  placeholder="Ej.: completó una tarea del equipo"
-                  maxLength={500}
-                  required
-                />
-              </div>
-
-              <button
-                type="submit"
-                className="btn btn-primary"
-                disabled={loading || employees.length === 0}
-              >
-                {loading ? "Guardando..." : "Registrar movimiento"}
-              </button>
-            </form>
-          </div>
-        </section>
-      )}
-    </main>
-  );
+                  {loading ? "Guardando..." : "Registrar movimiento"}
+                </button>
+              </form>
+            </div>
+          </section>
+        ) : (
+          <AdminPremios />
+        )}
+      </AdminLayout>
+    )}
+  </>
+);
 }

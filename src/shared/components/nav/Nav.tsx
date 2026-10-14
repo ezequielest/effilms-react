@@ -46,7 +46,7 @@ const Nav: React.FC = () => {
     } else if (location.pathname.startsWith("/studio")) {
       setIsEFfilms(false);
       return INMERSIVE_NAV;
-    } else if (location.pathname.startsWith("/inmersive")) {
+    } else if (location.pathname.startsWith("/inmersive") || location.pathname.startsWith("/ranking")) {
       return [];
     }
     setIsEFfilms(false);
@@ -137,14 +137,15 @@ const Nav: React.FC = () => {
                   </Link>
                 )}
 
-                {!isEFfilms && (
-                  <Link to="/" className="logo">
+               {/*<Link to="/" className="logo">
                     <span className="bebas">EF</span>
                     <span className="dot">.</span>
                     <span className="bebas films" style={{ marginLeft: "2px" }}>
                       STUDIO
                     </span>
-                  </Link>
+                  </Link>*/}
+                {!isEFfilms && (
+                  <div></div>
                 )}
               </div>
             </div>
