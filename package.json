@@ -19,6 +19,7 @@
     "@mkkellogg/gaussian-splats-3d": "^0.4.7",
     "@react-three/drei": "^10.7.2",
     "@react-three/fiber": "^9.3.0",
+    "@supabase/supabase-js": "^2.109.0",
     "bootstrap": "^5.3.7",
     "embla-carousel-react": "^8.6.0",
     "jquery": "^3.7.1",

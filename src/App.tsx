@@ -10,6 +10,8 @@ import ScrollToHash from "./hooks/scrollToHash";
 import Nav from "./shared/components/nav/Nav";
 import Inmersive from "./pages/inmersive/Inmersive";
 import InteractiveLanding from "./pages/gaussian/InteractiveLanding";
+import AdminPuntos from "./pages/admin-points/adminPoints";
+import RankingPoints from "./pages/puntos/ranking-points";
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -42,6 +44,8 @@ function App() {
         <Route path="/contacto" element={<Contact />} />
         <Route path="/inmersive" element={<Inmersive />} />
         <Route path="/studio" element={<InteractiveLanding />} />
+        <Route path="/adminpoints" element={<AdminPuntos />} />
+        <Route path="/ranking" element={<RankingPoints />} />
       </Routes>
       <Footer />
     </>
