@@ -77,7 +77,7 @@ export default function Ranking() {
           <h1>
             El ranking<span>.</span>
           </h1>
-          <p className="points-subtitle">Reconocemos el trabajo bien hecho.</p>
+          <p className="points-subtitle">Que sea épico</p>
         </section>
 
         {error && (
@@ -185,7 +185,7 @@ export default function Ranking() {
         )}
 
         <footer className="points-footer">
-          <span>PUNTOS © {new Date().getFullYear()}</span>
+          <span>EFFILMS © {new Date().getFullYear()}</span>
           <span>
             {lastUpdated
               ? `ACTUALIZADO ${lastUpdated.toLocaleTimeString("es-AR", {
