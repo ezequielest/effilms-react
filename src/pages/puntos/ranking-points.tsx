@@ -1,7 +1,8 @@
 import { useCallback, useEffect, useState } from "react";
 import { supabase } from "../../lib/supabase";
 import "./ranking-pints.scss";
-import RewardsModal from "../../shared/components/rewards-modal/rewards-modal";
+import RewardsModal from "./rewards-modal/rewards-modal";
+import PointsRulesModal from "./points-view-modal/pointsViewModal";
 
 // Si ya tenés estos tipos definidos en otro archivo, podés importar esos tipos.
 type EmployeePoints = {
@@ -32,6 +33,7 @@ export default function Ranking() {
   const [rewardsOpen, setRewardsOpen] = useState(false);
   const [rewards, setRewards] = useState<Reward[]>([]);
   const [rewardsLoading, setRewardsLoading] = useState(false);
+  const [pointsRulesOpen, setPointsRulesOpen] = useState(false);
 
   const loadRanking = useCallback(async () => {
     setError("");
@@ -257,8 +259,15 @@ export default function Ranking() {
               </button>
             </div>
 
+            <div className="actions-buttons-container">
             <div className="points-rewards-action">
               <button onClick={openRewards}>✦ Ver premios disponibles</button>
+            </div>
+            <div className="points-rewards-action">
+              <button onClick={() => setPointsRulesOpen(true)}>
+                ⓘ Cómo se suman los puntos
+              </button>
+            </div>
             </div>
           </>
         )}
@@ -282,11 +291,9 @@ export default function Ranking() {
         loading={rewardsLoading}
         onClose={() => setRewardsOpen(false)}
       />
-      <RewardsModal
-        open={rewardsOpen}
-        rewards={rewards}
-        loading={rewardsLoading}
-        onClose={() => setRewardsOpen(false)}
+      <PointsRulesModal
+        open={pointsRulesOpen}
+        onClose={() => setPointsRulesOpen(false)}
       />
     </main>
   );
