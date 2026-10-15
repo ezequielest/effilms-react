@@ -3,11 +3,24 @@ import { supabase } from "../../lib/supabase";
 import "./ranking-pints.scss";
 import RewardsModal from "../../shared/components/rewards-modal/rewards-modal";
 
+// Si ya tenés estos tipos definidos en otro archivo, podés importar esos tipos.
 type EmployeePoints = {
   id: string;
   name: string;
   annual_points: number;
   available_points: number;
+};
+
+type Reward = {
+  id: string;
+  name: string;
+  description: string;
+  points_cost: number;
+};
+
+type RankedEmployee = {
+  employee: EmployeePoints;
+  rank: number;
 };
 
 export default function Ranking() {
@@ -17,8 +30,8 @@ export default function Ranking() {
   const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
 
   const [rewardsOpen, setRewardsOpen] = useState(false);
-const [rewards, setRewards] = useState<Reward[]>([]);
-const [rewardsLoading, setRewardsLoading] = useState(false);
+  const [rewards, setRewards] = useState<Reward[]>([]);
+  const [rewardsLoading, setRewardsLoading] = useState(false);
 
   const loadRanking = useCallback(async () => {
     setError("");
@@ -31,12 +44,9 @@ const [rewardsLoading, setRewardsLoading] = useState(false);
       return;
     }
 
-    const ranking = (data ?? []) as EmployeePoints[];
-
-    ranking.sort(
+    const ranking = ((data ?? []) as EmployeePoints[]).sort(
       (a, b) =>
-        Number(b.annual_points) - Number(a.annual_points) ||
-        a.name.localeCompare(b.name, "es")
+        Number(b.annual_points) - Number(a.annual_points) || a.name.localeCompare(b.name, "es")
     );
 
     setEmployees(ranking);
@@ -54,40 +64,69 @@ const [rewardsLoading, setRewardsLoading] = useState(false);
     return () => window.clearInterval(interval);
   }, [loadRanking]);
 
-  const podium = employees.slice(0, 3);
-  const rest = employees.slice(3);
+  // Calculamos las posiciones compartidas cuando hay empate.
+  // Ejemplo: 150, 150, 100, 80, 80, 60 → puestos 1, 1, 3, 4, 4, 6.
+  const rankedEmployees: RankedEmployee[] = [];
+  let currentRank = 0;
 
+  employees.forEach((employee, index) => {
+    const previous = employees[index - 1];
+
+    if (index === 0 || Number(employee.annual_points) !== Number(previous.annual_points)) {
+      currentRank = index + 1;
+    }
+
+    rankedEmployees.push({
+      employee,
+      rank: currentRank,
+    });
+  });
+
+  // Incluye a todos los empleados empatados en los tres primeros puestos.
+  const podiumEmployees = rankedEmployees.filter((item) => item.rank <= 3);
+
+  // Orden visual: segundo, primero y tercero.
   const podiumOrder = [
-    { employee: podium[1], rank: 2 },
-    { employee: podium[0], rank: 1 },
-    { employee: podium[2], rank: 3 },
-  ].filter((item) => item.employee);
+    ...podiumEmployees.filter((item) => item.rank === 2),
+    ...podiumEmployees.filter((item) => item.rank === 1),
+    ...podiumEmployees.filter((item) => item.rank === 3),
+  ];
+
+  // La tabla muestra los puestos reales, sin reiniciar la numeración.
+  const rest = rankedEmployees.filter((item) => item.rank > 3);
 
   const formatPoints = (points: number) => new Intl.NumberFormat("es-AR").format(Number(points));
 
+  const getRankLabel = (rank: number) => {
+    if (rank === 1) return "PRIMER PUESTO";
+    if (rank === 2) return "SEGUNDO PUESTO";
+    if (rank === 3) return "TERCER PUESTO";
+    return `${rank}° PUESTO`;
+  };
+
   const loadRewards = useCallback(async () => {
-  setRewardsLoading(true);
+    setRewardsLoading(true);
 
-  const { data, error } = await supabase
-    .from("rewards")
-    .select("id, name, description, points_cost")
-    .eq("active", true)
-    .order("points_cost", { ascending: true });
+    const { data, error } = await supabase
+      .from("rewards")
+      .select("id, name, description, points_cost")
+      .eq("active", true)
+      .order("points_cost", { ascending: true });
 
-  if (error) {
-    console.error("Error cargando premios:", error);
-    setRewards([]);
-  } else {
-    setRewards((data ?? []) as Reward[]);
-  }
+    if (error) {
+      console.error("Error cargando premios:", error);
+      setRewards([]);
+    } else {
+      setRewards((data ?? []) as Reward[]);
+    }
 
-  setRewardsLoading(false);
-}, []);
+    setRewardsLoading(false);
+  }, []);
 
-const openRewards = () => {
-  setRewardsOpen(true);
-  void loadRewards();
-};
+  const openRewards = () => {
+    setRewardsOpen(true);
+    void loadRewards();
+  };
 
   return (
     <main className="points-page">
@@ -97,6 +136,7 @@ const openRewards = () => {
             <span className="points-brand-mark">EF</span>
             <span>POINTS</span>
           </a>
+
           <div className="points-live">
             <span className="points-live-dot" />
             CLASIFICACIÓN EN VIVO
@@ -113,7 +153,14 @@ const openRewards = () => {
         {error && (
           <div className="points-error" role="alert">
             <span>{error}</span>
-            <button onClick={() => void loadRanking()}>Reintentar</button>
+            <button
+              onClick={() => {
+                setLoading(true);
+                void loadRanking();
+              }}
+            >
+              Reintentar
+            </button>
           </div>
         )}
 
@@ -130,45 +177,35 @@ const openRewards = () => {
           </div>
         ) : (
           <>
-            {podium.length > 0 && (
+            {podiumOrder.length > 0 && (
               <section className="points-podium-section">
                 <div className="points-section-heading">
-                  <span>TOP {podium.length}</span>
+                  <span>TOP {podiumEmployees.length}</span>
                 </div>
 
                 <div className="points-podium">
-                  {podiumOrder.map(({ employee, rank }) => {
-                    if (!employee) return null;
+                  {podiumOrder.map(({ employee, rank }) => (
+                    <article className={`points-podium-card rank-${rank}`} key={employee.id}>
+                      <div className="points-rank-number">{String(rank).padStart(2, "0")}</div>
 
-                    return (
-                      <article className={`points-podium-card rank-${rank}`} key={employee.id}>
-                        <div className="points-rank-number">{String(rank).padStart(2, "0")}</div>
+                      <div className="points-avatar" aria-hidden="true">
+                        {employee.name.trim().charAt(0).toUpperCase()}
+                      </div>
 
-                        <div className="points-avatar" aria-hidden="true">
-                          {employee.name.trim().charAt(0).toUpperCase()}
+                      <h3>{employee.name}</h3>
+
+                      <div className="points-score">
+                        <div className="points-annual">
+                          {formatPoints(employee.annual_points)} pts
                         </div>
-
-                        <h3>{employee.name}</h3>
-
-                        <div className="points-score">
-                          <div className="points-annual">
-                            {formatPoints(employee.annual_points)} pts
-                          </div>
-                          <div className="points-available">
-                           Disponibles: {formatPoints(employee.available_points)} pts
-                          </div>
+                        <div className="points-available">
+                          Disponibles: {formatPoints(employee.available_points)} pts
                         </div>
+                      </div>
 
-                        <div className="points-rank-label">
-                          {rank === 1
-                            ? "PRIMER PUESTO"
-                            : rank === 2
-                              ? "SEGUNDO PUESTO"
-                              : "TERCER PUESTO"}
-                        </div>
-                      </article>
-                    );
-                  })}
+                      <div className="points-rank-label">{getRankLabel(rank)}</div>
+                    </article>
+                  ))}
                 </div>
               </section>
             )}
@@ -181,9 +218,9 @@ const openRewards = () => {
                 </div>
 
                 <div className="points-table">
-                  {rest.map((employee, index) => (
+                  {rest.map(({ employee, rank }) => (
                     <article className="points-row" key={employee.id}>
-                      <span className="points-row-rank">{String(index + 4).padStart(2, "0")}</span>
+                      <span className="points-row-rank">{String(rank).padStart(2, "0")}</span>
 
                       <span className="points-row-avatar" aria-hidden="true">
                         {employee.name.trim().charAt(0).toUpperCase()}
@@ -220,12 +257,9 @@ const openRewards = () => {
               </button>
             </div>
 
-
-                      <div className="points-rewards-action">
-  <button onClick={openRewards}>
-    ✦ Ver premios disponibles
-  </button>
-</div>
+            <div className="points-rewards-action">
+              <button onClick={openRewards}>✦ Ver premios disponibles</button>
+            </div>
           </>
         )}
 
@@ -242,14 +276,18 @@ const openRewards = () => {
         </footer>
       </div>
 
-<RewardsModal
-  open={rewardsOpen}
-  rewards={rewards}
-  loading={rewardsLoading}
-  onClose={() => setRewardsOpen(false)}
-/>
+      <RewardsModal
+        open={rewardsOpen}
+        rewards={rewards}
+        loading={rewardsLoading}
+        onClose={() => setRewardsOpen(false)}
+      />
+      <RewardsModal
+        open={rewardsOpen}
+        rewards={rewards}
+        loading={rewardsLoading}
+        onClose={() => setRewardsOpen(false)}
+      />
     </main>
-
-    
   );
 }
