@@ -162,6 +162,18 @@
   background: rgba(214, 177, 109, 0.07);
   border: 1px solid rgba(214, 177, 109, 0.18);
 
+  &.streak {
+      background: rgba(26, 226, 80, 0.07);
+        border: 1px solid rgba(5, 218, 55, 0.18);
+
+        span {
+            font-size: 14px;
+            margin-bottom: 12px;
+            line-height: 20px;
+            display: block;
+        }
+  }
+
   strong {
     display: block;
     margin-bottom: 10px;

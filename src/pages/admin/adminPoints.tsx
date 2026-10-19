@@ -26,6 +26,9 @@ export default function AdminPuntos() {
   const [operation, setOperation] = useState<"add" | "subtract">("add");
   const [activeSection, setActiveSection] =
   useState<AdminSection>("points");
+  const [isRealDelivery, setIsRealDelivery] = useState(false);
+  const [wasOnTime, setWasOnTime] = useState(true);
+  
 
   useEffect(() => {
     let mounted = true;
@@ -107,50 +110,99 @@ export default function AdminPuntos() {
     setLoading(false);
   }
 
-  async function handleAddPoints(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    setLoading(true);
-    setError("");
-    setMessage("");
+
+
+async function handleAddPoints(event: FormEvent<HTMLFormElement>) {
+  event.preventDefault();
+  setLoading(true);
+  setError("");
+  setMessage("");
+
+  try {
     const parsedPoints = Number(points);
 
     if (!Number.isSafeInteger(parsedPoints) || parsedPoints <= 0) {
       setError("Ingresá una cantidad de puntos entera mayor que cero.");
-      setLoading(false);
       return;
     }
 
     if (!employeeId) {
       setError("Seleccioná un empleado.");
-      setLoading(false);
       return;
     }
 
     if (!reason.trim()) {
       setError("Indicá el motivo del movimiento.");
-      setLoading(false);
       return;
     }
 
-    const { error } = await supabase.rpc("add_points", {
-      p_employee_id: employeeId,
-      p_points: operation === "subtract" ? -parsedPoints : parsedPoints,
-      p_reason: reason.trim(),
-    });
+    // Las entregas reales usan la función transaccional.
+    if (isRealDelivery) {
+      if (operation !== "add") {
+        setError("Una entrega real no puede registrarse como descuento.");
+        return;
+      }
 
-    if (error) {
-      setError(`No se pudieron registrar los puntos: ${error.message}`);
-    } else {
-      const employee = employees.find((item) => item.id === employeeId);
-      setMessage(
-        `Se registraron ${parsedPoints} punto(s) para ${employee?.name ?? "el empleado"}.`
+      const deliveryId = crypto.randomUUID();
+
+      const { data, error: deliveryError } = await supabase.rpc(
+        "register_delivery_with_points",
+        {
+          p_employee_id: employeeId,
+          p_delivery_id: deliveryId,
+          p_points: parsedPoints,
+          p_reason: reason.trim(),
+          p_was_on_time: wasOnTime,
+        }
       );
-      setPoints("1");
-      setReason("");
+
+      if (deliveryError) {
+        setError(
+          `No se pudo registrar la entrega: ${deliveryError.message}`
+        );
+        return;
+      }
+
+      const result = Array.isArray(data) ? data[0] : data;
+      const bonus = Number(result?.bonus_awarded ?? 0);
+      const streak = Number(result?.new_streak ?? 0);
+      const employee = employees.find((item) => item.id === employeeId);
+
+      setMessage(
+        wasOnTime
+          ? `Entrega registrada para ${employee?.name ?? "el empleado"}. Racha actual: ${streak}.${bonus > 0 ? ` ¡Bonificación de ${bonus} puntos!` : ""}`
+          : `Entrega registrada para ${employee?.name ?? "el empleado"}. La racha se reinició por estar fuera de plazo.`
+      );
+    } else {
+      // Los movimientos habituales conservan la lógica actual.
+      const { error: pointsError } = await supabase.rpc("add_points", {
+        p_employee_id: employeeId,
+        p_points: operation === "subtract" ? -parsedPoints : parsedPoints,
+        p_reason: reason.trim(),
+      });
+
+      if (pointsError) {
+        setError(
+          `No se pudieron registrar los puntos: ${pointsError.message}`
+        );
+        return;
+      }
+
+      setMessage("Movimiento de puntos registrado correctamente.");
     }
 
+    setPoints("1");
+    setReason("");
+    setIsRealDelivery(false);
+    setWasOnTime(true);
+  } catch {
+    setError("Ocurrió un error inesperado al registrar el movimiento.");
+  } finally {
     setLoading(false);
   }
+}
+
+
 
   async function handleLogout() {
     setError("");
@@ -328,6 +380,33 @@ return (
                     required
                   />
                 </div>
+
+                <div className="mb-3">
+
+                  <label className="flex items-center gap-2">
+                    <input
+                      type="checkbox"
+                      checked={isRealDelivery}
+                      onChange={(event) => setIsRealDelivery(event.target.checked)}
+                    />
+                    Son puntos por edicion (generar puntacion de racha)
+                  </label>
+                     </div>
+
+                  {isRealDelivery && (
+                    <div className="mb-3">
+                    <label className="flex items-center gap-2">
+                      <input
+                        type="checkbox"
+                        checked={wasOnTime}
+                        onChange={(event) => setWasOnTime(event.target.checked)}
+                      />
+                      Entrega realizada en plazo
+                    </label>
+                    </div>
+                  )}
+
+             
 
                 <button
                   type="submit"

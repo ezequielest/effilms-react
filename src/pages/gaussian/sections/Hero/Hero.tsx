@@ -1,6 +1,5 @@
 import { useRef } from "react";
 import "./Hero.scss";
-import TresDDisplayFBX from "../../../../shared/components/3d-building-fbx/TresDDisplayFBX";
 import TresDDisplay from "../../../../shared/components/3d-building/TresDDisplay";
 // Definición de las interfaces para las propiedades del componente
 interface ParallaxCardProps {

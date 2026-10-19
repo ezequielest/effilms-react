@@ -24,6 +24,12 @@ type RankedEmployee = {
   rank: number;
 };
 
+type EmployeeDeliveryStreak = {
+  employee_id: string;
+  current_streak: number;
+  total_on_time: number;
+};
+
 export default function Ranking() {
   const [employees, setEmployees] = useState<EmployeePoints[]>([]);
   const [loading, setLoading] = useState(true);
@@ -34,6 +40,9 @@ export default function Ranking() {
   const [rewards, setRewards] = useState<Reward[]>([]);
   const [rewardsLoading, setRewardsLoading] = useState(false);
   const [pointsRulesOpen, setPointsRulesOpen] = useState(false);
+  const [deliveryStreaks, setDeliveryStreaks] = useState<
+  Record<string, EmployeeDeliveryStreak>
+>({});
 
   const loadRanking = useCallback(async () => {
     setError("");
@@ -54,6 +63,26 @@ export default function Ranking() {
     setEmployees(ranking);
     setLastUpdated(new Date());
     setLoading(false);
+
+    const { data: streakData, error: streakError } = await supabase.rpc(
+  "get_public_employee_delivery_streaks"
+);
+
+if (!streakError) {
+  const streakMap: Record<string, EmployeeDeliveryStreak> = {};
+
+  (streakData ?? []).forEach((item: EmployeeDeliveryStreak) => {
+    const streak = item as EmployeeDeliveryStreak;
+    streakMap[streak.employee_id] = streak;
+  });
+
+  setDeliveryStreaks(streakMap);
+} else {
+  console.error("Error cargando las rachas:", streakError);
+}
+
+    
+    
   }, []);
 
   useEffect(() => {
@@ -130,6 +159,8 @@ export default function Ranking() {
     void loadRewards();
   };
 
+  
+
   return (
     <main className="points-page">
       <div className="points-container">
@@ -150,7 +181,9 @@ export default function Ranking() {
             El ranking<span>.</span>
           </h1>
           <p className="points-eyebrow">Que sea épico</p>
+          <span>  Objetivos semanale próximamente</span>
         </section>
+
 
         {error && (
           <div className="points-error" role="alert">
@@ -197,6 +230,7 @@ export default function Ranking() {
                       <h3>{employee.name}</h3>
 
                       <div className="points-score">
+  
                         <div className="points-annual">
                           {formatPoints(employee.annual_points)} pts
                         </div>
@@ -204,6 +238,19 @@ export default function Ranking() {
                           Disponibles: {formatPoints(employee.available_points)} pts
                         </div>
                       </div>
+
+                      <div className="points-streak">
+  🔥 Racha: {deliveryStreaks[employee.id]?.current_streak ?? 0}{" "}
+  {(deliveryStreaks[employee.id]?.current_streak ?? 0) === 1
+    ? "entrega"
+    : "entregas"} en plazo
+</div>
+
+{
+/*<div className="points-streak-total">
+  Total en plazo:{" "}
+  {deliveryStreaks[employee.id]?.total_on_time ?? 0}
+</div>*/}
 
                       <div className="points-rank-label">{getRankLabel(rank)}</div>
                     </article>
@@ -234,6 +281,18 @@ export default function Ranking() {
                         {formatPoints(employee.annual_points)}
                         <span> pts</span>
                       </span>
+
+                      <div className="points-streak">
+  🔥 Racha: {deliveryStreaks[employee.id]?.current_streak ?? 0}{" "}
+  {(deliveryStreaks[employee.id]?.current_streak ?? 0) === 1
+    ? "entrega"
+    : "entregas"} en plazo
+</div>
+
+<div className="points-streak-total">
+  Total en plazo:{" "}
+  {deliveryStreaks[employee.id]?.total_on_time ?? 0}
+</div>
 
                       <div className="points-available">
                         Disponibles: {formatPoints(employee.available_points)} pts
