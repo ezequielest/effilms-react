@@ -3,6 +3,7 @@ import { supabase } from "../../lib/supabase";
 import "./ranking-pints.scss";
 import RewardsModal from "./rewards-modal/rewards-modal";
 import PointsRulesModal from "./points-view-modal/pointsViewModal";
+import EmployeeHistoryModal from "./employee-history-modal/employee-history-modal";
 
 // Si ya tenés estos tipos definidos en otro archivo, podés importar esos tipos.
 type EmployeePoints = {
@@ -40,9 +41,10 @@ export default function Ranking() {
   const [rewards, setRewards] = useState<Reward[]>([]);
   const [rewardsLoading, setRewardsLoading] = useState(false);
   const [pointsRulesOpen, setPointsRulesOpen] = useState(false);
-  const [deliveryStreaks, setDeliveryStreaks] = useState<
-  Record<string, EmployeeDeliveryStreak>
->({});
+  const [deliveryStreaks, setDeliveryStreaks] = useState<Record<string, EmployeeDeliveryStreak>>(
+    {}
+  );
+  const [historyEmployee, setHistoryEmployee] = useState<EmployeePoints | null>(null);
 
   const loadRanking = useCallback(async () => {
     setError("");
@@ -65,24 +67,21 @@ export default function Ranking() {
     setLoading(false);
 
     const { data: streakData, error: streakError } = await supabase.rpc(
-  "get_public_employee_delivery_streaks"
-);
+      "get_public_employee_delivery_streaks"
+    );
 
-if (!streakError) {
-  const streakMap: Record<string, EmployeeDeliveryStreak> = {};
+    if (!streakError) {
+      const streakMap: Record<string, EmployeeDeliveryStreak> = {};
 
-  (streakData ?? []).forEach((item: EmployeeDeliveryStreak) => {
-    const streak = item as EmployeeDeliveryStreak;
-    streakMap[streak.employee_id] = streak;
-  });
+      (streakData ?? []).forEach((item: EmployeeDeliveryStreak) => {
+        const streak = item as EmployeeDeliveryStreak;
+        streakMap[streak.employee_id] = streak;
+      });
 
-  setDeliveryStreaks(streakMap);
-} else {
-  console.error("Error cargando las rachas:", streakError);
-}
-
-    
-    
+      setDeliveryStreaks(streakMap);
+    } else {
+      console.error("Error cargando las rachas:", streakError);
+    }
   }, []);
 
   useEffect(() => {
@@ -159,8 +158,6 @@ if (!streakError) {
     void loadRewards();
   };
 
-  
-
   return (
     <main className="points-page">
       <div className="points-container">
@@ -181,9 +178,8 @@ if (!streakError) {
             El ranking<span>.</span>
           </h1>
           <p className="points-eyebrow">Que sea épico</p>
-          <span>  Objetivos semanale próximamente</span>
+          <span> Objetivos semanale próximamente</span>
         </section>
-
 
         {error && (
           <div className="points-error" role="alert">
@@ -230,7 +226,6 @@ if (!streakError) {
                       <h3>{employee.name}</h3>
 
                       <div className="points-score">
-  
                         <div className="points-annual">
                           {formatPoints(employee.annual_points)} pts
                         </div>
@@ -240,19 +235,27 @@ if (!streakError) {
                       </div>
 
                       <div className="points-streak">
-  🔥 Racha: {deliveryStreaks[employee.id]?.current_streak ?? 0}{" "}
-  {(deliveryStreaks[employee.id]?.current_streak ?? 0) === 1
-    ? "entrega"
-    : "entregas"} en plazo
-</div>
+                        🔥 Racha: {deliveryStreaks[employee.id]?.current_streak ?? 0}{" "}
+                        {(deliveryStreaks[employee.id]?.current_streak ?? 0) === 1
+                          ? "entrega"
+                          : "entregas"}{" "}
+                        en plazo
+                      </div>
 
-{
-/*<div className="points-streak-total">
-  Total en plazo:{" "}
-  {deliveryStreaks[employee.id]?.total_on_time ?? 0}
-</div>*/}
+                      {/*<div className="points-streak-total">
+                        Total en plazo:{" "}
+                        {deliveryStreaks[employee.id]?.total_on_time ?? 0}
+                      </div>*/}
 
                       <div className="points-rank-label">{getRankLabel(rank)}</div>
+
+                      <button
+                        type="button"
+                        className="points-history-button"
+                        onClick={() => setHistoryEmployee(employee)}
+                      >
+                        Ver historial
+                      </button>
                     </article>
                   ))}
                 </div>
@@ -270,30 +273,24 @@ if (!streakError) {
                   {rest.map(({ employee, rank }) => (
                     <article className="points-row" key={employee.id}>
                       <span className="points-row-rank">{String(rank).padStart(2, "0")}</span>
-
                       <span className="points-row-avatar" aria-hidden="true">
                         {employee.name.trim().charAt(0).toUpperCase()}
                       </span>
-
                       <span className="points-row-name">{employee.name}</span>
-
                       <span className="points-row-score">
                         {formatPoints(employee.annual_points)}
                         <span> pts</span>
                       </span>
-
                       <div className="points-streak">
-  🔥 Racha: {deliveryStreaks[employee.id]?.current_streak ?? 0}{" "}
-  {(deliveryStreaks[employee.id]?.current_streak ?? 0) === 1
-    ? "entrega"
-    : "entregas"} en plazo
-</div>
-
-<div className="points-streak-total">
-  Total en plazo:{" "}
-  {deliveryStreaks[employee.id]?.total_on_time ?? 0}
-</div>
-
+                        🔥 Racha: {deliveryStreaks[employee.id]?.current_streak ?? 0}{" "}
+                        {(deliveryStreaks[employee.id]?.current_streak ?? 0) === 1
+                          ? "entrega"
+                          : "entregas"}{" "}
+                        en plazo
+                      </div>
+                      <div className="points-streak-total">
+                        Total en plazo: {deliveryStreaks[employee.id]?.total_on_time ?? 0}
+                      </div>
                       <div className="points-available">
                         Disponibles: {formatPoints(employee.available_points)} pts
                       </div>
@@ -319,14 +316,12 @@ if (!streakError) {
             </div>
 
             <div className="actions-buttons-container">
-            <div className="points-rewards-action">
-              <button onClick={openRewards}>✦ Ver premios disponibles</button>
-            </div>
-            <div className="points-rewards-action">
-              <button onClick={() => setPointsRulesOpen(true)}>
-                ⓘ Cómo se suman los puntos
-              </button>
-            </div>
+              <div className="points-rewards-action">
+                <button onClick={openRewards}>✦ Ver premios disponibles</button>
+              </div>
+              <div className="points-rewards-action">
+                <button onClick={() => setPointsRulesOpen(true)}>ⓘ Cómo se suman los puntos</button>
+              </div>
             </div>
           </>
         )}
@@ -350,9 +345,14 @@ if (!streakError) {
         loading={rewardsLoading}
         onClose={() => setRewardsOpen(false)}
       />
-      <PointsRulesModal
-        open={pointsRulesOpen}
-        onClose={() => setPointsRulesOpen(false)}
+      <PointsRulesModal open={pointsRulesOpen} onClose={() => setPointsRulesOpen(false)} />
+
+      <EmployeeHistoryModal
+        open={historyEmployee !== null}
+        employeeId={historyEmployee?.id ?? ""}
+        employeeName={historyEmployee?.name ?? ""}
+        admin
+        onClose={() => setHistoryEmployee(null)}
       />
     </main>
   );
