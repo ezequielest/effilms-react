@@ -351,7 +351,6 @@ export default function Ranking() {
         open={historyEmployee !== null}
         employeeId={historyEmployee?.id ?? ""}
         employeeName={historyEmployee?.name ?? ""}
-        admin
         onClose={() => setHistoryEmployee(null)}
       />
     </main>
