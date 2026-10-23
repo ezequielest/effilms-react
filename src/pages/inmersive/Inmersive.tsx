@@ -24,7 +24,7 @@ function Inmersive() {
         {/**torreon-fix
          * full-map
          */}
-        <GaussianViewer url="/splats/torreoneitaim.sog" />
+        <GaussianViewer url="/splats/full-map.ply" />
       </div>
     </>
   );
