@@ -549,7 +549,7 @@ export default function GaussianViewer({ url, showContactUs = false, hasIntro = 
   };
 
   const openModal = (modalType: string) => {
-    handleLeftMenu();
+    setIsLeftMenuOpen(false);
     if (modalType === "flats") {
       setSliderFlats([
         "/itaim/planos/2-6.jpg",
