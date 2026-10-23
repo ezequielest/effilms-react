@@ -159,9 +159,12 @@ const Nav: React.FC = () => {
             )}
           </div>
 
+          {isEFfilms &&
           <div className="canvas__open" onClick={toggleMenu}>
             <FontAwesomeIcon icon={faBars} />
           </div>
+          }
+
         </div>
       </header>
     </>

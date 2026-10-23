@@ -753,6 +753,7 @@ export default function GaussianViewer({ url, showContactUs = false, hasIntro = 
 
   const showPointOfInterest = (category: string) => {
     setFlatModal(false);
+    setIsLeftMenuOpen(false);
     //setShowInfoBuilding(false);
     let camPosition: Vector3 = [0, 0, 0];
     if (category === "superMarket" || category === "cafes") {
