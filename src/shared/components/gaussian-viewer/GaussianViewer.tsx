@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faPause, faPlay } from "@fortawesome/free-solid-svg-icons";
 import { RevolvingDot } from "react-loader-spinner";
 import { Icon } from "@iconify/react";
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 
 type Vector3 = [number, number, number];
 
@@ -56,6 +57,9 @@ export default function GaussianViewer({ url, showContactUs = false, hasIntro = 
   const containerRef = useRef<HTMLDivElement>(null);
   const cityAudioRef = useRef<HTMLAudioElement | null>(null);
   const viewerRef = useRef<any>(null);
+  const overlayRef = useRef<THREE.Group | null>(null);
+
+  const [showOverlay, setShowOverlay] = useState(true);
   const animationRef = useRef<number | null>(null);
   const hotspotAnimationRef = useRef<number | null>(null);
   const hotspotRefs = useRef<Record<string, HTMLDivElement | null>>({});
@@ -71,6 +75,8 @@ export default function GaussianViewer({ url, showContactUs = false, hasIntro = 
   const [showIntro, setShowIntro] = useState(true);
   //const [showInfoBuilding, setShowInfoBuilding] = useState(false);
   const [isLeftMenuOpen, setIsLeftMenuOpen] = useState(false);
+  const glbRef = useRef<THREE.Group | null>(null);
+  const [showGlb, setShowGlb] = useState(false);
 
   const [debugInfo, setDebugInfo] = useState({
     camera: [0, 0, 0] as Vector3,
@@ -397,6 +403,57 @@ export default function GaussianViewer({ url, showContactUs = false, hasIntro = 
 
         setupSky();
 
+        const loader = new GLTFLoader();
+
+        loader.load(
+          "/3d/edificio-inmersive.glb",
+          (gltf) => {
+            const model = gltf.scene;
+
+            // Oculto al iniciar
+            model.visible = false;
+
+            // Ajustá estos valores según tu Gaussian Splatting
+            model.position.set(0, 0, 5);
+            model.rotation.set(0, 0, 0);
+            model.scale.set(0.01, 0.01, 0.01);
+
+            viewer.threeScene.add(model);
+            glbRef.current = model;
+          },
+          undefined,
+          (error) => {
+            console.error("Error cargando el modelo GLB:", error);
+          }
+        );
+
+        // Crear los objetos de la capa 2
+        const overlay = new THREE.Group();
+        overlay.name = "EF_Overlay";
+
+        const points = [
+          new THREE.Vector3(-2, -1, 7),
+          new THREE.Vector3(0, -0.1, 0),
+          new THREE.Vector3(0.2, -0.1, 0),
+        ];
+
+        const geometry = new THREE.BufferGeometry().setFromPoints(points);
+
+        const material = new THREE.LineBasicMaterial({
+          color: 0xff8800,
+          depthTest: false,
+        });
+
+        const line = new THREE.Line(geometry, material);
+        line.name = "EF_TestLine";
+
+        overlay.add(line);
+
+        // Agregar la capa a la escena de Three.js
+        viewer.threeScene.add(overlay);
+
+        overlayRef.current = overlay;
+
         viewer.start();
 
         startHotspotTracking();
@@ -504,6 +561,18 @@ export default function GaussianViewer({ url, showContactUs = false, hasIntro = 
       hotspot.navigation.target,
       hotspot.navigation.duration
     );
+  };
+
+  const toggleGlb = () => {
+    setShowGlb((prev) => {
+      const next = !prev;
+
+      if (glbRef.current) {
+        glbRef.current.visible = next;
+      }
+
+      return next;
+    });
   };
 
   const project = (point: Vector3): ScreenPosition => {
@@ -1126,6 +1195,22 @@ export default function GaussianViewer({ url, showContactUs = false, hasIntro = 
               {view.name}
             </button>
           ))}
+          <button
+            className="btn btn-footer"
+            onClick={() => {
+              const overlay = overlayRef.current;
+
+              if (!overlay) return;
+
+              overlay.visible = !overlay.visible;
+              setShowOverlay(overlay.visible);
+            }}
+          >
+            {showOverlay ? "Ocultar líneas" : "Mostrar líneas"}
+          </button>
+          <button className="btn btn-footer" onClick={toggleGlb}>
+            {showGlb ? "Ocultar edificio 3D" : "Mostrar edificio 3D"}
+          </button>
         </div>
         {/*<button
           key="test"
