@@ -8,6 +8,7 @@ import { faArrowLeft, faPause, faPlay } from "@fortawesome/free-solid-svg-icons"
 import { RevolvingDot } from "react-loader-spinner";
 import { Icon } from "@iconify/react";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
+import { TransformControls } from "@react-three/drei";
 
 type Vector3 = [number, number, number];
 
@@ -40,6 +41,15 @@ type Hotspot = {
     description?: string;
     image?: string;
   };
+};
+
+type UnitConfig = {
+  id: string;
+  file: string;
+  floor: number;
+  position: [number, number, number];
+  rotation: [number, number, number];
+  available: boolean;
 };
 
 // Easing cinematográfico
@@ -77,6 +87,51 @@ export default function GaussianViewer({ url, showContactUs = false, hasIntro = 
   const [isLeftMenuOpen, setIsLeftMenuOpen] = useState(false);
   const glbRef = useRef<THREE.Group | null>(null);
   const [showGlb, setShowGlb] = useState(false);
+  // Posición inicial del modelo GLB
+  const [glbPosition, setGlbPosition] = useState<Vector3>([-0.0066, 0.0627, 0.039]);
+  const [glbRotation, setGlbRotation] = useState<Vector3>([1.6, 25.5, 180]);
+
+  const unitModelsRef = useRef<Map<string, THREE.Group>>(new Map());
+  const [showAvailableUnits, setShowAvailableUnits] = useState(false);
+
+  const units: UnitConfig[] = [
+    {
+      id: "A",
+      file: "/3d/cubotest-2.glb",
+      floor: 2,
+      position: [-0.0066, -0.0163, 0.039],
+      rotation: [1.6, 25.5, 180],
+      available: true,
+    },
+    {
+      id: "B",
+      file: "/3d/cubotest-2.glb",
+      floor: 3,
+      position: [-0.0066, 0.0827, 0.039],
+      rotation: [1.6, 25.5, 180],
+      available: true,
+    },
+  ];
+
+  // Actualizar la posición del modelo en tiempo real
+  const updateGlbPosition = (axis: 0 | 1 | 2, value: number) => {
+    const next: Vector3 = [...glbPosition];
+    next[axis] = value;
+
+    setGlbPosition(next);
+
+    const model = glbRef.current;
+
+    if (model) {
+      model.position.set(next[0], next[1], next[2]);
+    }
+
+    console.log("Posición GLB:", {
+      x: Number(next[0].toFixed(4)),
+      y: Number(next[1].toFixed(4)),
+      z: Number(next[2].toFixed(4)),
+    });
+  };
 
   const [debugInfo, setDebugInfo] = useState({
     camera: [0, 0, 0] as Vector3,
@@ -405,8 +460,27 @@ export default function GaussianViewer({ url, showContactUs = false, hasIntro = 
 
         const loader = new GLTFLoader();
 
+        units.forEach((unit) => {
+          loader.load(unit.file, (gltf) => {
+            const model = gltf.scene;
+
+            model.position.set(...unit.position);
+
+            model.rotation.set(
+              THREE.MathUtils.degToRad(unit.rotation[0]),
+              THREE.MathUtils.degToRad(unit.rotation[1]),
+              THREE.MathUtils.degToRad(unit.rotation[2])
+            );
+
+            model.visible = false;
+
+            viewer.threeScene.add(model);
+            unitModelsRef.current.set(unit.id, model);
+          });
+        });
+
         loader.load(
-          "/3d/edificio-inmersive.glb",
+          "/3d/cubotest-2.glb",
           (gltf) => {
             const model = gltf.scene;
 
@@ -414,9 +488,17 @@ export default function GaussianViewer({ url, showContactUs = false, hasIntro = 
             model.visible = false;
 
             // Ajustá estos valores según tu Gaussian Splatting
-            model.position.set(0, 0, 5);
-            model.rotation.set(0, 0, 0);
-            model.scale.set(0.01, 0.01, 0.01);
+            //el z de blender es y
+            //const size = 0.008;
+            const size = 1;
+
+            model.position.set(glbPosition[0], glbPosition[1], glbPosition[2]);
+            model.rotation.set(
+              THREE.MathUtils.degToRad(glbRotation[0]),
+              THREE.MathUtils.degToRad(glbRotation[1]),
+              THREE.MathUtils.degToRad(glbRotation[2])
+            );
+            model.scale.set(size, size, size);
 
             viewer.threeScene.add(model);
             glbRef.current = model;
@@ -489,6 +571,20 @@ export default function GaussianViewer({ url, showContactUs = false, hasIntro = 
     };
   }, []);
 
+  const toggleAvailableUnits = () => {
+    const nextVisible = !showAvailableUnits;
+
+    setShowAvailableUnits(nextVisible);
+
+    units.forEach((unit) => {
+      const model = unitModelsRef.current.get(unit.id);
+
+      if (model) {
+        model.visible = nextVisible && unit.available;
+      }
+    });
+  };
+
   const loadWithProgress = async (url: string) => {
     const response = await fetch(url);
 
@@ -534,6 +630,29 @@ export default function GaussianViewer({ url, showContactUs = false, hasIntro = 
     const blob = new Blob(chunks);
 
     return URL.createObjectURL(blob);
+  };
+
+  const updateGlbRotation = (axis: 0 | 1 | 2, degrees: number) => {
+    const next: Vector3 = [...glbRotation];
+    next[axis] = degrees;
+
+    setGlbRotation(next);
+
+    const model = glbRef.current;
+
+    if (model) {
+      model.rotation.set(
+        THREE.MathUtils.degToRad(next[0]),
+        THREE.MathUtils.degToRad(next[1]),
+        THREE.MathUtils.degToRad(next[2])
+      );
+    }
+
+    console.log("Rotación GLB (grados):", {
+      x: Number(next[0].toFixed(2)),
+      y: Number(next[1].toFixed(2)),
+      z: Number(next[2].toFixed(2)),
+    });
   };
 
   const addHotspot = () => {
@@ -950,6 +1069,116 @@ export default function GaussianViewer({ url, showContactUs = false, hasIntro = 
         height: "100vh",
       }}
     >
+      {/* PANEL DE CALIBRACIÓN DEL MODELO GLB */}
+      <div className="glb-calibration">
+        <h4>Calibración GLB</h4>
+
+        {[
+          { label: "X", axis: 0 as const },
+          { label: "Y", axis: 1 as const },
+          { label: "Z", axis: 2 as const },
+        ].map(({ label, axis }) => (
+          <div className="glb-axis" key={label}>
+            <label>
+              Eje {label}: {glbPosition[axis].toFixed(4)}
+            </label>
+
+            <input
+              type="range"
+              min="-10"
+              max="10"
+              step="0.0001"
+              value={glbPosition[axis]}
+              onChange={(e) => updateGlbPosition(axis, Number(e.target.value))}
+            />
+
+            <input
+              type="number"
+              step="0.01"
+              value={glbPosition[axis]}
+              onChange={(e) => updateGlbPosition(axis, Number(e.target.value))}
+            />
+          </div>
+        ))}
+        <div>
+          <button
+            type="button"
+            onClick={() => {
+              const model = glbRef.current;
+              if (!model) return;
+
+              const position = {
+                x: Number(model.position.x.toFixed(4)),
+                y: Number(model.position.y.toFixed(4)),
+                z: Number(model.position.z.toFixed(4)),
+              };
+
+              console.log("POSICIÓN FINAL GLB:", position);
+              console.log(`model.position.set(${position.x}, ${position.y}, ${position.z});`);
+
+              navigator.clipboard.writeText(
+                `model.position.set(${position.x}, ${position.y}, ${position.z});`
+              );
+            }}
+          >
+            Copiar posición final
+          </button>
+        </div>
+
+        <h4>Rotación (grados)</h4>
+        {[
+          { label: "X", axis: 0 as const },
+          { label: "Y", axis: 1 as const },
+          { label: "Z", axis: 2 as const },
+        ].map(({ label, axis }) => (
+          <div className="glb-axis" key={`rotation-${label}`}>
+            <label>
+              Rotación {label}: {glbRotation[axis].toFixed(2)}°
+            </label>
+
+            <input
+              type="range"
+              min="-180"
+              max="180"
+              step="0.001"
+              value={glbRotation[axis]}
+              onChange={(e) => updateGlbRotation(axis, Number(e.target.value))}
+            />
+
+            <input
+              type="number"
+              step="0.01"
+              value={glbRotation[axis]}
+              onChange={(e) => updateGlbRotation(axis, Number(e.target.value))}
+            />
+          </div>
+        ))}
+        <div>
+          <button
+            type="button"
+            onClick={() => {
+              const model = glbRef.current;
+              if (!model) return;
+
+              const rotation = {
+                x: Number(model.rotation.x.toFixed(4)),
+                y: Number(model.rotation.y.toFixed(4)),
+                z: Number(model.rotation.z.toFixed(4)),
+              };
+
+              console.log("ROTACIÓN FINAL GLB:", rotation);
+              console.log(`model.rotation.set(${rotation.x}, ${rotation.y}, ${rotation.z});`);
+
+              navigator.clipboard.writeText(
+                `model.rotation.set(${rotation.x}, ${rotation.y}, ${rotation.z});`
+              );
+            }}
+          >
+            Copiar rotacion final
+          </button>
+        </div>
+      </div>
+
       <div className={`overlay-slider ${showFlatModal ? "active" : ""}`}></div>
       {isLoading && (
         <div className="gaussian-loader">
@@ -1210,6 +1439,11 @@ export default function GaussianViewer({ url, showContactUs = false, hasIntro = 
           </button>
           <button className="btn btn-footer" onClick={toggleGlb}>
             {showGlb ? "Ocultar edificio 3D" : "Mostrar edificio 3D"}
+          </button>
+          <button type="button" className="btn btn-footer" onClick={toggleAvailableUnits}>
+            {showAvailableUnits
+              ? "Ocultar unidades disponibles"
+              : "Ver todas las unidades disponibles"}
           </button>
         </div>
         {/*<button
