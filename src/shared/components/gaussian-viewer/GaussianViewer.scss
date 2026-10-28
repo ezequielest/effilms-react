@@ -670,3 +670,74 @@
     }
   }
 }
+
+.glb-calibration {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+  width: 280px;
+  padding: 18px;
+  border-radius: 12px;
+  background: rgba(15, 20, 28, 0.94);
+  color: #fff;
+  font-family: sans-serif;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+}
+
+.glb-calibration h4 {
+  margin: 0 0 18px;
+  font-size: 16px;
+  color: #c27a0d;
+  margin-top: 20px;
+}
+
+.glb-axis {
+  display: grid;
+  grid-template-columns: 1fr 85px;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.glb-axis label {
+  grid-column: 1 / -1;
+  font-size: 13px;
+}
+
+.glb-axis input[type="range"] {
+  width: 100%;
+  min-width: 0;
+  accent-color: #c27a0d;
+}
+
+.glb-axis input[type="number"] {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 5px;
+  border: 1px solid #444;
+  border-radius: 5px;
+  background: #252a33;
+  color: white;
+}
+
+.glb-calibration button {
+  width: 100%;
+  padding: 10px;
+  border: 0;
+  border-radius: 6px;
+  background: #c27a0d;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.glb-rotation-section {
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid #444;
+}
+
+.glb-rotation-section h5 {
+  margin: 0 0 16px;
+  font-size: 14px;
+}
