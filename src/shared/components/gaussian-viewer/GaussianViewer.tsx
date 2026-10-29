@@ -94,6 +94,10 @@ export default function GaussianViewer({ url, showContactUs = false, hasIntro = 
   const unitModelsRef = useRef<Map<string, THREE.Group>>(new Map());
   const [showAvailableUnits, setShowAvailableUnits] = useState(false);
 
+  const [showSky, setShowSky] = useState(true);
+  const skyTextureRef = useRef<THREE.Texture | null>(null);
+  const [showRoute, setShowRoute] = useState(true);
+
   const units: UnitConfig[] = [
     {
       id: "A",
@@ -420,6 +424,12 @@ export default function GaussianViewer({ url, showContactUs = false, hasIntro = 
   }, [hotspots]);
 
   useEffect(() => {
+    if (overlayRef.current) {
+      overlayRef.current.visible = showRoute;
+    }
+  }, [showRoute]);
+
+  useEffect(() => {
     window.addEventListener("keydown", onKeyDown);
 
     if (!containerRef.current) return;
@@ -452,6 +462,18 @@ export default function GaussianViewer({ url, showContactUs = false, hasIntro = 
         //await viewer.addSplatScene(url);
         await viewer.addSplatScene(url, {
           showLoadingUI: false,
+        });
+
+        console.log("Objetos de la escena:");
+
+        viewer.threeScene.traverse((obj: THREE.Object3D) => {
+          console.log(
+            obj.type,
+            obj.name,
+            obj.position.toArray(),
+            obj.rotation.toArray(),
+            obj.scale.toArray()
+          );
         });
 
         if (disposed) return;
@@ -509,32 +531,56 @@ export default function GaussianViewer({ url, showContactUs = false, hasIntro = 
           }
         );
 
-        // Crear los objetos de la capa 2
+        //CARGA DE LINEA NARANJA
+
         const overlay = new THREE.Group();
         overlay.name = "EF_Overlay";
 
         const points = [
-          new THREE.Vector3(-2, -1, 7),
-          new THREE.Vector3(0, -0.1, 0),
-          new THREE.Vector3(0.2, -0.1, 0),
+          new THREE.Vector3(0, -0.01, 0),
+          new THREE.Vector3(0, -0.01, 0.35),
+          new THREE.Vector3(12, -0.01, 0.35),
         ];
 
-        const geometry = new THREE.BufferGeometry().setFromPoints(points);
-
-        const material = new THREE.LineBasicMaterial({
+        const material = new THREE.MeshBasicMaterial({
           color: 0xff8800,
-          depthTest: false,
+          depthTest: true,
+          depthWrite: true,
         });
 
-        const line = new THREE.Line(geometry, material);
-        line.name = "EF_TestLine";
+        const radius = 0.01; // Aumentá este valor para más grosor
 
-        overlay.add(line);
+        for (let i = 0; i < points.length - 1; i++) {
+          const start = points[i];
+          const end = points[i + 1];
 
-        // Agregar la capa a la escena de Three.js
+          const direction = new THREE.Vector3().subVectors(end, start);
+          const length = direction.length();
+
+          const geometry = new THREE.CylinderGeometry(radius, radius, length, 8);
+
+          const segment = new THREE.Mesh(geometry, material);
+
+          segment.position.copy(start).add(end).multiplyScalar(0.5);
+          segment.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), direction.normalize());
+
+          segment.name = `EF_LineSegment_${i}`;
+          overlay.add(segment);
+
+          viewer.threeScene.add(overlay);
+          overlayRef.current = overlay;
+          overlay.visible = showRoute;
+        }
+
         viewer.threeScene.add(overlay);
-
         overlayRef.current = overlay;
+
+        // Comprobar que la ruta quedó agregada a la escena.
+        overlay.visible = true;
+
+        console.log("Overlay agregado:", overlay);
+        console.log("Padre:", overlay.parent?.name);
+        console.log("Posición:", overlay.position.toArray());
 
         viewer.start();
 
@@ -681,19 +727,19 @@ export default function GaussianViewer({ url, showContactUs = false, hasIntro = 
       hotspot.navigation.duration
     );
   };
-
   const toggleGlb = () => {
-    setShowGlb((prev) => {
-      const next = !prev;
+    const model = glbRef.current;
 
-      if (glbRef.current) {
-        glbRef.current.visible = next;
-      }
+    if (!model) return;
 
-      return next;
-    });
+    const next = !model.visible;
+
+    model.visible = next;
+    setShowGlb(next);
+
+    console.log("GLB visible:", model.visible);
+    console.log("Background:", viewerRef.current?.threeScene?.background);
   };
-
   const project = (point: Vector3): ScreenPosition => {
     const viewer = viewerRef.current;
 
@@ -798,21 +844,37 @@ export default function GaussianViewer({ url, showContactUs = false, hasIntro = 
   const setupSky = () => {
     const viewer = viewerRef.current;
 
-    if (!viewer || !viewer.threeScene) return;
+    if (!viewer?.threeScene) return;
 
     const loader = new THREE.TextureLoader();
 
     loader.load(
-      "/sky/sky.jpg",
-
+      "/sky/sky-1.jpg",
       (texture) => {
         texture.mapping = THREE.EquirectangularReflectionMapping;
-
         texture.colorSpace = THREE.SRGBColorSpace;
 
-        viewer.threeScene.background = texture;
+        skyTextureRef.current = texture;
+
+        // El estado del cielo se administra independientemente.
+        viewer.threeScene.background = showSky ? texture : null;
+      },
+      undefined,
+      (error) => {
+        console.error("Error cargando el cielo:", error);
       }
     );
+  };
+
+  const toggleSky = () => {
+    const scene = viewerRef.current?.threeScene;
+
+    if (!scene) return;
+
+    const next = !showSky;
+
+    setShowSky(next);
+    scene.background = next ? skyTextureRef.current : null;
   };
 
   const captureCamera = () => {
@@ -1425,14 +1487,19 @@ export default function GaussianViewer({ url, showContactUs = false, hasIntro = 
             </button>
           ))}
           <button
+            type="button"
             className="btn btn-footer"
             onClick={() => {
               const overlay = overlayRef.current;
+              const scene = viewerRef.current?.threeScene;
 
-              if (!overlay) return;
+              if (!overlay || !scene) return;
 
               overlay.visible = !overlay.visible;
               setShowOverlay(overlay.visible);
+
+              // Restaurar el cielo según su estado independiente.
+              scene.background = showSky ? skyTextureRef.current : null;
             }}
           >
             {showOverlay ? "Ocultar líneas" : "Mostrar líneas"}
@@ -1444,6 +1511,12 @@ export default function GaussianViewer({ url, showContactUs = false, hasIntro = 
             {showAvailableUnits
               ? "Ocultar unidades disponibles"
               : "Ver todas las unidades disponibles"}
+          </button>
+          <button type="button" className="btn btn-footer" onClick={toggleSky}>
+            {showSky ? "Ocultar cielo" : "Mostrar cielo"}
+          </button>
+          <button className="btn btn-footer" onClick={() => setShowRoute((prev) => !prev)}>
+            {showRoute ? "Ocultar ruta" : "Mostrar ruta"}
           </button>
         </div>
         {/*<button
