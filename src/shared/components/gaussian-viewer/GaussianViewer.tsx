@@ -69,7 +69,6 @@ export default function GaussianViewer({ url, showContactUs = false, hasIntro = 
   const viewerRef = useRef<any>(null);
   const overlayRef = useRef<THREE.Group | null>(null);
 
-  const [showOverlay, setShowOverlay] = useState(true);
   const animationRef = useRef<number | null>(null);
   const hotspotAnimationRef = useRef<number | null>(null);
   const hotspotRefs = useRef<Record<string, HTMLDivElement | null>>({});
@@ -424,10 +423,18 @@ export default function GaussianViewer({ url, showContactUs = false, hasIntro = 
   }, [hotspots]);
 
   useEffect(() => {
-    if (overlayRef.current) {
-      overlayRef.current.visible = showRoute;
-    }
+    const scene = viewerRef.current?.threeScene;
+    if (!scene || !overlayRef.current) return;
+
+    overlayRef.current.visible = showRoute;
   }, [showRoute]);
+
+  useEffect(() => {
+    const scene = viewerRef.current?.threeScene;
+    if (!scene) return;
+
+    scene.background = showSky ? skyTextureRef.current : null;
+  }, [showSky]);
 
   useEffect(() => {
     window.addEventListener("keydown", onKeyDown);
@@ -548,7 +555,7 @@ export default function GaussianViewer({ url, showContactUs = false, hasIntro = 
           depthWrite: true,
         });
 
-        const radius = 0.01; // Aumentá este valor para más grosor
+        const radius = 0.01;
 
         for (let i = 0; i < points.length - 1; i++) {
           const start = points[i];
@@ -566,17 +573,12 @@ export default function GaussianViewer({ url, showContactUs = false, hasIntro = 
 
           segment.name = `EF_LineSegment_${i}`;
           overlay.add(segment);
-
-          viewer.threeScene.add(overlay);
-          overlayRef.current = overlay;
-          overlay.visible = showRoute;
         }
 
+        // Agregar el grupo una sola vez.
         viewer.threeScene.add(overlay);
         overlayRef.current = overlay;
-
-        // Comprobar que la ruta quedó agregada a la escena.
-        overlay.visible = true;
+        overlay.visible = showRoute;
 
         console.log("Overlay agregado:", overlay);
         console.log("Padre:", overlay.parent?.name);
@@ -856,8 +858,10 @@ export default function GaussianViewer({ url, showContactUs = false, hasIntro = 
 
         skyTextureRef.current = texture;
 
-        // El estado del cielo se administra independientemente.
-        viewer.threeScene.background = showSky ? texture : null;
+        const scene = viewerRef.current?.threeScene;
+        if (scene && showSky) {
+          scene.background = texture;
+        }
       },
       undefined,
       (error) => {
@@ -867,14 +871,7 @@ export default function GaussianViewer({ url, showContactUs = false, hasIntro = 
   };
 
   const toggleSky = () => {
-    const scene = viewerRef.current?.threeScene;
-
-    if (!scene) return;
-
-    const next = !showSky;
-
-    setShowSky(next);
-    scene.background = next ? skyTextureRef.current : null;
+    setShowSky((prev) => !prev);
   };
 
   const captureCamera = () => {
@@ -1486,24 +1483,6 @@ export default function GaussianViewer({ url, showContactUs = false, hasIntro = 
               {view.name}
             </button>
           ))}
-          <button
-            type="button"
-            className="btn btn-footer"
-            onClick={() => {
-              const overlay = overlayRef.current;
-              const scene = viewerRef.current?.threeScene;
-
-              if (!overlay || !scene) return;
-
-              overlay.visible = !overlay.visible;
-              setShowOverlay(overlay.visible);
-
-              // Restaurar el cielo según su estado independiente.
-              scene.background = showSky ? skyTextureRef.current : null;
-            }}
-          >
-            {showOverlay ? "Ocultar líneas" : "Mostrar líneas"}
-          </button>
           <button className="btn btn-footer" onClick={toggleGlb}>
             {showGlb ? "Ocultar edificio 3D" : "Mostrar edificio 3D"}
           </button>
@@ -1515,7 +1494,11 @@ export default function GaussianViewer({ url, showContactUs = false, hasIntro = 
           <button type="button" className="btn btn-footer" onClick={toggleSky}>
             {showSky ? "Ocultar cielo" : "Mostrar cielo"}
           </button>
-          <button className="btn btn-footer" onClick={() => setShowRoute((prev) => !prev)}>
+          <button
+            type="button"
+            className="btn btn-footer"
+            onClick={() => setShowRoute((prev) => !prev)}
+          >
             {showRoute ? "Ocultar ruta" : "Mostrar ruta"}
           </button>
         </div>
