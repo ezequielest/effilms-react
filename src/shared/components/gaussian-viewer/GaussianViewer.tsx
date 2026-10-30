@@ -8,7 +8,8 @@ import { faArrowLeft, faPause, faPlay } from "@fortawesome/free-solid-svg-icons"
 import { RevolvingDot } from "react-loader-spinner";
 import { Icon } from "@iconify/react";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
-import { TransformControls } from "@react-three/drei";
+import { gpsToGaussian } from "../../../utils/geoCalibration";
+
 
 type Vector3 = [number, number, number];
 
@@ -87,8 +88,8 @@ export default function GaussianViewer({ url, showContactUs = false, hasIntro = 
   const glbRef = useRef<THREE.Group | null>(null);
   const [showGlb, setShowGlb] = useState(false);
   // Posición inicial del modelo GLB
-  const [glbPosition, setGlbPosition] = useState<Vector3>([-0.0066, 0.0627, 0.039]);
-  const [glbRotation, setGlbRotation] = useState<Vector3>([1.6, 25.5, 180]);
+  const [glbPosition, setGlbPosition] = useState<Vector3>([0, 0, 0]);
+  const [glbRotation, setGlbRotation] = useState<Vector3>([0, 0, 180]);
 
   const unitModelsRef = useRef<Map<string, THREE.Group>>(new Map());
   const [showAvailableUnits, setShowAvailableUnits] = useState(false);
@@ -454,12 +455,27 @@ export default function GaussianViewer({ url, showContactUs = false, hasIntro = 
 
       viewerRef.current = viewer;
 
+      //limite de camara
       if (viewer.controls) {
-        viewer.controls.maxPolarAngle = 1.2;
+        //viewer.controls.maxPolarAngle = 1.2;
 
-        viewer.controls.minDistance = 0.3;
-        viewer.controls.maxDistance = 2.8;
-        viewer.controls.enableDamping = false;
+        //viewer.controls.minDistance = 0.3;
+        //viewer.controls.maxDistance = 2.8;
+        //viewer.controls.enableDamping = false;
+
+          viewer.controls.minDistance = 0;
+          viewer.controls.maxDistance = Infinity;
+
+          viewer.controls.minPolarAngle = 0;
+          viewer.controls.maxPolarAngle = Math.PI;
+
+          viewer.controls.minAzimuthAngle = -Infinity;
+          viewer.controls.maxAzimuthAngle = Infinity;
+
+          viewer.controls.enableZoom = true;
+          viewer.controls.enablePan = true;
+          viewer.controls.enableRotate = true;
+            viewer.controls.update();
       }
 
       try {
@@ -632,6 +648,31 @@ export default function GaussianViewer({ url, showContactUs = false, hasIntro = 
       }
     });
   };
+
+    const handleLocate = () => {
+
+    // Coordenadas de Google Maps
+    //feria
+    //const lat = -38.011088;
+    //const lon = -57.565101;
+
+    // esquina
+    //const lat =  -38.012048;
+    //const lon = -57.563935;
+
+    //edificio
+     const lat =-38.011274;
+      const lon =-57.565550
+
+    const position = gpsToGaussian(lat, lon);
+
+    console.log("Gaussian X:", position.x);
+    console.log("Gaussian Z:", position.z);
+
+    // Ejemplo: posicionar un objeto 3D
+    // mesh.position.set(position.x, 0.08, position.z);
+  };
+
 
   const loadWithProgress = async (url: string) => {
     const response = await fetch(url);
@@ -1502,6 +1543,9 @@ export default function GaussianViewer({ url, showContactUs = false, hasIntro = 
           >
             {showRoute ? "Ocultar ruta" : "Mostrar ruta"}
           </button>
+              <button onClick={handleLocate}>
+      Localizar punto
+    </button>
         </div>
         {/*<button
           key="test"
