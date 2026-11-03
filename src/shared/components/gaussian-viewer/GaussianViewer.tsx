@@ -10,7 +10,6 @@ import { Icon } from "@iconify/react";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import { gpsToGaussian } from "../../../utils/geoCalibration";
 
-
 type Vector3 = [number, number, number];
 
 type CameraView = {
@@ -96,7 +95,7 @@ export default function GaussianViewer({ url, showContactUs = false, hasIntro = 
 
   const [showSky, setShowSky] = useState(true);
   const skyTextureRef = useRef<THREE.Texture | null>(null);
-  const [showRoute, setShowRoute] = useState(true);
+  const [showRoute, setShowRoute] = useState(false);
 
   const units: UnitConfig[] = [
     {
@@ -169,7 +168,7 @@ export default function GaussianViewer({ url, showContactUs = false, hasIntro = 
         description: "",
       },
       navigation: {
-        initialPoint: [5, -0.2, -5],
+        initialPoint: [5, -0.2, -2],
         positionCamera: [-0.768, -0.629, 1.424],
         target: [0, 0, 0],
         duration: 2500,
@@ -184,7 +183,7 @@ export default function GaussianViewer({ url, showContactUs = false, hasIntro = 
         address: "Quintana e Independencia",
       },
       navigation: {
-        initialPoint: [0, -0.18, 0.025], //posicion del disparador flotante
+        initialPoint: [0, -0.35, 0], //posicion del disparador flotante
         positionCamera: [-0.17, -0.304, 0.637],
         target: [0, 0, 0],
         duration: 2500,
@@ -200,7 +199,7 @@ export default function GaussianViewer({ url, showContactUs = false, hasIntro = 
         address: "Quintana e Independencia",
       },
       navigation: {
-        initialPoint: [-0.015, -0.1, 0.704], //posicion del disparador flotante
+        initialPoint: [-0.26, -0.1, 0.55], //posicion del disparador flotante
         positionCamera: [-0.595, -0.263, 0.127],
         target: [-0.009, -0.026, 0.298],
         duration: 2500,
@@ -216,7 +215,7 @@ export default function GaussianViewer({ url, showContactUs = false, hasIntro = 
         address: "",
       },
       navigation: {
-        initialPoint: [3.913, -0.05, -1.501], //posicion del disparador flotante
+        initialPoint: [3.913, -0.05, 0.55], //posicion del disparador flotante
         positionCamera: [-0.595, -0, 0.127],
         target: [0, 0, 0],
         duration: 2500,
@@ -232,7 +231,7 @@ export default function GaussianViewer({ url, showContactUs = false, hasIntro = 
         address: "",
       },
       navigation: {
-        initialPoint: [3.913, -0.1, -1.501], //posicion del disparador flotante
+        initialPoint: [3.913, -0.2, 0.55], //posicion del disparador flotante
         positionCamera: [-0.595, -0.263, 0.127],
         target: [0, 0, 0],
         duration: 2500,
@@ -248,7 +247,7 @@ export default function GaussianViewer({ url, showContactUs = false, hasIntro = 
         address: "Av. Independencia 3445",
       },
       navigation: {
-        initialPoint: [2.276, -0.05, -0.423], //posicion del disparador flotante
+        initialPoint: [2.276, -0.2, 0.55], //posicion del disparador flotante
         positionCamera: [-0.595, -0.263, 0.127],
         target: [0, 0, 0],
         duration: 2500,
@@ -264,7 +263,7 @@ export default function GaussianViewer({ url, showContactUs = false, hasIntro = 
         address: "Av. Independencia 3501",
       },
       navigation: {
-        initialPoint: [0.276, -0.05, 0.448], //posicion del disparador flotante
+        initialPoint: [0.276, -0.2, 0.55], //posicion del disparador flotante
         positionCamera: [-0.595, -0.263, 0.127],
         target: [-0.009, -0.026, 0.298],
         duration: 2500,
@@ -280,7 +279,7 @@ export default function GaussianViewer({ url, showContactUs = false, hasIntro = 
         address: "Independencia y Quintana",
       },
       navigation: {
-        initialPoint: [0.276, -0.05, 0.448], //posicion del disparador flotante
+        initialPoint: [0.276, -0.2, 0.55], //posicion del disparador flotante
         positionCamera: [-0.595, -0.263, 0.127],
         target: [-0.009, -0.026, 0.298],
         duration: 2500,
@@ -296,7 +295,7 @@ export default function GaussianViewer({ url, showContactUs = false, hasIntro = 
         address: "",
       },
       navigation: {
-        initialPoint: [2.629, -0.05, -0.788], //posicion del disparador flotante
+        initialPoint: [2.629, -0.2, 0.55], //posicion del disparador flotante
         positionCamera: [-1.124, -0.805, -0.879],
         target: [0.131, -0.162, -0.486],
         duration: 2500,
@@ -312,7 +311,7 @@ export default function GaussianViewer({ url, showContactUs = false, hasIntro = 
         address: "",
       },
       navigation: {
-        initialPoint: [1.043, -0.05, 0.055], //posicion del disparador flotante
+        initialPoint: [1.043, -0.2, 0.55], //posicion del disparador flotante
         positionCamera: [-2.168, -0.957, -1.111],
         target: [0, 0, 0],
         duration: 2500,
@@ -346,7 +345,7 @@ export default function GaussianViewer({ url, showContactUs = false, hasIntro = 
       },
       navigation: {
         //initialPoint: [0.276, -0.05, 0.448], //posicion del disparador flotante
-        initialPoint: [0.619, -0.052, 0.264],
+        initialPoint: [0.619, -0.052, 0.55],
         //positionCamera: [-0.257,-0.353,-0.138],
         //target: [0.619,0.052,0.264],
         positionCamera: [-2.168, -0.957, -1.111],
@@ -364,7 +363,7 @@ export default function GaussianViewer({ url, showContactUs = false, hasIntro = 
         address: "Av Independencia 3205",
       },
       navigation: {
-        initialPoint: [3.403, -0.05, -1.117], //posicion del disparador flotante
+        initialPoint: [3.403, -0.05, 0.55], //posicion del disparador flotante
         positionCamera: [-2.168, -0.957, -1.0],
         target: [0, 0, 0],
         duration: 2500,
@@ -380,18 +379,18 @@ export default function GaussianViewer({ url, showContactUs = false, hasIntro = 
   const views: CameraView[] = [
     {
       name: "Frente izquierdo",
-      position: [-0.149, -0.177, 0.424],
-      target: [0.007, -0.002, 0.003],
+      position: [-0.365, -0.258, 0.196],
+      target: [-0.058, -0.09, 0.025],
     },
     {
       name: "Frente derecho",
-      position: [-0.385, -0.271, -0.078],
-      target: [0.007, -0.002, 0.003],
+      position: [-0.304, -0.281, -0.21],
+      target: [-0.058, -0.09, 0.025],
     },
     {
       name: "Contrafrente",
-      position: [0.283, -0.299, 0.031],
-      target: [0, 0, 0],
+      position: [0.275, -0.269, 0.116],
+      target: [-0.058, -0.09, 0.025],
     },
   ];
 
@@ -463,19 +462,19 @@ export default function GaussianViewer({ url, showContactUs = false, hasIntro = 
         //viewer.controls.maxDistance = 2.8;
         //viewer.controls.enableDamping = false;
 
-          viewer.controls.minDistance = 0;
-          viewer.controls.maxDistance = Infinity;
+        viewer.controls.minDistance = 0;
+        viewer.controls.maxDistance = Infinity;
 
-          viewer.controls.minPolarAngle = 0;
-          viewer.controls.maxPolarAngle = Math.PI;
+        viewer.controls.minPolarAngle = 0;
+        viewer.controls.maxPolarAngle = Math.PI;
 
-          viewer.controls.minAzimuthAngle = -Infinity;
-          viewer.controls.maxAzimuthAngle = Infinity;
+        viewer.controls.minAzimuthAngle = -Infinity;
+        viewer.controls.maxAzimuthAngle = Infinity;
 
-          viewer.controls.enableZoom = true;
-          viewer.controls.enablePan = true;
-          viewer.controls.enableRotate = true;
-            viewer.controls.update();
+        viewer.controls.enableZoom = true;
+        viewer.controls.enablePan = true;
+        viewer.controls.enableRotate = true;
+        viewer.controls.update();
       }
 
       try {
@@ -501,7 +500,7 @@ export default function GaussianViewer({ url, showContactUs = false, hasIntro = 
 
         if (disposed) return;
 
-        setupSky();
+        //setupSky();
 
         const loader = new GLTFLoader();
 
@@ -649,8 +648,7 @@ export default function GaussianViewer({ url, showContactUs = false, hasIntro = 
     });
   };
 
-    const handleLocate = () => {
-
+  const handleLocate = () => {
     // Coordenadas de Google Maps
     //feria
     //const lat = -38.011088;
@@ -661,8 +659,8 @@ export default function GaussianViewer({ url, showContactUs = false, hasIntro = 
     //const lon = -57.563935;
 
     //edificio
-     const lat =-38.011274;
-      const lon =-57.565550
+    const lat = -38.011274;
+    const lon = -57.56555;
 
     const position = gpsToGaussian(lat, lon);
 
@@ -672,7 +670,6 @@ export default function GaussianViewer({ url, showContactUs = false, hasIntro = 
     // Ejemplo: posicionar un objeto 3D
     // mesh.position.set(position.x, 0.08, position.z);
   };
-
 
   const loadWithProgress = async (url: string) => {
     const response = await fetch(url);
@@ -1171,114 +1168,116 @@ export default function GaussianViewer({ url, showContactUs = false, hasIntro = 
       }}
     >
       {/* PANEL DE CALIBRACIÓN DEL MODELO GLB */}
-      <div className="glb-calibration">
-        <h4>Calibración GLB</h4>
+      {DEBUG && (
+        <div className="glb-calibration">
+          <h4>Calibración GLB</h4>
 
-        {[
-          { label: "X", axis: 0 as const },
-          { label: "Y", axis: 1 as const },
-          { label: "Z", axis: 2 as const },
-        ].map(({ label, axis }) => (
-          <div className="glb-axis" key={label}>
-            <label>
-              Eje {label}: {glbPosition[axis].toFixed(4)}
-            </label>
+          {[
+            { label: "X", axis: 0 as const },
+            { label: "Y", axis: 1 as const },
+            { label: "Z", axis: 2 as const },
+          ].map(({ label, axis }) => (
+            <div className="glb-axis" key={label}>
+              <label>
+                Eje {label}: {glbPosition[axis].toFixed(4)}
+              </label>
 
-            <input
-              type="range"
-              min="-10"
-              max="10"
-              step="0.0001"
-              value={glbPosition[axis]}
-              onChange={(e) => updateGlbPosition(axis, Number(e.target.value))}
-            />
+              <input
+                type="range"
+                min="-10"
+                max="10"
+                step="0.0001"
+                value={glbPosition[axis]}
+                onChange={(e) => updateGlbPosition(axis, Number(e.target.value))}
+              />
 
-            <input
-              type="number"
-              step="0.01"
-              value={glbPosition[axis]}
-              onChange={(e) => updateGlbPosition(axis, Number(e.target.value))}
-            />
+              <input
+                type="number"
+                step="0.01"
+                value={glbPosition[axis]}
+                onChange={(e) => updateGlbPosition(axis, Number(e.target.value))}
+              />
+            </div>
+          ))}
+          <div>
+            <button
+              type="button"
+              onClick={() => {
+                const model = glbRef.current;
+                if (!model) return;
+
+                const position = {
+                  x: Number(model.position.x.toFixed(4)),
+                  y: Number(model.position.y.toFixed(4)),
+                  z: Number(model.position.z.toFixed(4)),
+                };
+
+                console.log("POSICIÓN FINAL GLB:", position);
+                console.log(`model.position.set(${position.x}, ${position.y}, ${position.z});`);
+
+                navigator.clipboard.writeText(
+                  `model.position.set(${position.x}, ${position.y}, ${position.z});`
+                );
+              }}
+            >
+              Copiar posición final
+            </button>
           </div>
-        ))}
-        <div>
-          <button
-            type="button"
-            onClick={() => {
-              const model = glbRef.current;
-              if (!model) return;
 
-              const position = {
-                x: Number(model.position.x.toFixed(4)),
-                y: Number(model.position.y.toFixed(4)),
-                z: Number(model.position.z.toFixed(4)),
-              };
+          <h4>Rotación (grados)</h4>
+          {[
+            { label: "X", axis: 0 as const },
+            { label: "Y", axis: 1 as const },
+            { label: "Z", axis: 2 as const },
+          ].map(({ label, axis }) => (
+            <div className="glb-axis" key={`rotation-${label}`}>
+              <label>
+                Rotación {label}: {glbRotation[axis].toFixed(2)}°
+              </label>
 
-              console.log("POSICIÓN FINAL GLB:", position);
-              console.log(`model.position.set(${position.x}, ${position.y}, ${position.z});`);
+              <input
+                type="range"
+                min="-180"
+                max="180"
+                step="0.001"
+                value={glbRotation[axis]}
+                onChange={(e) => updateGlbRotation(axis, Number(e.target.value))}
+              />
 
-              navigator.clipboard.writeText(
-                `model.position.set(${position.x}, ${position.y}, ${position.z});`
-              );
-            }}
-          >
-            Copiar posición final
-          </button>
-        </div>
+              <input
+                type="number"
+                step="0.01"
+                value={glbRotation[axis]}
+                onChange={(e) => updateGlbRotation(axis, Number(e.target.value))}
+              />
+            </div>
+          ))}
+          <div>
+            <button
+              type="button"
+              onClick={() => {
+                const model = glbRef.current;
+                if (!model) return;
 
-        <h4>Rotación (grados)</h4>
-        {[
-          { label: "X", axis: 0 as const },
-          { label: "Y", axis: 1 as const },
-          { label: "Z", axis: 2 as const },
-        ].map(({ label, axis }) => (
-          <div className="glb-axis" key={`rotation-${label}`}>
-            <label>
-              Rotación {label}: {glbRotation[axis].toFixed(2)}°
-            </label>
+                const rotation = {
+                  x: Number(model.rotation.x.toFixed(4)),
+                  y: Number(model.rotation.y.toFixed(4)),
+                  z: Number(model.rotation.z.toFixed(4)),
+                };
 
-            <input
-              type="range"
-              min="-180"
-              max="180"
-              step="0.001"
-              value={glbRotation[axis]}
-              onChange={(e) => updateGlbRotation(axis, Number(e.target.value))}
-            />
+                console.log("ROTACIÓN FINAL GLB:", rotation);
+                console.log(`model.rotation.set(${rotation.x}, ${rotation.y}, ${rotation.z});`);
 
-            <input
-              type="number"
-              step="0.01"
-              value={glbRotation[axis]}
-              onChange={(e) => updateGlbRotation(axis, Number(e.target.value))}
-            />
+                navigator.clipboard.writeText(
+                  `model.rotation.set(${rotation.x}, ${rotation.y}, ${rotation.z});`
+                );
+              }}
+            >
+              Copiar rotacion final
+            </button>
           </div>
-        ))}
-        <div>
-          <button
-            type="button"
-            onClick={() => {
-              const model = glbRef.current;
-              if (!model) return;
-
-              const rotation = {
-                x: Number(model.rotation.x.toFixed(4)),
-                y: Number(model.rotation.y.toFixed(4)),
-                z: Number(model.rotation.z.toFixed(4)),
-              };
-
-              console.log("ROTACIÓN FINAL GLB:", rotation);
-              console.log(`model.rotation.set(${rotation.x}, ${rotation.y}, ${rotation.z});`);
-
-              navigator.clipboard.writeText(
-                `model.rotation.set(${rotation.x}, ${rotation.y}, ${rotation.z});`
-              );
-            }}
-          >
-            Copiar rotacion final
-          </button>
         </div>
-      </div>
+      )}
 
       <div className={`overlay-slider ${showFlatModal ? "active" : ""}`}></div>
       {isLoading && (
@@ -1525,17 +1524,22 @@ export default function GaussianViewer({ url, showContactUs = false, hasIntro = 
               {view.name}
             </button>
           ))}
-          <button className="btn btn-footer" onClick={toggleGlb}>
-            {showGlb ? "Ocultar edificio 3D" : "Mostrar edificio 3D"}
-          </button>
-          <button type="button" className="btn btn-footer" onClick={toggleAvailableUnits}>
-            {showAvailableUnits
-              ? "Ocultar unidades disponibles"
-              : "Ver todas las unidades disponibles"}
-          </button>
-          <button type="button" className="btn btn-footer" onClick={toggleSky}>
-            {showSky ? "Ocultar cielo" : "Mostrar cielo"}
-          </button>
+          {DEBUG && (
+            <div>
+              <button className="btn btn-footer" onClick={toggleGlb}>
+                {showGlb ? "Ocultar edificio 3D" : "Mostrar edificio 3D"}
+              </button>
+              <button type="button" className="btn btn-footer" onClick={toggleAvailableUnits}>
+                {showAvailableUnits
+                  ? "Ocultar unidades disponibles"
+                  : "Ver todas las unidades disponibles"}
+              </button>
+              <button type="button" className="btn btn-footer" onClick={toggleSky}>
+                {showSky ? "Ocultar cielo" : "Mostrar cielo"}
+              </button>
+              <button onClick={handleLocate}>Localizar punto</button>
+            </div>
+          )}
           <button
             type="button"
             className="btn btn-footer"
@@ -1543,9 +1547,6 @@ export default function GaussianViewer({ url, showContactUs = false, hasIntro = 
           >
             {showRoute ? "Ocultar ruta" : "Mostrar ruta"}
           </button>
-              <button onClick={handleLocate}>
-      Localizar punto
-    </button>
         </div>
         {/*<button
           key="test"
