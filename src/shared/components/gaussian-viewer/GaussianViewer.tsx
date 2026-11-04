@@ -6,6 +6,9 @@ import ImageSlider from "../image-slider/ImageSlider";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faPause, faPlay } from "@fortawesome/free-solid-svg-icons";
 import { RevolvingDot } from "react-loader-spinner";
+import { Icon } from "@iconify/react";
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
+import { gpsToGaussian } from "../../../utils/geoCalibration";
 
 type Vector3 = [number, number, number];
 
@@ -40,6 +43,15 @@ type Hotspot = {
   };
 };
 
+type UnitConfig = {
+  id: string;
+  file: string;
+  floor: number;
+  position: [number, number, number];
+  rotation: [number, number, number];
+  available: boolean;
+};
+
 // Easing cinematográfico
 function easeInOutCubic(t: number) {
   return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
@@ -47,48 +59,87 @@ function easeInOutCubic(t: number) {
 
 interface Gaussian {
   url: string;
+  showContactUs?: boolean;
+  hasIntro?: boolean;
 }
 
-export default function GaussianViewer({ url }: Gaussian) {
+export default function GaussianViewer({ url, showContactUs = false, hasIntro = false }: Gaussian) {
   const containerRef = useRef<HTMLDivElement>(null);
-
   const cityAudioRef = useRef<HTMLAudioElement | null>(null);
-
   const viewerRef = useRef<any>(null);
+  const overlayRef = useRef<THREE.Group | null>(null);
 
   const animationRef = useRef<number | null>(null);
-
   const hotspotAnimationRef = useRef<number | null>(null);
-
   const hotspotRefs = useRef<Record<string, HTMLDivElement | null>>({});
   const hotspotsRef = useRef<Hotspot[]>([]);
   const hotspotLineRefs = useRef<Hotspot[]>([]);
 
   const [sliderFlats, setSliderFlats] = useState<Array<string>>([]);
-
   const [autoRotate, setAutoRotate] = useState(true);
-
   const [showInfo, setShowInfo] = useState(false);
-
   const [showFlatModal, setFlatModal] = useState(false);
-
   const [isLoading, setIsLoading] = useState(true);
-
   const [loadingProgress, setLoadingProgress] = useState(0);
-
   const [showIntro, setShowIntro] = useState(true);
-
   //const [showInfoBuilding, setShowInfoBuilding] = useState(false);
-
   const [isLeftMenuOpen, setIsLeftMenuOpen] = useState(false);
+  const glbRef = useRef<THREE.Group | null>(null);
+  const [showGlb, setShowGlb] = useState(false);
+  // Posición inicial del modelo GLB
+  const [glbPosition, setGlbPosition] = useState<Vector3>([0, 0, 0]);
+  const [glbRotation, setGlbRotation] = useState<Vector3>([0, 0, 180]);
 
-  const DEBUG = false;
+  const unitModelsRef = useRef<Map<string, THREE.Group>>(new Map());
+  const [showAvailableUnits, setShowAvailableUnits] = useState(false);
+
+  const [showSky, setShowSky] = useState(true);
+  const skyTextureRef = useRef<THREE.Texture | null>(null);
+  const [showRoute, setShowRoute] = useState(false);
+
+  const units: UnitConfig[] = [
+    {
+      id: "A",
+      file: "/3d/cubotest-2.glb",
+      floor: 2,
+      position: [-0.0066, -0.0163, 0.039],
+      rotation: [1.6, 25.5, 180],
+      available: true,
+    },
+    {
+      id: "B",
+      file: "/3d/cubotest-2.glb",
+      floor: 3,
+      position: [-0.0066, 0.0827, 0.039],
+      rotation: [1.6, 25.5, 180],
+      available: true,
+    },
+  ];
+
+  // Actualizar la posición del modelo en tiempo real
+  const updateGlbPosition = (axis: 0 | 1 | 2, value: number) => {
+    const next: Vector3 = [...glbPosition];
+    next[axis] = value;
+
+    setGlbPosition(next);
+
+    const model = glbRef.current;
+
+    if (model) {
+      model.position.set(next[0], next[1], next[2]);
+    }
+
+    console.log("Posición GLB:", {
+      x: Number(next[0].toFixed(4)),
+      y: Number(next[1].toFixed(4)),
+      z: Number(next[2].toFixed(4)),
+    });
+  };
 
   const [debugInfo, setDebugInfo] = useState({
     camera: [0, 0, 0] as Vector3,
     target: [0, 0, 0] as Vector3,
   });
-
   const [editor, setEditor] = useState<Hotspot>({
     id: "centro",
     selected: false,
@@ -117,7 +168,7 @@ export default function GaussianViewer({ url }: Gaussian) {
         description: "",
       },
       navigation: {
-        initialPoint: [5, -0.2, -5],
+        initialPoint: [5, -0.2, -2],
         positionCamera: [-0.768, -0.629, 1.424],
         target: [0, 0, 0],
         duration: 2500,
@@ -132,7 +183,7 @@ export default function GaussianViewer({ url }: Gaussian) {
         address: "Quintana e Independencia",
       },
       navigation: {
-        initialPoint: [0, -0.18, 0.025], //posicion del disparador flotante
+        initialPoint: [0, -0.35, 0], //posicion del disparador flotante
         positionCamera: [-0.17, -0.304, 0.637],
         target: [0, 0, 0],
         duration: 2500,
@@ -148,7 +199,7 @@ export default function GaussianViewer({ url }: Gaussian) {
         address: "Quintana e Independencia",
       },
       navigation: {
-        initialPoint: [-0.015, -0.1, 0.704], //posicion del disparador flotante
+        initialPoint: [-0.26, -0.1, 0.55], //posicion del disparador flotante
         positionCamera: [-0.595, -0.263, 0.127],
         target: [-0.009, -0.026, 0.298],
         duration: 2500,
@@ -164,7 +215,7 @@ export default function GaussianViewer({ url }: Gaussian) {
         address: "",
       },
       navigation: {
-        initialPoint: [3.913, -0.05, -1.501], //posicion del disparador flotante
+        initialPoint: [3.913, -0.05, 0.55], //posicion del disparador flotante
         positionCamera: [-0.595, -0, 0.127],
         target: [0, 0, 0],
         duration: 2500,
@@ -180,7 +231,7 @@ export default function GaussianViewer({ url }: Gaussian) {
         address: "",
       },
       navigation: {
-        initialPoint: [3.913, -0.1, -1.501], //posicion del disparador flotante
+        initialPoint: [3.913, -0.2, 0.55], //posicion del disparador flotante
         positionCamera: [-0.595, -0.263, 0.127],
         target: [0, 0, 0],
         duration: 2500,
@@ -196,7 +247,7 @@ export default function GaussianViewer({ url }: Gaussian) {
         address: "Av. Independencia 3445",
       },
       navigation: {
-        initialPoint: [2.276, -0.05, -0.423], //posicion del disparador flotante
+        initialPoint: [2.276, -0.2, 0.55], //posicion del disparador flotante
         positionCamera: [-0.595, -0.263, 0.127],
         target: [0, 0, 0],
         duration: 2500,
@@ -212,7 +263,7 @@ export default function GaussianViewer({ url }: Gaussian) {
         address: "Av. Independencia 3501",
       },
       navigation: {
-        initialPoint: [0.276, -0.05, 0.448], //posicion del disparador flotante
+        initialPoint: [0.276, -0.2, 0.55], //posicion del disparador flotante
         positionCamera: [-0.595, -0.263, 0.127],
         target: [-0.009, -0.026, 0.298],
         duration: 2500,
@@ -228,7 +279,7 @@ export default function GaussianViewer({ url }: Gaussian) {
         address: "Independencia y Quintana",
       },
       navigation: {
-        initialPoint: [0.276, -0.05, 0.448], //posicion del disparador flotante
+        initialPoint: [0.276, -0.2, 0.55], //posicion del disparador flotante
         positionCamera: [-0.595, -0.263, 0.127],
         target: [-0.009, -0.026, 0.298],
         duration: 2500,
@@ -244,7 +295,7 @@ export default function GaussianViewer({ url }: Gaussian) {
         address: "",
       },
       navigation: {
-        initialPoint: [2.629, -0.05, -0.788], //posicion del disparador flotante
+        initialPoint: [2.629, -0.2, 0.55], //posicion del disparador flotante
         positionCamera: [-1.124, -0.805, -0.879],
         target: [0.131, -0.162, -0.486],
         duration: 2500,
@@ -260,7 +311,7 @@ export default function GaussianViewer({ url }: Gaussian) {
         address: "",
       },
       navigation: {
-        initialPoint: [1.043, -0.05, 0.055], //posicion del disparador flotante
+        initialPoint: [1.043, -0.2, 0.55], //posicion del disparador flotante
         positionCamera: [-2.168, -0.957, -1.111],
         target: [0, 0, 0],
         duration: 2500,
@@ -294,7 +345,7 @@ export default function GaussianViewer({ url }: Gaussian) {
       },
       navigation: {
         //initialPoint: [0.276, -0.05, 0.448], //posicion del disparador flotante
-        initialPoint: [0.619, -0.052, 0.264],
+        initialPoint: [0.619, -0.052, 0.55],
         //positionCamera: [-0.257,-0.353,-0.138],
         //target: [0.619,0.052,0.264],
         positionCamera: [-2.168, -0.957, -1.111],
@@ -312,7 +363,7 @@ export default function GaussianViewer({ url }: Gaussian) {
         address: "Av Independencia 3205",
       },
       navigation: {
-        initialPoint: [3.403, -0.05, -1.117], //posicion del disparador flotante
+        initialPoint: [3.403, -0.05, 0.55], //posicion del disparador flotante
         positionCamera: [-2.168, -0.957, -1.0],
         target: [0, 0, 0],
         duration: 2500,
@@ -323,21 +374,23 @@ export default function GaussianViewer({ url }: Gaussian) {
     },
   ]);
 
+  const DEBUG = false;
+
   const views: CameraView[] = [
     {
       name: "Frente izquierdo",
-      position: [-0.149, -0.177, 0.424],
-      target: [0.007, -0.002, 0.003],
+      position: [-0.365, -0.258, 0.196],
+      target: [-0.058, -0.09, 0.025],
     },
     {
       name: "Frente derecho",
-      position: [-0.385, -0.271, -0.078],
-      target: [0.007, -0.002, 0.003],
+      position: [-0.304, -0.281, -0.21],
+      target: [-0.058, -0.09, 0.025],
     },
     {
       name: "Contrafrente",
-      position: [0.283, -0.299, 0.031],
-      target: [0, 0, 0],
+      position: [0.275, -0.269, 0.116],
+      target: [-0.058, -0.09, 0.025],
     },
   ];
 
@@ -347,7 +400,8 @@ export default function GaussianViewer({ url }: Gaussian) {
     }
   };
   useEffect(() => {
-    handleLeftMenu();
+    setIsLeftMenuOpen(false);
+    //handleLeftMenu();
     const cityAudio = new Audio("/sounds/city.mp4");
 
     cityAudio.loop = true;
@@ -369,6 +423,20 @@ export default function GaussianViewer({ url }: Gaussian) {
   }, [hotspots]);
 
   useEffect(() => {
+    const scene = viewerRef.current?.threeScene;
+    if (!scene || !overlayRef.current) return;
+
+    overlayRef.current.visible = showRoute;
+  }, [showRoute]);
+
+  useEffect(() => {
+    const scene = viewerRef.current?.threeScene;
+    if (!scene) return;
+
+    scene.background = showSky ? skyTextureRef.current : null;
+  }, [showSky]);
+
+  useEffect(() => {
     window.addEventListener("keydown", onKeyDown);
 
     if (!containerRef.current) return;
@@ -386,12 +454,27 @@ export default function GaussianViewer({ url }: Gaussian) {
 
       viewerRef.current = viewer;
 
+      //limite de camara
       if (viewer.controls) {
-        viewer.controls.maxPolarAngle = 1.2;
+        //viewer.controls.maxPolarAngle = 1.2;
 
-        viewer.controls.minDistance = 0.3;
-        viewer.controls.maxDistance = 2.8;
-        viewer.controls.enableDamping = false;
+        //viewer.controls.minDistance = 0.3;
+        //viewer.controls.maxDistance = 2.8;
+        //viewer.controls.enableDamping = false;
+
+        viewer.controls.minDistance = 0;
+        viewer.controls.maxDistance = Infinity;
+
+        viewer.controls.minPolarAngle = 0;
+        viewer.controls.maxPolarAngle = Math.PI;
+
+        viewer.controls.minAzimuthAngle = -Infinity;
+        viewer.controls.maxAzimuthAngle = Infinity;
+
+        viewer.controls.enableZoom = true;
+        viewer.controls.enablePan = true;
+        viewer.controls.enableRotate = true;
+        viewer.controls.update();
       }
 
       try {
@@ -403,9 +486,118 @@ export default function GaussianViewer({ url }: Gaussian) {
           showLoadingUI: false,
         });
 
+        console.log("Objetos de la escena:");
+
+        viewer.threeScene.traverse((obj: THREE.Object3D) => {
+          console.log(
+            obj.type,
+            obj.name,
+            obj.position.toArray(),
+            obj.rotation.toArray(),
+            obj.scale.toArray()
+          );
+        });
+
         if (disposed) return;
 
-        setupSky();
+        //setupSky();
+
+        const loader = new GLTFLoader();
+
+        units.forEach((unit) => {
+          loader.load(unit.file, (gltf) => {
+            const model = gltf.scene;
+
+            model.position.set(...unit.position);
+
+            model.rotation.set(
+              THREE.MathUtils.degToRad(unit.rotation[0]),
+              THREE.MathUtils.degToRad(unit.rotation[1]),
+              THREE.MathUtils.degToRad(unit.rotation[2])
+            );
+
+            model.visible = false;
+
+            viewer.threeScene.add(model);
+            unitModelsRef.current.set(unit.id, model);
+          });
+        });
+
+        loader.load(
+          "/3d/cubotest-2.glb",
+          (gltf) => {
+            const model = gltf.scene;
+
+            // Oculto al iniciar
+            model.visible = false;
+
+            // Ajustá estos valores según tu Gaussian Splatting
+            //el z de blender es y
+            //const size = 0.008;
+            const size = 1;
+
+            model.position.set(glbPosition[0], glbPosition[1], glbPosition[2]);
+            model.rotation.set(
+              THREE.MathUtils.degToRad(glbRotation[0]),
+              THREE.MathUtils.degToRad(glbRotation[1]),
+              THREE.MathUtils.degToRad(glbRotation[2])
+            );
+            model.scale.set(size, size, size);
+
+            viewer.threeScene.add(model);
+            glbRef.current = model;
+          },
+          undefined,
+          (error) => {
+            console.error("Error cargando el modelo GLB:", error);
+          }
+        );
+
+        //CARGA DE LINEA NARANJA
+
+        const overlay = new THREE.Group();
+        overlay.name = "EF_Overlay";
+
+        const points = [
+          new THREE.Vector3(0, -0.01, 0),
+          new THREE.Vector3(0, -0.01, 0.35),
+          new THREE.Vector3(12, -0.01, 0.35),
+        ];
+
+        const material = new THREE.MeshBasicMaterial({
+          color: 0xff8800,
+          depthTest: true,
+          depthWrite: true,
+        });
+
+        const radius = 0.01;
+
+        for (let i = 0; i < points.length - 1; i++) {
+          const start = points[i];
+          const end = points[i + 1];
+
+          const direction = new THREE.Vector3().subVectors(end, start);
+          const length = direction.length();
+
+          const geometry = new THREE.CylinderGeometry(radius, radius, length, 8);
+
+          const segment = new THREE.Mesh(geometry, material);
+
+          segment.position.copy(start).add(end).multiplyScalar(0.5);
+          segment.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), direction.normalize());
+
+          segment.name = `EF_LineSegment_${i}`;
+          overlay.add(segment);
+        }
+
+        // Agregar el grupo una sola vez.
+        viewer.threeScene.add(overlay);
+        overlayRef.current = overlay;
+        overlay.visible = showRoute;
+
+        console.log("Overlay agregado:", overlay);
+        console.log("Padre:", overlay.parent?.name);
+        console.log("Posición:", overlay.position.toArray());
 
         viewer.start();
 
@@ -441,6 +633,43 @@ export default function GaussianViewer({ url }: Gaussian) {
       }
     };
   }, []);
+
+  const toggleAvailableUnits = () => {
+    const nextVisible = !showAvailableUnits;
+
+    setShowAvailableUnits(nextVisible);
+
+    units.forEach((unit) => {
+      const model = unitModelsRef.current.get(unit.id);
+
+      if (model) {
+        model.visible = nextVisible && unit.available;
+      }
+    });
+  };
+
+  const handleLocate = () => {
+    // Coordenadas de Google Maps
+    //feria
+    //const lat = -38.011088;
+    //const lon = -57.565101;
+
+    // esquina
+    //const lat =  -38.012048;
+    //const lon = -57.563935;
+
+    //edificio
+    const lat = -38.011274;
+    const lon = -57.56555;
+
+    const position = gpsToGaussian(lat, lon);
+
+    console.log("Gaussian X:", position.x);
+    console.log("Gaussian Z:", position.z);
+
+    // Ejemplo: posicionar un objeto 3D
+    // mesh.position.set(position.x, 0.08, position.z);
+  };
 
   const loadWithProgress = async (url: string) => {
     const response = await fetch(url);
@@ -489,6 +718,29 @@ export default function GaussianViewer({ url }: Gaussian) {
     return URL.createObjectURL(blob);
   };
 
+  const updateGlbRotation = (axis: 0 | 1 | 2, degrees: number) => {
+    const next: Vector3 = [...glbRotation];
+    next[axis] = degrees;
+
+    setGlbRotation(next);
+
+    const model = glbRef.current;
+
+    if (model) {
+      model.rotation.set(
+        THREE.MathUtils.degToRad(next[0]),
+        THREE.MathUtils.degToRad(next[1]),
+        THREE.MathUtils.degToRad(next[2])
+      );
+    }
+
+    console.log("Rotación GLB (grados):", {
+      x: Number(next[0].toFixed(2)),
+      y: Number(next[1].toFixed(2)),
+      z: Number(next[2].toFixed(2)),
+    });
+  };
+
   const addHotspot = () => {
     setHotspots((prev) => [
       ...prev,
@@ -515,7 +767,19 @@ export default function GaussianViewer({ url }: Gaussian) {
       hotspot.navigation.duration
     );
   };
+  const toggleGlb = () => {
+    const model = glbRef.current;
 
+    if (!model) return;
+
+    const next = !model.visible;
+
+    model.visible = next;
+    setShowGlb(next);
+
+    console.log("GLB visible:", model.visible);
+    console.log("Background:", viewerRef.current?.threeScene?.background);
+  };
   const project = (point: Vector3): ScreenPosition => {
     const viewer = viewerRef.current;
 
@@ -559,7 +823,7 @@ export default function GaussianViewer({ url }: Gaussian) {
   };
 
   const openModal = (modalType: string) => {
-    handleLeftMenu();
+    setIsLeftMenuOpen(false);
     if (modalType === "flats") {
       setSliderFlats([
         "/itaim/planos/2-6.jpg",
@@ -620,21 +884,32 @@ export default function GaussianViewer({ url }: Gaussian) {
   const setupSky = () => {
     const viewer = viewerRef.current;
 
-    if (!viewer || !viewer.threeScene) return;
+    if (!viewer?.threeScene) return;
 
     const loader = new THREE.TextureLoader();
 
     loader.load(
-      "/sky/sky.jpg",
-
+      "/sky/sky-1.jpg",
       (texture) => {
         texture.mapping = THREE.EquirectangularReflectionMapping;
-
         texture.colorSpace = THREE.SRGBColorSpace;
 
-        viewer.threeScene.background = texture;
+        skyTextureRef.current = texture;
+
+        const scene = viewerRef.current?.threeScene;
+        if (scene && showSky) {
+          scene.background = texture;
+        }
+      },
+      undefined,
+      (error) => {
+        console.error("Error cargando el cielo:", error);
       }
     );
+  };
+
+  const toggleSky = () => {
+    setShowSky((prev) => !prev);
   };
 
   const captureCamera = () => {
@@ -763,6 +1038,7 @@ export default function GaussianViewer({ url }: Gaussian) {
 
   const showPointOfInterest = (category: string) => {
     setFlatModal(false);
+    setIsLeftMenuOpen(false);
     //setShowInfoBuilding(false);
     let camPosition: Vector3 = [0, 0, 0];
     if (category === "superMarket" || category === "cafes") {
@@ -891,6 +1167,118 @@ export default function GaussianViewer({ url }: Gaussian) {
         height: "100vh",
       }}
     >
+      {/* PANEL DE CALIBRACIÓN DEL MODELO GLB */}
+      {DEBUG && (
+        <div className="glb-calibration">
+          <h4>Calibración GLB</h4>
+
+          {[
+            { label: "X", axis: 0 as const },
+            { label: "Y", axis: 1 as const },
+            { label: "Z", axis: 2 as const },
+          ].map(({ label, axis }) => (
+            <div className="glb-axis" key={label}>
+              <label>
+                Eje {label}: {glbPosition[axis].toFixed(4)}
+              </label>
+
+              <input
+                type="range"
+                min="-10"
+                max="10"
+                step="0.0001"
+                value={glbPosition[axis]}
+                onChange={(e) => updateGlbPosition(axis, Number(e.target.value))}
+              />
+
+              <input
+                type="number"
+                step="0.01"
+                value={glbPosition[axis]}
+                onChange={(e) => updateGlbPosition(axis, Number(e.target.value))}
+              />
+            </div>
+          ))}
+          <div>
+            <button
+              type="button"
+              onClick={() => {
+                const model = glbRef.current;
+                if (!model) return;
+
+                const position = {
+                  x: Number(model.position.x.toFixed(4)),
+                  y: Number(model.position.y.toFixed(4)),
+                  z: Number(model.position.z.toFixed(4)),
+                };
+
+                console.log("POSICIÓN FINAL GLB:", position);
+                console.log(`model.position.set(${position.x}, ${position.y}, ${position.z});`);
+
+                navigator.clipboard.writeText(
+                  `model.position.set(${position.x}, ${position.y}, ${position.z});`
+                );
+              }}
+            >
+              Copiar posición final
+            </button>
+          </div>
+
+          <h4>Rotación (grados)</h4>
+          {[
+            { label: "X", axis: 0 as const },
+            { label: "Y", axis: 1 as const },
+            { label: "Z", axis: 2 as const },
+          ].map(({ label, axis }) => (
+            <div className="glb-axis" key={`rotation-${label}`}>
+              <label>
+                Rotación {label}: {glbRotation[axis].toFixed(2)}°
+              </label>
+
+              <input
+                type="range"
+                min="-180"
+                max="180"
+                step="0.001"
+                value={glbRotation[axis]}
+                onChange={(e) => updateGlbRotation(axis, Number(e.target.value))}
+              />
+
+              <input
+                type="number"
+                step="0.01"
+                value={glbRotation[axis]}
+                onChange={(e) => updateGlbRotation(axis, Number(e.target.value))}
+              />
+            </div>
+          ))}
+          <div>
+            <button
+              type="button"
+              onClick={() => {
+                const model = glbRef.current;
+                if (!model) return;
+
+                const rotation = {
+                  x: Number(model.rotation.x.toFixed(4)),
+                  y: Number(model.rotation.y.toFixed(4)),
+                  z: Number(model.rotation.z.toFixed(4)),
+                };
+
+                console.log("ROTACIÓN FINAL GLB:", rotation);
+                console.log(`model.rotation.set(${rotation.x}, ${rotation.y}, ${rotation.z});`);
+
+                navigator.clipboard.writeText(
+                  `model.rotation.set(${rotation.x}, ${rotation.y}, ${rotation.z});`
+                );
+              }}
+            >
+              Copiar rotacion final
+            </button>
+          </div>
+        </div>
+      )}
+
       <div className={`overlay-slider ${showFlatModal ? "active" : ""}`}></div>
       {isLoading && (
         <div className="gaussian-loader">
@@ -955,15 +1343,18 @@ export default function GaussianViewer({ url }: Gaussian) {
       )}
 
       {/* LABEL SPOT */}
-      <div className={`intro-user-container ${!isLoading && showIntro ? "show" : "hide"}`}>
-        <div className="content">
-          <h3 className="title">Bienvenidos a EF INTERACTIVE</h3>
-          <p>Una experiencia inmersiva</p>
-          <button className="intro-user-button" onClick={startCitySound}>
-            Entrar
-          </button>
+      {hasIntro && (
+        <div className={`intro-user-container ${!isLoading && showIntro ? "show" : "hide"}`}>
+          <div className="content">
+            <h3 className="title">Bienvenidos a EF INTERACTIVE</h3>
+            <p>Una experiencia inmersiva</p>
+            <button className="intro-user-button" onClick={startCitySound}>
+              Entrar
+            </button>
+          </div>
         </div>
-      </div>
+      )}
+      {/** acá se despliega el mapa */}
       <div
         ref={containerRef}
         style={{
@@ -1007,119 +1398,105 @@ export default function GaussianViewer({ url }: Gaussian) {
         </div>
       )}
       <div
-        className={`menu ${isLeftMenuOpen ? "open" : "close"}`}
+        className={`menu ${isLeftMenuOpen ? "open" : "closed"}`}
         style={{
           visibility: isLoading ? "hidden" : "visible",
         }}
       >
         <div className="menu__header">
-          <FontAwesomeIcon icon={faArrowLeft} className="me-2" onClick={() => handleLeftMenu()} />
-          <div>
-            {/*showInfoBuilding && (*/}
-            <div
-              className="info-building"
-              style={{
-                visibility: isLoading ? "hidden" : "visible",
-              }}
-            >
+          <button
+            className="menu__toggle"
+            onClick={handleLeftMenu}
+            aria-label={isLeftMenuOpen ? "Cerrar menú" : "Abrir menú"}
+          >
+            <FontAwesomeIcon icon={faArrowLeft} />
+          </button>
+
+          <div className="menu__content">
+            <div className="info-building">
               <h6 className="title mb-4">ITAIM II</h6>
+
               <div className="hotspot-list">
-                <button
-                  key="seeFlats"
-                  className="btn btn-lateral"
-                  onClick={() => {
-                    openModal("flats");
-                  }}
-                >
-                  Ver planos
+                <button className="btn btn-lateral" onClick={() => openModal("flats")}>
+                  <Icon icon="si:map-line" />
+                  <span className="description-menu">Ver planos</span>
                 </button>
-                <button
-                  key="seeRenders"
-                  className="btn btn-lateral"
-                  onClick={() => {
-                    openModal("renders");
-                  }}
-                >
-                  Ver renders
+
+                <button className="btn btn-lateral" onClick={() => openModal("renders")}>
+                  <Icon icon="prime:building" />
+                  <span className="description-menu">Ver renders</span>
                 </button>
               </div>
             </div>
-            {/*)}*/}
-          </div>
-          <div>
-            <h6>Puntos de interés</h6>
-            <button
-              key="cafes"
-              className="btn btn-lateral"
-              onClick={() => {
-                showPointOfInterest("cafes");
-              }}
-            >
-              Cafés
-            </button>
-            <button
-              key="bank"
-              className="btn btn-lateral"
-              onClick={() => {
-                showPointOfInterest("bank");
-              }}
-            >
-              Bancos
-            </button>
-            <button
-              key="service-station"
-              className="btn btn-lateral"
-              onClick={() => {
-                showPointOfInterest("serviceStation");
-              }}
-            >
-              Est de Servicio
-            </button>
-            <button
-              key="superMarket"
-              className="btn btn-lateral"
-              onClick={() => {
-                showPointOfInterest("superMarket");
-              }}
-            >
-              Comercios
-            </button>
-            <button
-              key="restaurants"
-              className="btn btn-lateral"
-              onClick={() => {
-                showPointOfInterest("restaurants");
-              }}
-            >
-              Restaurantes
-            </button>
-          </div>
-        </div>
-        <div className="menu__line"></div>
-        <div>
-          {showInfo && (
-            <div className="info-hotspot">
-              <h6 className="title mb-4">HOTSPOTS</h6>
-              <div className="hotspot-list">
-                {visibleHotspots.map((spot) => (
-                  <div
-                    key={spot.id}
-                    className={`hotspot-card ${spot.selected ? "active" : ""}`}
-                    onClick={() => selectHotspot(spot)}
-                  >
-                    <div className="hotspot-card__header">
-                      <div>
-                        <h5>{spot.info.label}</h5>
+
+            <div className="points-of-interest">
+              <h6>Puntos de interés</h6>
+
+              <button className="btn btn-lateral" onClick={() => showPointOfInterest("cafes")}>
+                <Icon icon="mdi:coffee" />
+                <span className="description-menu">Cafés</span>
+              </button>
+
+              <button className="btn btn-lateral" onClick={() => showPointOfInterest("bank")}>
+                <Icon icon="mdi:bank" />
+                <span className="description-menu">Bancos</span>
+              </button>
+
+              <button
+                className="btn btn-lateral"
+                onClick={() => showPointOfInterest("serviceStation")}
+              >
+                <Icon icon="mdi:gas-station" />
+                <span className="description-menu">Est. de Servicio</span>
+              </button>
+
+              <button
+                className="btn btn-lateral"
+                onClick={() => showPointOfInterest("superMarket")}
+              >
+                <Icon icon="mdi:store" />
+                <span className="description-menu">Comercios</span>
+              </button>
+
+              <button
+                className="btn btn-lateral"
+                onClick={() => showPointOfInterest("restaurants")}
+              >
+                <Icon icon="mdi:silverware-fork-knife" />
+                <span className="description-menu">Restaurantes</span>
+              </button>
+            </div>
+
+            {showInfo && (
+              <>
+                <div className="menu__line"></div>
+
+                <div className="info-hotspot">
+                  <h6 className="title mb-4">HOTSPOTS</h6>
+
+                  <div className="hotspot-list">
+                    {visibleHotspots.map((spot) => (
+                      <div
+                        key={spot.id}
+                        className={`hotspot-card ${spot.selected ? "active" : ""}`}
+                        onClick={() => selectHotspot(spot)}
+                      >
+                        <div className="hotspot-card__header">
+                          <div>
+                            <h5>{spot.info.label}</h5>
+                          </div>
+                        </div>
+
+                        <div className="hotspot-card__body">
+                          <p>{spot.info.address}</p>
+                        </div>
                       </div>
-                    </div>
-                    <div className="hotspot-card__body">
-                      <p>{spot.info.address}</p>
-                    </div>
+                    ))}
                   </div>
-                ))}
-              </div>
-            </div>
-          )}
+                </div>
+              </>
+            )}
+          </div>
         </div>
       </div>
 
@@ -1147,6 +1524,29 @@ export default function GaussianViewer({ url }: Gaussian) {
               {view.name}
             </button>
           ))}
+          {DEBUG && (
+            <div>
+              <button className="btn btn-footer" onClick={toggleGlb}>
+                {showGlb ? "Ocultar edificio 3D" : "Mostrar edificio 3D"}
+              </button>
+              <button type="button" className="btn btn-footer" onClick={toggleAvailableUnits}>
+                {showAvailableUnits
+                  ? "Ocultar unidades disponibles"
+                  : "Ver todas las unidades disponibles"}
+              </button>
+              <button type="button" className="btn btn-footer" onClick={toggleSky}>
+                {showSky ? "Ocultar cielo" : "Mostrar cielo"}
+              </button>
+              <button onClick={handleLocate}>Localizar punto</button>
+            </div>
+          )}
+          <button
+            type="button"
+            className="btn btn-footer"
+            onClick={() => setShowRoute((prev) => !prev)}
+          >
+            {showRoute ? "Ocultar ruta" : "Mostrar ruta"}
+          </button>
         </div>
         {/*<button
           key="test"
@@ -1158,9 +1558,11 @@ export default function GaussianViewer({ url }: Gaussian) {
           NUEVO HOTSPOT TEST
         // </button>*/}
       </div>
-      <div key="seeFlats" className="contact-us">
-        Contactanos
-      </div>
+      {showContactUs && (
+        <div key="contactUs" className="contact-us">
+          Contactanos
+        </div>
+      )}
     </div>
   );
 }

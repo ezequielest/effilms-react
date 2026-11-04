@@ -16,9 +16,12 @@ export const Hero: React.FC = () => {
                                Luego será un video o un Canvas */}
               <div className="hero__viewer">
                 <div className="hero__viewer-overlay" />
-
                 <div className="hero__viewer-placeholder">
-                  <GaussianViewer url={"/splats/test.ply"} />
+                  <GaussianViewer
+                    hasIntro={false}
+                    showContactUs={false}
+                    url={"/splats/torreon-fix.ply"}
+                  />
                 </div>
               </div>
             </div>

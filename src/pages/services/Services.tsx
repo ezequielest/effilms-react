@@ -27,7 +27,7 @@ export const Services: React.FC = () => {
         title={"ALCANZAR TUS OBJETIVOS"}
         preTitle={"A continuación te presentamos nuestras propuestas para que puedas"}
         hasSubtitle={true}
-        subtitleFirstline={"VALORES VIGENTES DESDE EL 1 JULIO DE 2026"}
+        subtitleFirstline={"VALORES VIGENTES DESDE EL 1 DE SEPTIEMBRE DE 2026"}
         subtitleSecondLine={""}
       />
       <ServiceType />

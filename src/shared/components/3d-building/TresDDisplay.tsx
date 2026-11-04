@@ -44,6 +44,7 @@ function TresDDisplay({ url, heightContainer = "450px" }: TresDViewer) {
           <Environment preset="sunset" />
         </Suspense>
         <OrbitControls
+          enableZoom={false}
           autoRotate
           autoRotateSpeed={1.5}
           target={[-20, 40, 30]} // coincide con la posición del modelo
