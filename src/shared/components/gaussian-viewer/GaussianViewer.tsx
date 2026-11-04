@@ -882,7 +882,7 @@ export default function GaussianViewer({ url, showContactUs = false, hasIntro = 
     );
   };
 
-  const setupSky = () => {
+  /*const setupSky = () => {
     const viewer = viewerRef.current;
 
     if (!viewer?.threeScene) return;
@@ -907,7 +907,7 @@ export default function GaussianViewer({ url, showContactUs = false, hasIntro = 
         console.error("Error cargando el cielo:", error);
       }
     );
-  };
+  };*/
 
   const toggleSky = () => {
     setShowSky((prev) => !prev);

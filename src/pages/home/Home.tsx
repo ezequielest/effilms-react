@@ -5,7 +5,6 @@ import "./Home.scss";
 
 import Counters from "../../shared/components/counters/Counters";
 import BoxServices from "./components/box-services/BoxServices";
-import MonthPlan from "../../shared/components/month-plan/MonthPlan";
 import Team from "./components/team/Team";
 import Testimonials from "./components/testimonials/Testimonials";
 import Us from "./components/us/Us";

@@ -1,7 +1,7 @@
-import type { Aditionals } from "./Aditionals.enum";
+import type { ADITIONALS } from "./Aditionals.enum";
 
 export interface IServiceExtra {
-  type: Aditionals;
+  type: ADITIONALS;
   price: number;
   hours?: number;
 }

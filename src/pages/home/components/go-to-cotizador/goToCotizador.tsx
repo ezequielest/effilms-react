@@ -1,5 +1,3 @@
-
-import React from "react";
 import './goToCotizador.scss';
 
 const QuoteCTA = () => {

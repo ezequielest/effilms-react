@@ -1,4 +1,4 @@
-import type { Aditionals } from "./Aditionals.enum";
+import type { ADITIONALS } from "./Aditionals.enum";
 import type { ContractType } from "./ContractType.enum";
 import type { ProductionType } from "./ProductionType.enum";
 import type { PropertyServiceType } from "./PropertyServiceType.enum";
@@ -10,6 +10,6 @@ export interface IProductionConfiguration {
   level?: ServiceGroup;
   propertySize?: number;
   coverageArea?: number;
-  extras: Aditionals[];
+  extras: ADITIONALS[];
   contract?: ContractType;
 }
