@@ -4,7 +4,7 @@ import "./ServiceType.scss";
 import { serviceTypes } from "../../../../data/serviceType";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faXmark } from "@fortawesome/free-solid-svg-icons";
-import { ServiceGroup } from "../../../../core/models/ServiceGroup.enum";
+import { ServiceGroup } from "../../../../core/models/cotizador/ServiceGroup.enum";
 
 export const ServiceType: React.FC = () => {
   return (

@@ -1,6 +1,7 @@
-import { ADITIONALS } from "../core/models/Aditionals.enum";
+
 import type { IServices, IServicesSmall } from "../core/models/Iservices";
-import { ServiceGroup } from "../core/models/ServiceGroup.enum";
+import { ADITIONALS } from "../core/models/cotizador/Aditionals.enum";
+import { ServiceGroup } from "../core/models/cotizador/ServiceGroup.enum";
 import { ServiceType } from "../core/models/serviceType.enum";
 
 export const servicesArray: Array<IServices> = [

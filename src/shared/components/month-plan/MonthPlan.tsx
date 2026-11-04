@@ -5,7 +5,7 @@ import CardPlan from "./card-plan/CardPlan";
 import type { Iplans } from "../../../core/models/Iplans";
 import { servicesArray } from "../../../data/services";
 import { ADITIONALS } from "../../../core/models/Aditionals.enum";
-import { ServiceGroup } from "../../../core/models/ServiceGroup.enum";
+import { ServiceGroup } from "../../../core/odels/cotizador/ServiceGroup.enum";
 
 function MonthPlan() {
   const [cantMonthSelected, setCantMonthSelected] = useState(2);

@@ -7,9 +7,9 @@ import type { IServiceType } from "../../../core/models/IServiceType";
 import ToggleSwitch from "../toggle-switch/ToggleSwitch";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Popover from "react-bootstrap/Popover";
-import { ADITIONALS } from "../../../core/models/Aditionals.enum";
+import { ADITIONALS } from "../../../core/models/cotizador/Aditionals.enum";
 import { formatNumber } from "../../utils/numbers";
-import { ServiceGroup } from "../../../core/models/ServiceGroup.enum";
+import { ServiceGroup } from "../../../core/models/cotizador/ServiceGroup.enum";
 
 interface CardProps {
   key: number;
