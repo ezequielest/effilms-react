@@ -36,7 +36,7 @@ function InmersiveInfo() {
                 </a>*/}
                 <a
                   target="_blank"
-                  href="https://api.whatsapp.com/send?phone=542236688588&text=Hola, me gustaría obtener más información sobre los proyectos inmersivos."
+                  href="https://api.whatsapp.com/send?phone=542236674588&text=Hola, me gustaría obtener más información sobre los proyectos inmersivos."
                   className="btn primary-btn btn-center"
                 >
                   QUIERO CONTACTARME

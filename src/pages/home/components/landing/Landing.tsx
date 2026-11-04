@@ -78,7 +78,7 @@ export const Landing: React.FC = () => {
 
       <div className="landing__redes">
         <a
-          href="https://api.whatsapp.com/send?phone=542236688588&text=Hola, me gustaría pedirles un presupuesto."
+          href="https://api.whatsapp.com/send?phone=542236674588&text=Hola, me gustaría pedirles un presupuesto."
           target="_blank"
         >
           <FontAwesomeIcon icon={faWhatsapp} />

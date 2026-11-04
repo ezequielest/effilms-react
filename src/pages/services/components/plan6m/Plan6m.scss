@@ -22,6 +22,11 @@
     font-size: 1.2rem;
     color: $white-color;
     margin-bottom: 1rem;
+
+    .plan-6m-title {
+      font-size: 12px;
+      font-weight: bold;
+    }
   }
   &__item {
     display: flex;

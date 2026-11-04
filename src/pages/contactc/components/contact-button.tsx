@@ -24,7 +24,7 @@ export const ContactButton: React.FC = () => {
                 <a
                   className="btn-value"
                   target="_blank"
-                  href="https://api.whatsapp.com/send?phone=542236688588&text=Hola, me gustaría entrar en contacto con ustedes!"
+                  href="https://api.whatsapp.com/send?phone=542236674588&text=Hola, me gustaría entrar en contacto con ustedes!"
                 >
                   <FontAwesomeIcon icon={faWhatsapp} /> WHATSAPP
                 </a>

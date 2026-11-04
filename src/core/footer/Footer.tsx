@@ -52,7 +52,7 @@ export const Footer: React.FC = () => {
                     <li>
                       <a
                         className="text-primary"
-                        href="https://wa.me/5492236688588"
+                        href="https://wa.me/5492236674588"
                         target="_blank"
                       >
                         +54 9 2236 68 8588
@@ -68,7 +68,7 @@ export const Footer: React.FC = () => {
                   </ul>
                   <div className="footer__social">
                     <a
-                      href="https://api.whatsapp.com/send?phone=542236688588&text=Hola, me gustaría hacer contacto con ustedes."
+                      href="https://api.whatsapp.com/send?phone=542236674588&text=Hola, me gustaría hacer contacto con ustedes."
                       target="_blank"
                     >
                       <FontAwesomeIcon icon={faWhatsapp} />

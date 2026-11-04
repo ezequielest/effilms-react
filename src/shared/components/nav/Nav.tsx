@@ -92,7 +92,7 @@ const Nav: React.FC = () => {
 
           <div className="landing__redes--mobile">
             <a
-              href="https://api.whatsapp.com/send?phone=542236688588"
+              href="https://api.whatsapp.com/send?phone=542236674588"
               target="_blank"
               rel="noreferrer"
             >

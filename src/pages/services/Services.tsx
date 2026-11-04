@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import Header from "../../shared/components/header/Header";
-import MonthPlan from "../../shared/components/month-plan/MonthPlan";
 import Counter from "../../shared/components/counters/Counters";
 import Callto from "../../shared/components/callto/Callto";
 import Prices from "./components/prices/Prices";
@@ -11,6 +10,7 @@ import HeroTitle from "../../shared/components/hero-title/HeroTitle";
 import Plan6m from "./components/plan6m/Plan6m";
 import ServiceType from "./components/service-type/ServiceType";
 import ExplanetionDiscount from "./components/explanetion-discount/ExplanetionDiscount";
+import FlexSystem from "./components/flex/FlexSystem";
 
 export const Services: React.FC = () => {
   useEffect(() => {
@@ -27,7 +27,7 @@ export const Services: React.FC = () => {
         title={"ALCANZAR TUS OBJETIVOS"}
         preTitle={"A continuación te presentamos nuestras propuestas para que puedas"}
         hasSubtitle={true}
-        subtitleFirstline={"VALORES VIGENTES DESDE EL 1 DE SEPTIEMBRE DE 2026"}
+        subtitleFirstline={"VALORES VIGENTES DESDE EL 1 DE NOVIEMBRE DE 2026"}
         subtitleSecondLine={""}
       />
       <ServiceType />
@@ -43,7 +43,7 @@ export const Services: React.FC = () => {
         title={"PLAN FLEXIBLE."}
         description={"Realiza varias producciones en el mismo mes y obtene un descuento adicional."}
       />
-      <MonthPlan />
+      <FlexSystem />
       <HeroTitle
         ancle={"plan6m"}
         title={"PLAN 6M."}

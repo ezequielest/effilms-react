@@ -14,6 +14,7 @@ import Clients from "./components/clients/Clients";
 import Callto from "../../shared/components/callto/Callto";
 import { useEffect } from "react";
 import InmersiveInfo from "./components/inmersive/InmersiveInfo";
+import GoToCotizador from "./components/go-to-cotizador/goToCotizador";
 
 function Home() {
   useEffect(() => {
@@ -41,12 +42,7 @@ function Home() {
         {/*<GaussianViewer />*/}
         <Counters />
         <BoxServices />
-        <MonthPlan />
-        <div className="quiero-ver-todo text-center bg-gray-4">
-          <a className="btn primary-btn" href="/servicios">
-            QUIERO VER TODOS LOS PLANES
-          </a>
-        </div>
+        <GoToCotizador />
         <Team />
         <Testimonials />
         <Callto />
