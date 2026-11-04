@@ -97,6 +97,7 @@ export default function GaussianViewer({ url, showContactUs = false, hasIntro = 
   const [showSky, setShowSky] = useState(true);
   const skyTextureRef = useRef<THREE.Texture | null>(null);
   const [showRoute, setShowRoute] = useState(true);
+  const [focalLength, setFocalLength] = useState(50);
 
   const units: UnitConfig[] = [
     {
@@ -672,6 +673,17 @@ export default function GaussianViewer({ url, showContactUs = false, hasIntro = 
     // Ejemplo: posicionar un objeto 3D
     // mesh.position.set(position.x, 0.08, position.z);
   };
+
+  const updateFocalLength = (value: number) => {
+      const camera = viewerRef.current?.camera;
+
+      if (!camera || !camera.isPerspectiveCamera) return;
+
+      camera.setFocalLength(value);
+      camera.updateProjectionMatrix();
+
+      setFocalLength(value);
+};
 
 
   const loadWithProgress = async (url: string) => {
@@ -1278,6 +1290,41 @@ export default function GaussianViewer({ url, showContactUs = false, hasIntro = 
             Copiar rotacion final
           </button>
         </div>
+        <div className="glb-calibration">
+
+  <h4>Cámara</h4>
+
+  <div className="glb-axis">
+
+    <label>
+      Focal Length: {focalLength.toFixed(1)} mm
+    </label>
+
+    <input
+      type="range"
+      min="10"
+      max="150"
+      step="1"
+      value={focalLength}
+      onChange={(e) =>
+        updateFocalLength(Number(e.target.value))
+      }
+    />
+
+    <input
+      type="number"
+      min="10"
+      max="150"
+      step="1"
+      value={focalLength}
+      onChange={(e) =>
+        updateFocalLength(Number(e.target.value))
+      }
+    />
+
+  </div>
+
+</div>
       </div>
 
       <div className={`overlay-slider ${showFlatModal ? "active" : ""}`}></div>
