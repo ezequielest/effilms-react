@@ -18,18 +18,15 @@ function App() {
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
-    const handleLoad = () => {
-      // Le damos tiempo al fadeOut
-      setTimeout(() => setLoaded(true), 200);
-    };
+  const handleLoad = () => setTimeout(() => setLoaded(true), 200);
 
-    if (document.readyState === "complete") {
-      handleLoad();
-    } else {
-      window.addEventListener("load", handleLoad);
-      return () => window.removeEventListener("load", handleLoad);
-    }
-  });
+  if (document.readyState === "complete") {
+    handleLoad();
+  } else {
+    window.addEventListener("load", handleLoad);
+    return () => window.removeEventListener("load", handleLoad);
+  }
+}, []);
 
   return (
     <>
