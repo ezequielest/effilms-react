@@ -46,7 +46,7 @@ const Nav: React.FC = () => {
     } else if (location.pathname.startsWith("/studio")) {
       setIsEFfilms(false);
       return INMERSIVE_NAV;
-    } else if (location.pathname.startsWith("/inmersive") || location.pathname.startsWith("/ranking")) {
+    } else if (location.pathname.startsWith("/inmersive") || location.pathname.startsWith("/ranking" ) || location.pathname.startsWith("/spark")) {
       return [];
     }
     setIsEFfilms(false);

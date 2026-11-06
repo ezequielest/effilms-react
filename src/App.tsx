@@ -12,6 +12,7 @@ import Inmersive from "./pages/inmersive/Inmersive";
 import InteractiveLanding from "./pages/gaussian/InteractiveLanding";
 import AdminPuntos from "./pages/admin/adminPoints";
 import RankingPoints from "./pages/puntos/ranking-points";
+import SparkViewer from "./shared/components/spark-viewer/SparkViewer";
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -46,6 +47,7 @@ function App() {
         <Route path="/studio" element={<InteractiveLanding />} />
         <Route path="/adminpoints" element={<AdminPuntos />} />
         <Route path="/ranking" element={<RankingPoints />} />
+        <Route path="/spark" element={<SparkViewer url={'/splats/escena.sog'} />} />
       </Routes>
       <Footer />
     </>

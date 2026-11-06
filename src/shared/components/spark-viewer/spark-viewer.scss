@@ -1,0 +1,76 @@
+.spark-container {
+    background-color: black;
+    color: red;
+}
+.spark-viewer {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background: #0b0d12;
+  overflow: hidden;
+
+  canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  &__status {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    padding: 6px 10px;
+    border-radius: 6px;
+    font: 13px/1.2 system-ui, sans-serif;
+    color: #fff;
+    background: rgba(0, 0, 0, 0.55);
+    pointer-events: none;
+  }
+}
+
+  .hotspot-container-labels {
+    position: absolute;
+    transform: translate(-50%, -50%);
+
+    .hotspot-label {
+      padding: 5px;
+      border-radius: 3px;
+      border: 0;
+      font-size: 12px;
+      padding: 8px 12px;
+      font-weight: bold;
+      color: var(--color-background);
+
+      &.active {
+        background-color: var(--color-accent-gv);
+        color: var(--color-primary);
+      }
+    }
+
+    .hotspot-line {
+      height: 42px;
+      width: 1px;
+      left: 49%;
+      top: 54px;
+      position: absolute;
+      transform: translate(-50%, -50%);
+      display: block;
+      background-color: var(--color-primary);
+
+      &.active {
+        background-color: var(--color-accent-gv);
+      }
+    }
+
+    .hotspot-dot {
+      height: 12px;
+      width: 12px;
+      left: 49%;
+      top: 68px;
+      position: absolute;
+      transform: translate(-50%, -50%);
+      display: block;
+      background-color: var(--color-primary);
+      border-radius: 50%;
+    }
+  }
