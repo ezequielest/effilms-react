@@ -1,7 +1,7 @@
 /*BASEPRICE ES EL VALOR NETO POR PRODUCCION (CON DESCUENTO), CON ESTE SE CALCULA EL AHORRO*/
 
 import type { Iplans } from "../core/models/Iplans";
-import { ServiceGroup } from "../core/models/ServiceGroup.enum";
+import { ServiceGroup } from "../core/models/cotizador/ServiceGroup.enum";
 
 export const plans: Array<Iplans> = [
   {

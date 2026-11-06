@@ -38,8 +38,8 @@ const Plan6m: React.FC = () => {
             <div key={idx} className="col-12 col-md-6 col-xl-4">
               <h2 className="plan6m__title">{plan.title}</h2>
               <div className="sub-description">
-                <div>PRODUCCIONES</div>
-                <div>VALOR</div>
+                <div className="plan-6m-title">PRODUCCIONES</div>
+                <div className="plan-6m-title">VALOR MENSUAL</div>
               </div>
               <div className="plan6m__items">
                 {plan.items.map((item, itemIdx) => (
@@ -49,6 +49,11 @@ const Plan6m: React.FC = () => {
                   </div>
                 ))}
               </div>
+              <a href={'https://api.whatsapp.com/send?phone=542236674588&text=Hola! Estoy interesado en adquirir el plan 6m ' + plan.title }
+                      target="_blank">
+                SOLICITAR PLAN ↗
+              </a>
+
             </div>
           ))}
         </div>
