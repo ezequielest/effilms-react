@@ -1,4 +1,4 @@
-export const Aditionals = {
+export const ADITIONALS = {
   DRON: "DRON",
   BROKER: "BROKER",
   MODEL: "MODEL",
@@ -6,4 +6,4 @@ export const Aditionals = {
   CONTENT: "CONTENT",
 } as const;
 
-export type Aditionals = (typeof Aditionals)[keyof typeof Aditionals];
+export type ADITIONALS = (typeof ADITIONALS)[keyof typeof ADITIONALS];

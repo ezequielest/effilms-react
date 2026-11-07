@@ -1,4 +1,4 @@
-import { ServiceGroup } from "../../../../core/models/ServiceGroup.enum";
+import { ServiceGroup } from "../../../../core/models/cotizador/ServiceGroup.enum";
 import { customArray, servicesArray } from "../../../../data/services";
 import { serviceTypes } from "../../../../data/serviceType";
 import ServiceCard from "../../../../shared/components/card-price/ServiceCard";

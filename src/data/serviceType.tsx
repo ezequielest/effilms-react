@@ -1,5 +1,5 @@
 import type { IServiceType } from "../core/models/IServiceType";
-import { ServiceGroup } from "../core/models/ServiceGroup.enum";
+import { ServiceGroup } from "../core/models/cotizador/ServiceGroup.enum";
 
 export const serviceTypes: Array<IServiceType> = [
   {
